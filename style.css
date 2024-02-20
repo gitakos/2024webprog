@@ -1,0 +1,19 @@
+#login{
+    display: flex !important;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    margin: auto;
+}
+#LoginBalDiv{
+    flex-direction: row;
+}
+#LoginJobbDiv{
+    flex-direction: row;
+}
+#RegGombDiv{
+    margin: 1%;
+}
+#regisztracio{
+    display: none;
+}
