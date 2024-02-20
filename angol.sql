@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2024. Feb 20. 10:30
--- Kiszolgáló verziója: 10.4.20-MariaDB
--- PHP verzió: 8.0.9
+-- Létrehozás ideje: 2024. Feb 20. 11:25
+-- Kiszolgáló verziója: 10.4.28-MariaDB
+-- PHP verzió: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,8 +32,9 @@ CREATE TABLE `eredmenyek` (
   `felhasznaloid` int(255) NOT NULL,
   `szazalekos_eredmeny` varchar(255) NOT NULL,
   `datum` date NOT NULL,
-  `feladatsorid` int(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `feladatsorid` int(255) NOT NULL,
+  `megadott_valaszok` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`megadott_valaszok`))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -43,11 +44,9 @@ CREATE TABLE `eredmenyek` (
 
 CREATE TABLE `feladatsor` (
   `id` int(11) NOT NULL,
-  `feladat1` longtext NOT NULL,
-  `feladat1_valszok` mediumtext NOT NULL,
-  `feladat2` longtext NOT NULL,
-  `feladat2_valaszok` mediumtext NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `feladatok` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`feladatok`)),
+  `mikori_erettsegi` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -62,7 +61,7 @@ CREATE TABLE `felhasznalo` (
   `jelszo` varchar(255) NOT NULL,
   `jog` varchar(255) NOT NULL,
   `letrehozas` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexek a kiírt táblákhoz
@@ -73,7 +72,8 @@ CREATE TABLE `felhasznalo` (
 --
 ALTER TABLE `eredmenyek`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_feladatid` (`feladatsorid`);
+  ADD KEY `fk_feladatid` (`feladatsorid`),
+  ADD KEY `fk_felhasznaloid` (`felhasznaloid`);
 
 --
 -- A tábla indexei `feladatsor`
@@ -117,7 +117,8 @@ ALTER TABLE `felhasznalo`
 -- Megkötések a táblához `eredmenyek`
 --
 ALTER TABLE `eredmenyek`
-  ADD CONSTRAINT `fk_feladatid` FOREIGN KEY (`feladatsorid`) REFERENCES `feladatsor` (`id`);
+  ADD CONSTRAINT `fk_feladatid` FOREIGN KEY (`feladatsorid`) REFERENCES `feladatsor` (`id`),
+  ADD CONSTRAINT `fk_felhasznaloid` FOREIGN KEY (`felhasznaloid`) REFERENCES `felhasznalo` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
