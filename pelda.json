@@ -1,0 +1,23 @@
+[
+    [
+        {"tipus":"szovegertesElso"},
+        {"feladatLeiras":"Ide kerül a nagyon szép benyód"},
+        {"szoveg":"Ide kerül a feladat szövege"},
+        {"kerdesek":["kerdes1","kerdes2"]},
+        {"joValaszok":["valasz1","valasz2"]}
+    ],
+    [
+        {"tipus":"szovegertesMasodik"},
+        {"feladatLeiras":"Ide kerül a nagyon szép benyód"},
+        {"szoveg":"Ide kerül a feladat szövege"},
+        {"kerdesek":["kerdes1","kerdes2"]},
+        {"joValaszok":["A","B"]}
+    ],
+    [
+        {"tipus":"szovegertesHarmadik"},
+        {"feladatLeiras":"Ide kerül a nagyon szép benyód"},
+        {"szoveg":"Ide kerül a feladat szövege"},
+        {"joValaszok":["A","B"]}
+    ]
+    
+]
