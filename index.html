@@ -10,15 +10,11 @@
 </head>
 <body>
     <div id="login">
-        <div id="LoginBalDiv">
-            <label for="fn">Felhasználónév: </label>
-            <label for="pw">Jelszó: </label>
-        </div>
-        <div id="LoginJobbDiv">
-            <input type="text" id="fn" placeholder="felhasználónév"></br>
-            <input type="text" id="pw" placeholder="Jelszó"></br>
-        </div>
-        <input type="button" value="Belépés" onclick="login()">
+        <label for="fn">Felhasználónév: </label>
+        <input class="LogRegInp" type="text" id="fn" placeholder="Felhasználónév"></br>
+        <label for="pw">Jelszó: </label>
+        <input class="LogRegInp"type="text" id="pw" placeholder="Jelszó"></br>
+        <input class="LogRegBut" type="button" value="Belépés" onclick="login()">
         <div id="RegGombDiv">
             <button onclick="Regful(this)">Nincs fiókod?</button>
         </div>
@@ -27,23 +23,23 @@
 
     <div id="regisztracio">
         <label for="regFn">Felhasználónév:</label>
-        <input type="text" id="regFn" required pattern="[a-zA-Z0-9._]{3,16}" placeholder="Add meg a felhasználónevet" minlength="3" maxlength="16">
+        <input class="LogRegInp" type="text" id="regFn" required pattern="[a-zA-Z0-9._]{3,16}" placeholder="Add meg a felhasználónevet" minlength="3" maxlength="16">
         <span id="Fninfo"></span><br>
 
         <label for="regemail">Email:</label>
-        <input type="email" id="regemail" required pattern="^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$" placeholder="Add meg az email címed">
+        <input class="LogRegInp" type="email" id="regemail" required pattern="^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$" placeholder="Add meg az email címed">
         <span id="emailinfo"></span><br>
 
         <label for="regPw">Jelszó:</label>
-        <input type="password" id="regPw" required pattern="[a-zA-Z0-9._]{8,16}" placeholder="Jelszó" minlength="8" maxlength="16">
+        <input class="LogRegInp" type="password" id="regPw" required pattern="[a-zA-Z0-9._]{8,16}" placeholder="Jelszó" minlength="8" maxlength="16">
         <span id="Pwinfo"></span><br>
 
         <label for="regPwujra">Jelszó újra:</label>
-        <input type="password" id="regPwujra" required pattern="[a-zA-Z0-9._]{8,16}" placeholder="Jelszó" minlength="8" maxlength="16">
+        <input class="LogRegInp" type="password" id="regPwujra" required pattern="[a-zA-Z0-9._]{8,16}" placeholder="Jelszó megerősítése" minlength="8" maxlength="16">
         <span id="Pwujrainfo"></span><br>
 
         <p id="info"></p></br>
-        <input type="button" value="regisztráció" onclick="regisztracio()">
+        <input class="LogRegBut" type="button" value="regisztráció" onclick="regisztracio()">
 
 
     </div>
