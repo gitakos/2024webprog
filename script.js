@@ -19,3 +19,16 @@ function login()
     const fn = document.getElementById("fn").value;
     const pw = document.getElementById("pw").value;
 }
+
+var szovegBe;
+function szovegRendezes()
+{
+    var div = document.getElementById("feladatsor");
+    //szöveg tördelés és létrehozás ide
+}
+var valaszok = []
+function valaszokKimentese(){
+    for (let i = 1; i < 10; i++) {   
+        valaszok.push(document.getElementById("valasz"+i).value);   
+    }    
+}
