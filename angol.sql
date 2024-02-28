@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2024. Feb 20. 11:25
--- Kiszolgáló verziója: 10.4.28-MariaDB
--- PHP verzió: 8.0.28
+-- Létrehozás ideje: 2024. Feb 28. 08:00
+-- Kiszolgáló verziója: 10.4.20-MariaDB
+-- PHP verzió: 8.0.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -34,7 +34,7 @@ CREATE TABLE `eredmenyek` (
   `datum` date NOT NULL,
   `feladatsorid` int(255) NOT NULL,
   `megadott_valaszok` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`megadott_valaszok`))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -44,9 +44,16 @@ CREATE TABLE `eredmenyek` (
 
 CREATE TABLE `feladatsor` (
   `id` int(11) NOT NULL,
-  `feladatok` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`feladatok`)),
+  `feladatok` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `mikori_erettsegi` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- A tábla adatainak kiíratása `feladatsor`
+--
+
+INSERT INTO `feladatsor` (`id`, `feladatok`, `mikori_erettsegi`) VALUES
+(1, 'Task 2                                                                    \n \n•	You are going to read an article about the origins of the @ sign. Some words are missing from the text. \n•	Use the words in brackets to form the words that fit in the gaps (9-17). \n•	Then write the appropriate form of these words on the dotted lines after the text. \n•	There might be cases when you do not have to change the word in brackets. \n•	Use only one word for each gap. \n•	There is an example (0) at the beginning. \n \n \n                                  A WELL-KNOWN SIGN \n \nIn Dutch the @ sign is called a “monkey tail”, in (0) ______ (Hungary) a “maggot”, in Danish an “elephant’s trunk”, and in (9) ______ (Wales) a “snail”. Appearing everywhere now in emails, the @ sign has history. \n  \nThe first (10) ______ (record) use was in The Mannasses Chronicle in 1345, where an @ sign is the first letter in the word ‘Amen’. By the 16th century, in southern (11) ______ (Europe) documents of trade, the sign represented amphora, a storage jar (12) _______ (use) since Roman times. By the 18th century it was called ‘commercial A’ and meant ‘at the rate of’  (eg.: 10 hats @ 1 shilling = 10 shillings). \n  \nIt didn’t make it onto the earliest typewriters but was included by 1889, when it became a standard character. By 1963 @ was included in the new (13) _______ (international) recognised character set. \n  \nIn 1971 computer (14) _______ (programme) Ray Tomlinson was at work on Arpanet, the prototype of the internet. He added some of his own code to an (15) _______ (exist) programme and sent a message from one computer to (16) ______ (other) – the first email. Ray needed a character to separate the message’s recipient from the computer it would arrive at, and  (17) _______ (look) down at his teletype keyboard, he chose the @ symbol and changed the world forever. \n\nHungarian\nWelsh\nrecorded\nEuropean\nused\ninternationally\nprogrammer / programer\nexisting / existent\nanother\nlooking', '2021_oktober');
 
 -- --------------------------------------------------------
 
@@ -61,7 +68,7 @@ CREATE TABLE `felhasznalo` (
   `jelszo` varchar(255) NOT NULL,
   `jog` varchar(255) NOT NULL,
   `letrehozas` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexek a kiírt táblákhoz
@@ -101,7 +108,7 @@ ALTER TABLE `eredmenyek`
 -- AUTO_INCREMENT a táblához `feladatsor`
 --
 ALTER TABLE `feladatsor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT a táblához `felhasznalo`
