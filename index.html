@@ -16,14 +16,12 @@
         <input class="LogRegInp"type="text" id="pw" placeholder="Jelszó"></br>
         <input class="LogRegBut" type="button" value="Belépés" onclick="login()">
         <div id="RegGombDiv">
-            <button onclick="Regful(this)">Nincs fiókod?</button>
+            <button onclick="Regful(this)">Regisztrálj itt!</button>
         </div>
     </div>
-
-
     <div id="regisztracio">
         <label for="regFn">Felhasználónév:</label>
-        <input class="LogRegInp" type="text" id="regFn" required pattern="[a-zA-Z0-9._]{3,16}" placeholder="Add meg a felhasználónevet" minlength="3" maxlength="16">
+        <input class="LogRegInp" type="text" id="regFn" required pattern="[a-zA-Z0-9._]{3,16}" placeholder="Adj meg felhasználónevet" minlength="3" maxlength="16">
         <span id="Fninfo"></span><br>
 
         <label for="regemail">Email:</label>
@@ -35,13 +33,11 @@
         <span id="Pwinfo"></span><br>
 
         <label for="regPwujra">Jelszó újra:</label>
-        <input class="LogRegInp" type="password" id="regPwujra" required pattern="[a-zA-Z0-9._]{8,16}" placeholder="Jelszó megerősítése" minlength="8" maxlength="16">
+        <input class="LogRegInp" type="password" id="regRePw" required pattern="[a-zA-Z0-9._]{8,16}" placeholder="Jelszó megerősítése" minlength="8" maxlength="16">
         <span id="Pwujrainfo"></span><br>
 
         <p id="info"></p></br>
         <input class="LogRegBut" type="button" value="regisztráció" onclick="regisztracio()">
-
-
     </div>
 </body>
 </html>

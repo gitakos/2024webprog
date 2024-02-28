@@ -4,16 +4,15 @@ body{
     background-attachment: fixed;
     background-size: cover;
 }
-#login{
+#login,#regisztracio{
     background-color: rgba(255, 255, 255, 0.3);
-    border: 25px solid;
+    border: .2vw solid black;
+    border-radius: 2vw;
     border-image-slice: 1;
-    border-width: 10px;
-    border-image-source: linear-gradient(50deg, rgba(255, 255, 255, 0.5), rgba(255, 0, 0, 0.8));
     display: flex ;
     align-items: center;
-    min-width: 80vw;
-    width: 50%;
+    min-width: 10rem;
+    max-width: 30rem;
     margin: auto;
     flex-direction: column;
     align-content: space-around;
@@ -21,16 +20,23 @@ body{
     justify-content: space-between;
 }
 label{
+    text-align: center;
     font-weight: bold;
-    margin: .5%;
+    margin: 1%;
+    font-size:x-large;
+    font-size-adjust: inherit;
 }
 .LogRegInp{
+    font-size:medium;
     border: solid black 2px;
-    padding: .25%;
+    padding: .1vw;
 }
 .LogRegBut{
-    min-width: 8vw;
-    min-height: 4vh;
+    margin: 1rem;
+    font-size:medium;
+    min-width: 3rem;
+    min-height: .5rem;
+    padding: 1rem;
     background-color: rgba(128, 128, 128, 0.308);
     border: solid black 2px;
     border-radius: 10px;
@@ -38,22 +44,20 @@ label{
     transition: ease-in-out .4s;
 }
 .LogRegBut:hover{
+
     cursor: pointer;
-    min-width: 9vw;
-    min-height: 4.5vh;
     transition: ease-in-out .4s;
     border-radius: 14px;
-    background-color: rgba(211, 211, 211, 0.623);
+    background-color: rgba(92, 91, 91, 0.623);
     color: white;
     text-shadow: black 1px 1px 2px;
 }
 #RegGombDiv{
-    size: inherit;
-    margin: 4vh;
+    font-size: small;
+    margin: 2vw;
 }
 #RegGombDiv button{
-    color: blue;
-    text-decoration: underline rgb(1, 1, 68);
+    color: rgb(71, 71, 252);
     text-shadow: rgba(0, 0, 0, 0.5) 1px 1px 2px;
     border: none;
     background-color: inherit;
@@ -61,9 +65,8 @@ label{
 }
 #RegGombDiv button:hover{
     cursor: pointer;
-    color: rgb(0, 81, 255);
-    text-decoration: underline rgb(2, 36, 129);
-    text-shadow: rgba(0, 0, 0, 1) 1px 1px 4px;
+    color: rgb(15, 89, 247);
+    text-shadow: rgba(0, 0, 0, 0.75) 1px 1px 4px;
     transition: ease-in-out .2s;
 }
 #regisztracio{
