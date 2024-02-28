@@ -27,6 +27,7 @@ label{
     font-size-adjust: inherit;
 }
 .LogRegInp{
+    transition: ease-in-out .3s;
     font-size:medium;
     border: solid black 2px;
     padding: .1vw;
