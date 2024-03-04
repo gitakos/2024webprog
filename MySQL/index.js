@@ -59,13 +59,7 @@ app.post("/bejelentkezes", bodyParser.json(), function(req,res){
         if(!err){
             console.log(result);
             console.log(result[0].db);
-            if(result[0].db == 1){
-                res.send("Sikeres bejelentkezés!");
-            }
-            else
-            {
-                res.send("Rossz felhasználó név vagy jelszó!");
-            }
+            res.send(result);
         }else{
             res.send({"Error": 'Hiba a bejelentkezés során!'});
         }
