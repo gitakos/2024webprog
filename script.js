@@ -39,25 +39,18 @@ function login()
 {
     const fn = document.getElementById("fn");
     const pw = document.getElementById("pw");
+
+    //ha rossz
+    fn.style.border = "solid red 2px";
+    fn.style.boxShadow = "red 1px 1px 4px"
+    fn.style.transition = "ease-in-out .3s";
+    pw.style.border = "solid red 2px";
+    pw.style.boxShadow = "red 1px 1px 4px"
+    pw.style.transition = "ease-in-out .3s";
     
 
     hash(pw.value).then((hex)=>{
-        bejelentkezes(fn.value,hex).then((response)=>{
-            if(response[0].db!=1)
-            {
-                fn.style.border = "solid red 2px";
-                fn.style.boxShadow = "red 1px 1px 4px"
-                fn.style.transition = "ease-in-out .3s";
-                pw.style.border = "solid red 2px";
-                pw.style.boxShadow = "red 1px 1px 4px"
-                pw.style.transition = "ease-in-out .3s";
-            }
-            else{
-                console.log("Sikeresen bejelentkeztél!");
-                document.getElementById("BejelentkezesDiv").innerHTML = "";
-                document.getElementById("MainDiv").style.visibility = "visible";
-            }
-        })});
+        bejelentkezes(fn.value,hex).then((response)=>{console.log(response)})});
 }
 
 const bejelentkezes = (felh,hasheltJelszo) => {
@@ -74,7 +67,7 @@ const bejelentkezes = (felh,hasheltJelszo) => {
             // alert("Nem jó válasz érekezett az adatbázisból");
             return Promise.reject("Nem jó válasz érekezett az adatbázisból");
         }
-        return response.json();
+        return response;
     })
     .then(function (response) {
         if (response.Error) {

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Admin Felület</title>
+</head>
+<body>
+    <div>
+        <h1 id="felhnev_adminfel">Felhasználónév</h1>
+    </div>
+    <br>
+    <div class="container">
+        <div id="fajlfel">
+            <h1>Fájl feltölt itt</h1>
+            <input type="file" name="inputfile" id="inputfile">
+            <br>
+        
+            <pre id="output"></pre>
+        
+            <script type="text/javascript">
+                document.getElementById('inputfile')
+                    .addEventListener('change', function () {
+        
+                        let fr = new FileReader();
+                        fr.onload = function () {
+                            document.getElementById('output')
+                                .textContent = fr.result;
+                        }
+        
+                        fr.readAsText(this.files[0]);
+                    })
+            </script>
+        </div>
+        <div id="eredmenymegj">
+            <h1 id="eredmenycim">Eredmények megjelenytése itt</h1>
+            <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Keresés..." title="Kezdjen el begépelni egy nevet!">
+            <ul id="myMenu">
+                <!-- <li><a href="#">HTML</a></li> ide kerülnek majd kóddal a lekérdezett nevek -->
+                <li><a href="#">HTML</a></li>
+                <li><a href="#">kagi</a></li>
+                <li><a href="#">kugi</a></li>
+                <li><a href="#">kugyi</a></li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        function myFunction() {
+          // Declare variables
+          var input, filter, ul, li, a, i;
+          input = document.getElementById("mySearch");
+          filter = input.value.toUpperCase();
+          ul = document.getElementById("myMenu");
+          li = ul.getElementsByTagName("li");
+        
+          // Loop through all list items, and hide those who don't match the search query
+          for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+              li[i].style.display = "";
+            } else {
+              li[i].style.display = "none";
+            }
+          }
+        }
+        </script>
+</body>
+</html>
