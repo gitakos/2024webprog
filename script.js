@@ -53,7 +53,9 @@ function login()
                 pw.style.transition = "ease-in-out .3s";
             }
             else{
-                console.log("Sikeresen bejelentkeztél!")
+                console.log("Sikeresen bejelentkeztél!");
+                document.getElementById("BejelentkezesDiv").innerHTML = "";
+                document.getElementById("MainDiv").style.visibility = "visible";
             }
         })});
 }
