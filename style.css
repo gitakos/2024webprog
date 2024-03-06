@@ -84,6 +84,60 @@ label{
 #feladatsor{
     display: none;
 }
+.container {
+    padding-top: 100px;
+    display: flex;
+}
+
+#fajlfel, #eredmenymegj {
+    
+    width: 50%;
+}
+
+#felhnev_adminfel{
+    float: left;
+}
+/* Style the search box */
+#mySearch {
+    text-align: center;
+    width: 50%;
+    font-size: 18px;
+    padding: 11px;
+    border: 1px solid #ddd;
+}
+
+/* Style the navigation menu */
+#myMenu {
+    margin: auto;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Style the navigation links */
+#myMenu li a {
+    text-align: center;
+    margin: auto;
+    width: 50%;
+    padding: 12px;
+    text-decoration: none;
+    color: black;
+    display: block
+}
+
+#myMenu li a:hover {
+    background-color: #eee;
+}
+#eredmenycim{
+    text-align: center;
+}
+#eredmenymegj{
+    text-align: center;
+}
+
+#tablazat{
+    margin: auto;
+}
 #MainDiv{
     width: 100%;
     height: 100%;
@@ -94,8 +148,8 @@ label{
     margin-right: 35vw;
     width: 30vw;
     min-width: 30vw;
-    height: 2vh;
-    min-height: 2vh;
+    height: 10vh;
+    min-height: 10vh;
     background: #ffffff;
     border: 1px solid rgb(0, 0, 0);
     border-radius: 8vw;
@@ -103,17 +157,11 @@ label{
     padding: 2rem 0;
     position: fixed;
     display: flex;
-    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-content: stretch;
     justify-content: space-around;
 }
-
-input[type="radio"] {
-    display: none;
-}
-
 .toggleLabel{
     top: -1vh;
     font-size: medium;
@@ -122,7 +170,6 @@ input[type="radio"] {
     position: relative;
     cursor: pointer;
 }
-
 .selector {
     width: 12.5vw;
     height: 6vh;
@@ -134,7 +181,9 @@ input[type="radio"] {
     z-index: 1;
     transition: left 0.25s ease-in-out;
 }
-
+input[type="radio"] {
+    display: none;
+}
 .Kozep:checked ~ .selector {
     left: 1.5vw;
 }
@@ -142,5 +191,3 @@ input[type="radio"] {
 .Emelt:checked ~ .selector {
     left: 16vw;
 }
-
-

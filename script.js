@@ -39,8 +39,6 @@ function login()
 {
     const fn = document.getElementById("fn");
     const pw = document.getElementById("pw");
-    
-
     hash(pw.value).then((hex)=>{
         bejelentkezes(fn.value,hex).then((response)=>{
             if(response[0].db!=1)
