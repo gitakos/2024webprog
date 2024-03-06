@@ -78,7 +78,7 @@ app.post("/regisztracio", bodyParser.json(), function(req,res){
         res.send({"Error": 'Ilyen felhasználó ezzel az email címmel vagy felhasználó névvel már létezik!'})
     }
     else{
-        connection.query("insert into felhasznalo values(NULL,'"+felh+"','"+hasheltJelszo+"',0,'"+email+"')", function(err,res,fields){
+        connection.query("insert into felhasznalo values(NULL,'"+felh+"','"+email+"',user,'"+hasheltJelszo+"',NULL)", function(err,res,fields){
             if(!err){
                 res.send(result);
             }else{
