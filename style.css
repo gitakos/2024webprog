@@ -94,8 +94,8 @@ label{
     margin-right: 35vw;
     width: 30vw;
     min-width: 30vw;
-    height: 10vh;
-    min-height: 10vh;
+    height: 2vh;
+    min-height: 2vh;
     background: #ffffff;
     border: 1px solid rgb(0, 0, 0);
     border-radius: 8vw;
@@ -125,7 +125,7 @@ input[type="radio"] {
 
 .selector {
     width: 12.5vw;
-    height: 7.5vh;
+    height: 6vh;
     background: rgba(170, 169, 169, 0.801);
     border-radius: 15vw;
     position: absolute;
