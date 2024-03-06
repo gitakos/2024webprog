@@ -148,11 +148,11 @@ label{
     margin-right: 35vw;
     width: 30vw;
     min-width: 30vw;
-    height: 10vh;
-    min-height: 10vh;
+    height: 8vh;
+    min-height: 8vh;
     background: #ffffff;
     border: 1px solid rgb(0, 0, 0);
-    border-radius: 8vw;
+    border-radius: 2rem;
     display: inline-block;
     padding: 2rem 0;
     position: fixed;
@@ -163,8 +163,8 @@ label{
     justify-content: space-around;
 }
 .toggleLabel{
-    top: -1vh;
-    font-size: medium;
+    top: -1.25vh;
+    font-size: large;
     text-align: center;
     z-index: 5;
     position: relative;
@@ -173,21 +173,113 @@ label{
 .selector {
     width: 12.5vw;
     height: 6vh;
-    background: rgba(170, 169, 169, 0.801);
-    border-radius: 15vw;
+    background: rgba(153, 152, 152, 0.616);
+    border-radius: 1.5rem;
     position: absolute;
     top: 1vh;
-    left: 1vw;
+    left: 1.25vw;
     z-index: 1;
     transition: left 0.25s ease-in-out;
 }
 input[type="radio"] {
     display: none;
 }
-.Kozep:checked ~ .selector {
-    left: 1.5vw;
+@media screen and (min-width: 500px) {
+    .Kozep:checked ~ .selector {
+        left: 1.25vw;
+    }
+    .Emelt:checked ~ .selector {
+        left: 16vw;
+    }
+
 }
 
-.Emelt:checked ~ .selector {
-    left: 16vw;
+@media screen and (max-width: 500px) {
+    .toggle {   
+        margin-left: 35vw;
+        margin-right: 35vw;
+        width: 30vw;
+        min-width: 30vw;
+        height: 10vh;
+        min-height: 10vh;
+        background: #ffffff;
+        border: 1px solid rgb(0, 0, 0);
+        border-radius: 5vw;
+        display: inline-block;
+        padding: 1.1rem 0;
+        position: fixed;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+    }
+    .toggleLabel{
+        top: -1.5vh;
+        font-size: 2.25vh;
+        text-align: center;
+        z-index: 5;
+        position: relative;
+        cursor: pointer;
+    }
+    .selector {
+        left: 2.5vw !important;
+        width: 25vw;
+        height: 4vh;
+        background: rgba(170, 169, 169, 0.801);
+        border-radius: 1.5rem;
+        position: absolute;
+        top: .8vh;
+        left: 1vw;
+        z-index: 1;
+        transition: top 0.25s ease-in-out;
+    }
+    .Kozep:checked ~ .selector {
+        top: .8vh;
+    }
+    
+    .Emelt:checked ~ .selector {
+        top: 4.5vh;
+    }
+    
+  }
+
+
+.bal{
+    padding-left: 2px;
+    float: left;
+}
+.jobb{
+    padding-right: 2px;
+    float: right;
+}
+.clear{
+    clear: both;
+}
+#oldal1, #oldal2 {
+    width: 90vw;
+    height: 100vh;
+    max-width: 20cm; 
+    max-height: 29.7cm; 
+    margin: auto;
+    margin-bottom: 5%;
+    background-color: white;
+
+}
+.fejlec{
+    width: 100%;
+    height: 2.5%;
+    margin: auto;
+    border-bottom: 1px solid black;
+    padding-top: 2vh !important;
+}
+.szovegresz{
+    width: 100%;
+    height: 90%;
+}
+.alsoresz {
+    width: 100%;
+    height: 2.5%;
+    margin: auto;
+    border-top: 1px solid black;
+    padding-top: 2vh !important;
 }
