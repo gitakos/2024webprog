@@ -1,3 +1,11 @@
+if(sessionStorage.getItem("login")){
+    document.getElementById("BejelentkezesDiv").innerHTML = "";
+    document.getElementById("MainDiv").style.visibility = "visible";
+}else{
+    document.getElementById("BejelentkezesDiv").style.visibility = "visible";
+    document.getElementById("MainDiv").style.visibility = "hidden";
+}
+
 function Regful(but)
 {
     but.style.display = "none";
@@ -84,6 +92,7 @@ function login()
                 console.log("Sikeresen bejelentkeztél!");
                 document.getElementById("BejelentkezesDiv").innerHTML = "";
                 document.getElementById("MainDiv").style.visibility = "visible";
+                sessionStorage.setItem("login",true);
             }
         })});
 }
