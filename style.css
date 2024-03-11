@@ -141,7 +141,6 @@ label{
 #MainDiv{
     width: 100%;
     height: 100%;
-    /*visibility: hidden;*/
 }
 .toggle {   
     margin-left: 35vw;
@@ -213,8 +212,8 @@ input[type="radio"] {
     background-color: white;
 
 }
-.fejlec{
-    width: 100%;
+.align-top{
+    width: 90%;
     height: 2.5%;
     margin: auto;
     border-bottom: 1px solid black;
@@ -223,11 +222,18 @@ input[type="radio"] {
 .szovegresz{
     width: 100%;
     height: 90%;
+    
 }
-.alsoresz {
-    width: 100%;
-    height: 2.5%;
-    margin: auto;
+
+.align-bottom {
     border-top: 1px solid black;
-    padding-top: 2vh !important;
 }
+
+ol {
+    list-style: none;
+    counter-reset: list;
+  }
+  li:before {
+    content: counter(list) ") ";
+    counter-increment: list;
+  }
