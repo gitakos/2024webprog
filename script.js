@@ -3,7 +3,7 @@ function Regful(but)
     but.style.display = "none";
     document.getElementById("login").style.display = "none";
     document.getElementById("regisztracio").style.display = "flex";
-    console.log(hash("123"))
+    console.log(hash("123"));
 }
 function Regvissza()
 {
