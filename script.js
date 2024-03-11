@@ -1,8 +1,23 @@
+if(sessionStorage.getItem("login")){
+    document.getElementById("BejelentkezesDiv").innerHTML = "";
+    document.getElementById("MainDiv").style.visibility = "visible";
+}else{
+    document.getElementById("BejelentkezesDiv").style.visibility = "visible";
+    document.getElementById("MainDiv").style.visibility = "hidden";
+}
+
 function Regful(but)
 {
     but.style.display = "none";
     document.getElementById("login").style.display = "none";
     document.getElementById("regisztracio").style.display = "flex";
+    console.log(hash("123"));
+}
+function Regvissza()
+{
+    document.getElementById("RegGombDiv").document.getElementsByTagName("button")[0].style.display = "block";
+    document.getElementById("login").style.display = "flex";
+    document.getElementById("regisztracio").style.display = "none";
 }
 
 async function hash(string) {
@@ -15,13 +30,35 @@ async function hash(string) {
     return hashHex;
   }
 
-function regisztracio()
+function reg()
 {
     const regfn = document.getElementById("regFn");
     const regemail = document.getElementById("regemail");
     const regpw = document.getElementById("regPw");
     const regrepw = document.getElementById("regRePw");
-    
+    hash(regpw.value).then((hex)=>{
+        regisztracio(regfn.value,hex,regemail.value).then((response)=>{
+            console.log(response[0]);
+            /*if(response[0].db!=1)
+            {
+                regfn.style.border = "solid red 2px";
+                regfn.style.boxShadow = "red 1px 1px 4px"
+                regfn.style.transition = "ease-in-out .3s";
+                regemail.style.border = "solid red 2px";
+                regemail.style.boxShadow = "red 1px 1px 4px"
+                regemail.style.transition = "ease-in-out .3s";
+                regpw.style.border = "solid red 2px";
+                regpw.style.boxShadow = "red 1px 1px 4px"
+                regpw.style.transition = "ease-in-out .3s";
+                regrepw.style.border = "solid red 2px";
+                regrepw.style.boxShadow = "red 1px 1px 4px"
+                regrepw.style.transition = "ease-in-out .3s";
+            }
+            else{
+                console.log("Sikeresen regisztráltál!");
+                Regvissza();
+            }*/
+        })});
 }
 
 async function hash(string) {
@@ -41,6 +78,7 @@ function login()
     const pw = document.getElementById("pw");
     hash(pw.value).then((hex)=>{
         bejelentkezes(fn.value,hex).then((response)=>{
+            console.log(response);
             if(response[0].db!=1)
             {
                 fn.style.border = "solid red 2px";
@@ -54,8 +92,35 @@ function login()
                 console.log("Sikeresen bejelentkeztél!");
                 document.getElementById("BejelentkezesDiv").innerHTML = "";
                 document.getElementById("MainDiv").style.visibility = "visible";
+                sessionStorage.setItem("login",true);
             }
         })});
+}
+
+const regisztracio = (felh,hasheltJelszo,email) => {
+    const data = { felh: felh,hasheltJelszo: hasheltJelszo ,email: email};
+    return fetch("http://127.0.0.1:3000/regisztracio", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(function (response) {
+        if (!response.ok) {
+            // alert("Nem jó válasz érekezett az adatbázisból");
+            return Promise.reject("Nem jó válasz érekezett az adatbázisból");
+        }
+        return response.json();
+    })
+    .then(function (response) {
+        if (response.Error) {
+            // alert(response.Error);
+            return response.Error;
+        } else {
+            return response;
+        }
+    });
 }
 
 const bejelentkezes = (felh,hasheltJelszo) => {

@@ -67,4 +67,53 @@ app.post("/bejelentkezes", bodyParser.json(), function(req,res){
     connection.end();
 });
 
+app.post("/regisztracio", bodyParser.json(), function(req,res){
+    const felh = req.body.felh;
+    const hasheltJelszo = req.body.hasheltJelszo;
+    const email = req.body.email;
+    console.log(req.body);
+    ellenorzes(felh,hasheltJelszo,email).then(function(joE){
+        if(joE){
+            console.log("Felhasználó nem felel meg!");
+            res.send({"Error": 'Ilyen felhasználó ezzel az email címmel vagy felhasználó névvel már létezik!'});
+        }
+        else{
+            var connection = getConnection();
+            connection.connect();
+            console.log("Felhasználó megfelel!");
+            connection.query("insert into felhasznalo values(NULL,'"+felh+"','"+email+"','"+hasheltJelszo+"','user','2025-12-12')", function(err,result,fields){
+                console.log("Belépek!");
+                if(!err){
+                    console.log("Belépek ide is HE!");
+                    res.send(result);
+                }else{
+                    console.log("EROORRR");
+                    res.send({"Error": 'Hiba a regisztrálás során!'});
+                }
+            });
+            connection.end();
+        }
+    });
+});
+
+async function ellenorzes (felh,jelszo,email){
+    var connection = getConnection();
+    connection.connect();
+    connection.query("select count(*) as db from felhasznalo f where (f.email = '"+email+"' or f.nev = '"+felh+"') and f.jelszo = '"+jelszo+"'", function(err, result,fields){
+        if(!err){
+            console.log(result[0].db+" ennyi darab egyező");
+            if(result[0].db==0){
+                connection.end();
+                return true;
+            }
+            else{
+                connection.end();
+                return false;
+            }
+        }else{
+            connection.end();
+            return false;
+        }
+    });
+}
 app.listen(3000);
