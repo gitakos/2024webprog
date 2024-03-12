@@ -19,10 +19,13 @@
             <input class="LogRegInp"type="password" id="pw" placeholder="Jelszó"></br>
             <input class="LogRegBut" type="button" value="Belépés" onclick="login()">
             <div id="RegGombDiv">
-                <button onclick="Regful(this)">Regisztrálj itt!</button>
+                <button onclick="Regful(this,true)" id="RegBlockGomb">Regisztrálj itt!</button>
             </div>
         </div>
         <div id="regisztracio">
+            <div>
+                <button onclick="Regful(this,false)" id="RegBlockVisszaGomb">Vissza</button>
+            </div>
             <label for="regFn">Felhasználónév:</label>
             <input class="LogRegInp" type="text" id="regFn" required pattern="[a-zA-Z0-9._]{3,16}" placeholder="Adj meg felhasználónevet" minlength="3" maxlength="16">
             <span id="Fninfo"></span><br>
@@ -30,7 +33,7 @@
             <label for="regemail">Email:</label>
             <input class="LogRegInp" type="email" id="regemail" required pattern="^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$" placeholder="Add meg az email címed">
             <span id="emailinfo"></span><br>
-    
+
             <label for="regPw">Jelszó:</label>
             <input class="LogRegInp" type="password" id="regPw" required pattern="[a-zA-Z0-9._]{8,16}" placeholder="Jelszó" minlength="8" maxlength="16">
             <span id="Pwinfo"></span><br>
@@ -45,10 +48,10 @@
     </div>
     <div id="MainDiv">
         <div class="toggle">
-            <input type="radio" name="toggle" value="Kozep" class="Kozep" id="Kozep" />
+            <input type="radio" name="toggle" value="Kozep" class="Kozep" id="Kozep" onclick="Szintvalasztas(true)"/>
             <label class="toggleLabel" for="Kozep">Közép</label>
 
-            <input type="radio" name="toggle" value="Emelt" class="Emelt" id="Emelt" />
+            <input type="radio" name="toggle" value="Emelt" class="Emelt" id="Emelt" onclick="Szintvalasztas(false)"/>
             <label class="toggleLabel" for="Emelt">Emelt</label>
 
             <div class="selector">&nbsp;</div>
