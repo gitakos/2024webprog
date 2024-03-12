@@ -175,3 +175,10 @@ function valaszokKimentese(){
     }    
    
 }
+
+var datum = "";//ebbe kell kimenteni a lekrédezésből a mikorierettsegimezot
+function DatumMegjelenit()
+{
+    document.getElementsByClassName("datum").innerHTML = datum;
+}
+//akkor kell meghívni amikor megjelenik az sima oldal
