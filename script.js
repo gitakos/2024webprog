@@ -169,3 +169,14 @@ function DatumMegjelenit()
     document.getElementsByClassName("datum").innerHTML = datum;
 }
 //akkor kell meghívni amikor megjelenik az sima oldal
+
+var hanyvalasz = 8; //hány válaszlehetőség van feladatsoronként a nyelvhelyességre
+
+function valaszMezoGeneral(){
+    console.log("fasz");
+    for (let i = 0; i < hanyvalasz; i++) {
+        var cucc = document.getElementById("valaszok");
+        cucc.innerHTML += "<li><input type='text' name='Valasz' id="+i+"></li>";
+    }
+}
+valaszMezoGeneral();
