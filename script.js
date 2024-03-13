@@ -1,17 +1,27 @@
+var KozepSzintSelect = true;
+
+
 if(sessionStorage.getItem("login")){
     document.getElementById("BejelentkezesDiv").innerHTML = "";
     document.getElementById("MainDiv").style.visibility = "visible";
+    Szintvalasztas(true);
 }else{
     document.getElementById("BejelentkezesDiv").style.visibility = "visible";
     document.getElementById("MainDiv").style.visibility = "hidden";
 }
 
-function Regful(but)
+function Regful(but,regblock)
 {
+    if(regblock){
+        document.getElementById("login").style.display = "none";
+        document.getElementById("regisztracio").style.display = "flex";
+        document.getElementById("RegBlockVisszaGomb").style.display = "block";
+    }else{
+        document.getElementById("login").style.display = "flex";
+        document.getElementById("regisztracio").style.display = "none";
+        document.getElementById("RegBlockGomb").style.display = "block";
+    }
     but.style.display = "none";
-    document.getElementById("login").style.display = "none";
-    document.getElementById("regisztracio").style.display = "flex";
-    console.log(hash("123"));
 }
 function Regvissza()
 {
@@ -93,8 +103,24 @@ function login()
                 document.getElementById("BejelentkezesDiv").innerHTML = "";
                 document.getElementById("MainDiv").style.visibility = "visible";
                 sessionStorage.setItem("login",true);
+                Szintvalasztas(true);
             }
         })});
+}
+
+function Szintvalasztas(kozep){
+    KozepSzintSelect = kozep;
+    FeladatsorKirakas();
+}
+
+function FeladatsorKirakas(){
+    if(KozepSzintSelect){
+        //közép
+        
+    }else{
+        //emelt
+
+    }
 }
 
 const regisztracio = (felh,hasheltJelszo,email) => {
