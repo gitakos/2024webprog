@@ -4,6 +4,7 @@ var KozepSzintSelect = true;
 if(sessionStorage.getItem("login")){
     document.getElementById("BejelentkezesDiv").innerHTML = "";
     document.getElementById("MainDiv").style.visibility = "visible";
+    Szintvalasztas(true);
 }else{
     document.getElementById("BejelentkezesDiv").style.visibility = "visible";
     document.getElementById("MainDiv").style.visibility = "hidden";
@@ -102,12 +103,24 @@ function login()
                 document.getElementById("BejelentkezesDiv").innerHTML = "";
                 document.getElementById("MainDiv").style.visibility = "visible";
                 sessionStorage.setItem("login",true);
+                Szintvalasztas(true);
             }
         })});
 }
 
 function Szintvalasztas(kozep){
     KozepSzintSelect = kozep;
+    FeladatsorKirakas();
+}
+
+function FeladatsorKirakas(){
+    if(KozepSzintSelect){
+        //közép
+        
+    }else{
+        //emelt
+
+    }
 }
 
 const regisztracio = (felh,hasheltJelszo,email) => {

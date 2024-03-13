@@ -151,17 +151,17 @@ label{
 }
 .toggle {   
     margin-top: 2%;
-    margin-left: 35vw;
-    margin-right: 35vw;
-    width: 30vw;
-    min-width: 30vw;
-    height: 8vh;
-    min-height: 8vh;
+    margin-left: 35%;
+    margin-right: 35%;
+    width: 30%;
+    min-width: 30%;
+    height: 8%;
+    min-height: 8%;
     background: #ffffff;
     border: 1px solid rgb(0, 0, 0);
     border-radius: 2rem;
     display: inline-block;
-    padding: 2rem 0;
+    padding: 4vh 0;
     position: fixed;
     display: flex;
     flex-direction: row;
@@ -203,17 +203,18 @@ input[type="radio"] {
 
 @media screen and (max-width: 500px) {
     .toggle {   
-        margin-left: 35vw;
-        margin-right: 35vw;
-        width: 30vw;
-        min-width: 30vw;
-        height: 10vh;
-        min-height: 10vh;
+        margin-top: 2%;
+        margin-left: 35%;
+        margin-right: 35%;
+        width: 30%;
+        min-width: 30%;
+        height: 10%;
+        min-height: 10%;
         background: #ffffff;
         border: 1px solid rgb(0, 0, 0);
         border-radius: 5vw;
         display: inline-block;
-        padding: 1.1rem 0;
+        padding: 2vh 0;
         position: fixed;
         display: flex;
         flex-direction: column;
@@ -221,10 +222,10 @@ input[type="radio"] {
         justify-content: flex-start;
     }
     .toggleLabel{
-        top: -2vh;
+        top: -1.5vh;
         font-size: 2.5vh;
         text-align: center;
-        z-index: 5;
+        
         position: relative;
         cursor: pointer;
     }
