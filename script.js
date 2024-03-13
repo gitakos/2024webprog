@@ -38,6 +38,8 @@ function reg()
     const regrepw = document.getElementById("regRePw");
     hash(regpw.value).then((hex)=>{
         regisztracio(regfn.value,hex,regemail.value).then((response)=>{
+            console.log("Válasz megérkezett!:")
+            console.log(response);
             console.log(response[0]);
             /*if(response[0].db!=1)
             {
