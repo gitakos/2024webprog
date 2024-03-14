@@ -49,6 +49,8 @@ function reg()
     const regrepw = document.getElementById("regRePw");
     hash(regpw.value).then((hex)=>{
         regisztracio(regfn.value,hex,regemail.value).then((response)=>{
+            console.log("Válasz megérkezett!:")
+            console.log(response);
             console.log(response[0]);
             /*if(response[0].db!=1)
             {
@@ -212,3 +214,14 @@ function DatumMegjelenit()
     document.getElementsByClassName("datum").innerHTML = datum;
 }
 //akkor kell meghívni amikor megjelenik az sima oldal
+
+var hanyvalasz = 8; //hány válaszlehetőség van feladatsoronként a nyelvhelyességre
+
+function valaszMezoGeneral(){
+    console.log("fasz");
+    for (let i = 0; i < hanyvalasz; i++) {
+        var cucc = document.getElementById("valaszok");
+        cucc.innerHTML += "<li><input type='text' name='Valasz' id="+i+"></li>";
+    }
+}
+valaszMezoGeneral();

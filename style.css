@@ -254,11 +254,9 @@ input[type="radio"] {
 
 .bal{
     padding-left: 2px;
-    float: left;
 }
 .jobb{
     padding-right: 2px;
-    float: right;
 }
 .clear{
     clear: both;
@@ -275,29 +273,34 @@ input[type="radio"] {
 }
 .align-top{
     width: 90%;
-    height: 2.5%;
     margin: auto;
     border-bottom: 1px solid black;
     padding-top: 2vh !important;
 }
 .szovegresz{
+    padding-top: 5%;
+    padding-left: 5%;
     width: 100%;
     height: 90%;
     
 }
 
 .align-bottom {
+    width: 90%;
+    margin: auto;
     border-top: 1px solid black;
+    padding-top: 2vh !important;
+    padding-bottom: 10px;
 }
 
 ol {
     list-style: none;
     counter-reset: list;
-  }
-  li:before {
+}
+li:before {
     content: counter(list) ") ";
     counter-increment: list;
-  }
+}
 #BejelentkezesDiv{
     visibility: hidden;
     margin-top: auto;

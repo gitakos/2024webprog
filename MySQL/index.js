@@ -67,17 +67,35 @@ app.post("/bejelentkezes", bodyParser.json(), function(req,res){
     connection.end();
 });
 
+app.post("/useradatlekerdez", bodyParser.json(), function(req,res){
+    var connection = getConnection();
+    connection.connect();
+    const felh = req.body.felh;
+    const hasheltJelszo = req.body.hasheltJelszo;
+    console.log(req.body);
+    connection.query("select f.nev as nev, f.email as email, f.jelszo as jelszo, f.jog as jog, f.letrehozas as letrehozas f. from felhasznalo f where f.nev = '"+felh+"' and f.jelszo = '"+hasheltJelszo+"'", function(err, result,fields){
+        if(!err){
+            console.log(result);
+            res.send(result);
+        }else{
+            res.send({"Error": 'Hiba a bejelentkezés során!'});
+        }
+    })
+    connection.end();
+});
+
 app.post("/regisztracio", bodyParser.json(), function(req,res){
     const felh = req.body.felh;
     const hasheltJelszo = req.body.hasheltJelszo;
     const email = req.body.email;
     console.log(req.body);
-    ellenorzes(felh,hasheltJelszo,email).then(function(joE){
-        if(joE){
+    ellenorzes(felh,hasheltJelszo,email).then((joE)=>{
+        console.log(joE+" ez a joeee");
+        if(joE == false){
             console.log("Felhasználó nem felel meg!");
             res.send({"Error": 'Ilyen felhasználó ezzel az email címmel vagy felhasználó névvel már létezik!'});
         }
-        else{
+        else if(joE == true){
             var connection = getConnection();
             connection.connect();
             console.log("Felhasználó megfelel!");
@@ -99,21 +117,17 @@ app.post("/regisztracio", bodyParser.json(), function(req,res){
 async function ellenorzes (felh,jelszo,email){
     var connection = getConnection();
     connection.connect();
+    let valasz = null;
     connection.query("select count(*) as db from felhasznalo f where (f.email = '"+email+"' or f.nev = '"+felh+"') and f.jelszo = '"+jelszo+"'", function(err, result,fields){
         if(!err){
             console.log(result[0].db+" ennyi darab egyező");
-            if(result[0].db==0){
-                connection.end();
-                return true;
-            }
-            else{
-                connection.end();
-                return false;
-            }
+            valasz = result;
         }else{
-            connection.end();
-            return false;
+            valasz = undefined;
         }
     });
+    connection.end;
+    console.log(valasz+" ez-<<<<<");
+    return valasz;
 }
 app.listen(3000);
