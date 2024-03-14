@@ -6,8 +6,9 @@ if(sessionStorage.getItem("login")){
     document.getElementById("MainDiv").style.visibility = "visible";
     Szintvalasztas(true);
 }else{
-    document.getElementById("BejelentkezesDiv").style.visibility = "visible";
-    document.getElementById("MainDiv").style.visibility = "hidden";
+    //document.getElementById("BejelentkezesDiv").style.visibility = "visible";
+    //  document.getElementById("MainDiv").style.visibility = "hidden";
+    document.getElementById("BejelentkezesDiv").innerHTML = "";
 }
 
 function Regful(but,regblock)
@@ -114,12 +115,28 @@ function Szintvalasztas(kozep){
 }
 
 function FeladatsorKirakas(){
+    let feladatDiv = document.getElementById("Feladatsorok");
+    feladatDiv.innerHTML = "";
     if(KozepSzintSelect){
         //közép
-        
+        for(let i = 0 ;i< 10;i++){
+            let div = document.createElement("div");
+            let img = document.createElement("img");
+            img.style.width = "300px";
+            img.src = "Kepek/KozepLap.png";
+            div.appendChild(img);
+            feladatDiv.appendChild(div);
+        }
     }else{
         //emelt
-
+        for(let i = 0 ;i< 10;i++){
+            let div = document.createElement("div");
+            let img = document.createElement("img");
+            img.style.width = "300px";
+            img.src = "Kepek/EmeltLap.png";
+            div.appendChild(img);
+            feladatDiv.appendChild(div);
+        }
     }
 }
 
