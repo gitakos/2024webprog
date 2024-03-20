@@ -292,17 +292,35 @@ input[type="radio"] {
     padding-top: 2vh !important;
     padding-bottom: 10px;
 }
-
-ol {
-    list-style: none;
-    counter-reset: list;
-}
-li:before {
-    content: counter(list) ") ";
-    counter-increment: list;
-}
 #BejelentkezesDiv{
     visibility: hidden;
     margin-top: auto;
 }
 
+ol {
+    list-style: none;
+    counter-reset: list;
+    padding-top: 10px;
+}
+li{
+    padding-top: 10px;
+}
+li:before {
+    content: counter(list) ")   ";
+    counter-increment: list;
+    width: 30px; /* Adjust this width as needed */
+    display: inline-block;
+    text-align: right;
+}
+
+.valaszmezo{
+    width: 85%;
+    text-align: center;
+    border: none;
+    border-bottom: dotted black ; 
+    outline: none;
+}
+.Datum{
+    text-decoration: none;
+    color: black;
+}
