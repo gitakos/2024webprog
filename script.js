@@ -116,27 +116,53 @@ function Szintvalasztas(kozep){
 }
 
 function FeladatsorKirakas(){
+    //let feladatsorok = [];
     let feladatDiv = document.getElementById("Feladatsorok");
     feladatDiv.innerHTML = "";
-    if(KozepSzintSelect){
-        //közép
-        for(let i = 0 ;i< 10;i++){
-            let div = document.createElement("div");
-            let img = document.createElement("img");
-            img.style.width = "300px";
-            img.src = "Kepek/KozepLap.png";
-            div.appendChild(img);
-            feladatDiv.appendChild(div);
+    let x = 0;
+    for(let i = 0 ;i < 10 /* feladatsorok hossza */;i++){
+        if(x%6==0){
+            var SorDiv = document.createElement("div");
+            SorDiv.classList.add("row");
+            SorDiv.classList.add("SorDiv");
         }
-    }else{
-        //emelt
-        for(let i = 0 ;i< 10;i++){
-            let div = document.createElement("div");
-            let img = document.createElement("img");
-            img.style.width = "300px";
-            img.src = "Kepek/EmeltLap.png";
-            div.appendChild(img);
-            feladatDiv.appendChild(div);
+        x++;
+        let FeladatsorDiv = document.createElement("div");
+        FeladatsorDiv.classList.add("col-12");
+        FeladatsorDiv.classList.add("col-sm-4");
+        FeladatsorDiv.classList.add("col-lg-2");
+        FeladatsorDiv.classList.add("FeladatsorDiv");
+
+        let FeladatsorEv = document.createElement("h2");
+        FeladatsorEv.innerHTML = "x Év";
+        let FeladatsorEvDiv = document.createElement("div");
+        FeladatsorEvDiv.classList.add("FeladatsorEvDiv");
+        FeladatsorEvDiv.appendChild(FeladatsorEv);
+
+        let FeladatImg = document.createElement("img");
+        FeladatImg.src = "Kepek/"+(KozepSzintSelect ? "KozepLap" : "EmeltLap")+".png";
+        FeladatImg.title = KozepSzintSelect ? "Közép szintű feladatlap" : "Emelt szintű feladatlap";
+        FeladatImg.alt = KozepSzintSelect ? "Közép szintű feladatlap" : "Emelt szintű feladatlap";
+        let FeladatImgDiv = document.createElement("div");
+        //FeladatImgDiv.dataset.szint = "";
+        //FeladatImgDiv.dataset.ev = "";
+        //FeladatImgDiv.dataset.honap = "";
+        FeladatImgDiv.onlcick = "FeladatsorClick(this)";
+        FeladatImgDiv.classList.add("FeladatImgDiv");
+        FeladatImgDiv.appendChild(FeladatImg);
+
+        let FeladatsorHonap = document.createElement("h3");
+        FeladatsorHonap.innerHTML = "x Hónap";
+        let FeladatsorHonapDiv = document.createElement("div");
+        FeladatsorHonapDiv.classList.add("FeladatsorHonapDiv");
+        FeladatsorHonapDiv.appendChild(FeladatsorHonap);
+
+        FeladatsorDiv.appendChild(FeladatsorEvDiv);
+        FeladatsorDiv.appendChild(FeladatImgDiv);
+        FeladatsorDiv.appendChild(FeladatsorHonapDiv);
+        SorDiv.appendChild(FeladatsorDiv);
+        if(x%6==5 || i==9 /* feladatsorok hossza */ ){
+            document.getElementById("Feladatsorok").appendChild(SorDiv);
         }
     }
 }
