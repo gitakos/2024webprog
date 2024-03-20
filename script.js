@@ -1,14 +1,14 @@
 var KozepSzintSelect = true;
 
 
-// if(sessionStorage.getItem("login")){
-//     document.getElementById("BejelentkezesDiv").innerHTML = "";
-//     document.getElementById("MainDiv").style.display = "block";
-//     Szintvalasztas(true);
-// }else{
-//     document.getElementById("BejelentkezesDiv").style.visibility = "visible";
-//     document.getElementById("MainDiv").style.display = "none";
-// }
+if(sessionStorage.getItem("login")){
+    document.getElementById("BejelentkezesDiv").innerHTML = "";
+    document.getElementById("MainDiv").style.display = "block";
+    Szintvalasztas(true);
+}else{
+    document.getElementById("BejelentkezesDiv").style.visibility = "visible";
+    document.getElementById("MainDiv").style.display = "none";
+}
 
 function Regful(but,regblock)
 {
