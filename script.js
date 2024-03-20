@@ -23,12 +23,6 @@ function Regful(but,regblock)
     }
     but.style.display = "none";
 }
-function Regvissza()
-{
-    document.getElementById("RegGombDiv").document.getElementsByTagName("button")[0].style.display = "block";
-    document.getElementById("login").style.display = "flex";
-    document.getElementById("regisztracio").style.display = "none";
-}
 
 async function hash(string) {
     const utf8 = new TextEncoder().encode(string);
@@ -68,7 +62,7 @@ function reg()
             }
             else{
                 console.log("Sikeresen regisztráltál!");
-                Regvissza();
+                Regful(document.getElementById("RegBlockVisszaGomb"),false);
             }*/
         })});
 }
@@ -144,10 +138,10 @@ function FeladatsorKirakas(){
         FeladatImg.title = KozepSzintSelect ? "Közép szintű feladatlap" : "Emelt szintű feladatlap";
         FeladatImg.alt = KozepSzintSelect ? "Közép szintű feladatlap" : "Emelt szintű feladatlap";
         let FeladatImgDiv = document.createElement("div");
-        //FeladatImgDiv.dataset.szint = "";
-        //FeladatImgDiv.dataset.ev = "";
-        //FeladatImgDiv.dataset.honap = "";
-        FeladatImgDiv.onlcick = "FeladatsorClick(this)";
+        // FeladatImgDiv.dataset.szint = "nagy";
+        // FeladatImgDiv.dataset.ev = "1";
+        // FeladatImgDiv.dataset.honap = "januar";
+        FeladatImgDiv.onclick = ()=>{FeladatsorClick(FeladatImgDiv);};
         FeladatImgDiv.classList.add("FeladatImgDiv");
         FeladatImgDiv.appendChild(FeladatImg);
 
@@ -165,6 +159,10 @@ function FeladatsorKirakas(){
             document.getElementById("Feladatsorok").appendChild(SorDiv);
         }
     }
+}
+
+function FeladatsorClick(div){
+    console.log(div);
 }
 
 const regisztracio = (felh,hasheltJelszo,email) => {
