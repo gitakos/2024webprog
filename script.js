@@ -1,14 +1,14 @@
 var KozepSzintSelect = true;
 
 
-if(sessionStorage.getItem("login")){
-    document.getElementById("BejelentkezesDiv").innerHTML = "";
-    document.getElementById("MainDiv").style.display = "block";
-    Szintvalasztas(true);
-}else{
-    document.getElementById("BejelentkezesDiv").style.visibility = "visible";
-    document.getElementById("MainDiv").style.display = "none";
-}
+// if(sessionStorage.getItem("login")){
+//     document.getElementById("BejelentkezesDiv").innerHTML = "";
+//     document.getElementById("MainDiv").style.display = "block";
+//     Szintvalasztas(true);
+// }else{
+//     document.getElementById("BejelentkezesDiv").style.visibility = "visible";
+//     document.getElementById("MainDiv").style.display = "none";
+// }
 
 function Regful(but,regblock)
 {
@@ -231,20 +231,25 @@ function valaszokKimentese(){
    
 }
 
-var datum = "";//ebbe kell kimenteni a lekrédezésből a mikorierettsegimezot
 function DatumMegjelenit()
 {
-    document.getElementsByClassName("datum").innerHTML = datum;
+    let temp = Date().split(' ');
+    let honapok = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    let magy = ["Január","Február","Március","Április","Május","Június","Július","Augusztus","Szeptember","Október","November","December"];
+    let datum = temp[3]+". "+magy[honapok.indexOf(temp[1])]+" "+temp[2]+".";
+    var csakazertis_VAR = document.getElementsByClassName("Datum");
+    for (let i = 0; i < csakazertis_VAR.length; i++) {
+        csakazertis_VAR[i].innerHTML = datum;
+    }
 }
-//akkor kell meghívni amikor megjelenik az sima oldal
+DatumMegjelenit();
 
-var hanyvalasz = 8; //hány válaszlehetőség van feladatsoronként a nyelvhelyességre
+let hanyvalasz = 15; //hány válaszlehetőség van feladatsoronként a nyelvhelyességre
 
 function valaszMezoGeneral(){
-    console.log("fasz");
     for (let i = 0; i < hanyvalasz; i++) {
-        var cucc = document.getElementById("valaszok");
-        cucc.innerHTML += "<li><input type='text' name='Valasz' id="+i+"></li>";
+        let cucc = document.getElementById("valaszok");
+        cucc.innerHTML += "<li><input type='text' class='valaszmezo' name='Valasz' id="+i+"></li>";
     }
 }
 valaszMezoGeneral();
