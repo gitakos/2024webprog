@@ -155,11 +155,11 @@ label{
     visibility: visible;
 }
 .toggle {   
-    margin-top: 2%;
+    margin-top: -7rem;
     margin-left: 35%;
     margin-right: 35%;
     width: 30%;
-    min-width: 30%;
+    min-width: 20%;
     height: 8%;
     min-height: 8%;
     background: #ffffffbd;
@@ -185,6 +185,7 @@ label{
 .selector {
     width: 12.5vw;
     height: 6vh;
+    box-shadow: black .1rem .1rem .3rem;
     background: rgba(153, 152, 152, 0.616);
     border-radius: 1rem;
     position: absolute;
@@ -196,26 +197,26 @@ label{
 input[type="radio"] {
     display: none;
 }
-@media screen and (min-width: 500px) {
+@media screen and (min-width: 575px) {
     .Kozep:checked ~ .selector {
         left: 1.25vw;
     }
     .Emelt:checked ~ .selector {
-        left: 16vw;
+        left: 15.5vw;
     }
 
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 575px) {
     .toggle {   
-        margin-top: 2%;
-        margin-left: 35%;
-        margin-right: 35%;
-        width: 30%;
-        min-width: 30%;
+        margin-top: -7rem;
+        margin-left: 30%;
+        margin-right: 30%;
+        width: 40%;
+        min-width: 40%;
         height: 10%;
         min-height: 10%;
-        background: #ffffff;
+        background: #ffffffbd;
         border: 1px solid rgb(0, 0, 0);
         border-radius: 1rem;
         display: inline-block;
@@ -230,13 +231,12 @@ input[type="radio"] {
         top: -1.5vh;
         font-size: 2.5vh;
         text-align: center;
-        
         position: relative;
         cursor: pointer;
     }
     .selector {
         left: 2.5vw !important;
-        width: 82.5%;
+        width: 85%;
         height: 4vh;
         background: rgba(170, 169, 169, 0.801);
         border-radius: .8rem;
@@ -251,13 +251,17 @@ input[type="radio"] {
     }
     
     .Emelt:checked ~ .selector {
-        top: 4.5vh;
+        top: 4.75vh;
     }
     #login,#regisztracio{
         box-shadow: 0 0 10px .5px black inset, 0 0 2px .5px black;
         transition: ease-in-out .5s;
     }
-    
+    .FeladatImgDiv img{
+        max-width: 70% !important;
+        max-height: 70% !important;
+       
+    }
   }
 
 
@@ -360,18 +364,18 @@ li:before {
     color: black;
 }
 #Feladatsorok{
-    height: 92%;
+    height: 100%;
     width: 100%;
-    
+    margin-top: 9rem;
 }
 .SorDiv{
     display: flex;
     width: 96%;
-    margin-left: 2% !important;
-    margin-right: 2% !important;
+    margin: 2%;
 }
 .FeladatsorDiv{
     color: black;
+    padding: 1%;
     text-shadow: grey 0.1rem 0.1rem 0.2rem;
     height: 50%;
     text-align: center;
@@ -388,7 +392,7 @@ li:before {
 .FeladatImgDiv img{
     max-width: 100%;
     max-height: 100%;
-    box-shadow: 0 0 10px 0 rgb(255, 255, 255) inset, 0 0 10px 5px rgb(255, 255, 255);
+    box-shadow: 0 0 5px 3px rgb(0, 0, 0) inset, 0 0 5px 2px rgb(255, 255, 255);
     border: solid black 3px;
     border-radius: .5rem;
 }
