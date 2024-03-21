@@ -135,6 +135,10 @@ label{
 #myMenu li a:hover {
     background-color: #eee;
 }
+#myMenu li:before{
+    text-decoration: none; 
+    content: counter(list);
+}
 #eredmenycim{
     text-align: center;
 }
@@ -349,6 +353,7 @@ ol {
     list-style: none;
     counter-reset: list;
     padding-top: 10px;
+    padding-left: 1%;
 }
 li{
     padding-top: 10px;
@@ -368,6 +373,31 @@ li:before {
     border-bottom: dotted black ; 
     outline: none;
 }
+
+@media screen and (max-width: 600px) {
+    .valaszmezo{
+
+        width: 70%;
+        font-size: small;
+        text-align: center;
+        border: none;
+        border-bottom: dotted black ; 
+        outline: none;
+    }
+    ol{
+        padding-top: 2px;
+        padding-left: 1%;   
+    }
+    #oldal1,#oldal2{
+        font-size: small;
+        padding-bottom: 8%;
+    }
+    .align-top, .align-bottom{
+        font-size: smaller;
+    }
+
+}
+
 .Datum{
     text-decoration: none;
     color: black;
@@ -417,3 +447,7 @@ li:before {
 .FeladatsorHonapDiv h3{
     font-size: 1.2rem;
 }
+#ecim {
+    text-align: center;
+}
+
