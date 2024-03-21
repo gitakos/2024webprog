@@ -254,4 +254,10 @@ function valaszMezoGeneral(){
         cucc.innerHTML += "<li><input type='text' class='valaszmezo' name='Valasz' id="+i+"></li>";
     }
 }
-valaszMezoGeneral();
+//valaszMezoGeneral();
+
+function TablaSorAdd(nev,datum,feladatsor,maxpont,elertpont,szazalek){
+    var table = document.getElementById("tablazat");
+    table.innerHTML += "<tr><td>"+nev+"</td><td>"+datum+"</td><td>"+feladatsor+"</td><td>"+maxpont+"</td><td>"+elertpont+"</td><td>"+szazalek+"</td></tr>";
+}
+TablaSorAdd("fasz","fasz2","fasz3","fasz4","fasz5","fasz6");
