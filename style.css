@@ -321,7 +321,7 @@ input[type="radio"] {
     margin: auto;
     margin-bottom: 5%;
     background-color: white;
-
+    padding-bottom: 2%;
 }
 .align-top{
     width: 90%;

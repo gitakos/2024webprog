@@ -90,12 +90,14 @@ app.post("/regisztracio", bodyParser.json(), function(req,res){
     const email = req.body.email;
     console.log(req.body);
     ellenorzes(felh,hasheltJelszo,email).then((joE)=>{
-        console.log(joE+" ez a joeee");
-        if(joE == false){
+        console.log(joE); //valamiért undefined, nem kapja meg az ellenorzes értékét
+        //console.log(joE[0].db);
+        console.log(joE==0+" ez a joeee");
+        if(joE!=0){
             console.log("Felhasználó nem felel meg!");
             res.send({"Error": 'Ilyen felhasználó ezzel az email címmel vagy felhasználó névvel már létezik!'});
         }
-        else if(joE == true){
+        else if(joE==0){
             var connection = getConnection();
             connection.connect();
             console.log("Felhasználó megfelel!");
@@ -118,16 +120,16 @@ async function ellenorzes (felh,jelszo,email){
     var connection = getConnection();
     connection.connect();
     let valasz = null;
-    connection.query("select count(*) as db from felhasznalo f where (f.email = '"+email+"' or f.nev = '"+felh+"') and f.jelszo = '"+jelszo+"'", function(err, result,fields){
+    connection.query("select count(*) as db from felhasznalo f where (f.email = '"+email+"' or f.nev = '"+felh+"')", function(err, result,fields){
         if(!err){
             console.log(result[0].db+" ennyi darab egyező");
             valasz = result;
         }else{
             valasz = undefined;
         }
+        console.log(valasz+" ez-<<<<<");
+        return valasz;
     });
     connection.end;
-    console.log(valasz+" ez-<<<<<");
-    return valasz;
 }
 app.listen(3000);
