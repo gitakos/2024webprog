@@ -44,8 +44,12 @@ function reg()
         regisztracio(regfn.value,hex,regemail.value).then((response)=>{
             console.log("Válasz megérkezett!:")
             console.log(response);
-            console.log(response[0]);
-            /*if(response[0].db!=1)
+            if(response.Valasz!=undefined){
+                console.log("Sikeresen regisztráltál!");
+                Regful(document.getElementById("RegBlockVisszaGomb"),false);
+                alert("Sikeres Regisztráció!");
+            }
+            else
             {
                 regfn.style.border = "solid red 2px";
                 regfn.style.boxShadow = "red 1px 1px 4px"
@@ -60,10 +64,6 @@ function reg()
                 regrepw.style.boxShadow = "red 1px 1px 4px"
                 regrepw.style.transition = "ease-in-out .3s";
             }
-            else{
-                console.log("Sikeresen regisztráltál!");
-                Regful(document.getElementById("RegBlockVisszaGomb"),false);
-            }*/
         })});
 }
 
