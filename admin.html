@@ -18,9 +18,15 @@
             <h1>Fájl feltölt itt</h1>
             <input type="file" name="inputfile" id="inputfile">
             <br>
-        
-            <pre id="output"></pre>
-        
+            
+            <div>
+                <h2>Kiválasztott Diák:</h2><p id="kiválasztottnev">--ide kerül majd a név akire rá nyom--</p>
+                <button onclick="Torles()" id="torlesgomb">Törlés</button><br>
+
+                <input type="text" id="ujjelszo"placeholder="Adja meg az új jelszót a diáknak!"></input><br>
+                <input type="text" id="ujjelszoRe" placeholder="Jelszó újra"></input><br>
+                <button onclick="JelszoValt()">Jelszó mentése</button>
+            </div>            
             <script type="text/javascript">
                 document.getElementById('inputfile')
                     .addEventListener('change', function () {

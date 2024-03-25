@@ -287,3 +287,22 @@ function NevekLekerdezAdminListaba(){
     }
 }
 //NevekLekerdezAdminListaba();
+function Torles(){
+    console.log("Törlés");
+    //itt kerül meghívásra a törlésés lekérdezés az index.js-ből
+}
+
+function JelszoValt(){
+    console.log("Jelszo változtat");
+    let mezo1 = document.getElementById("ujjelszo");
+    let mezo2 = document.getElementById("ujjelszoRe");
+
+    if(mezo1 == mezo2 && mezo1)
+    {
+        console.log("GG");
+        if(/*eros a jelszo*/true)
+        {
+            //itt futhat le a jelszó változtatás
+        }
+    }
+}
