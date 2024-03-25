@@ -84,6 +84,57 @@ app.post("/useradatlekerdez", bodyParser.json(), function(req,res){
     connection.end();
 });
 
+app.post("/hanyfelhasznalovan", bodyParser.json(), function(req,res){
+    var connection = getConnection();
+    connection.connect();
+    const felh = req.body.felh;
+    const hasheltJelszo = req.body.hasheltJelszo;
+    console.log(req.body);
+    connection.query("select count(f.nev) as db where jog = 'user'" , function(err, result,fields){
+        if(!err){
+            console.log(result);
+            res.send(result);
+        }else{
+            res.send({"Error": 'Hiba a lekérdezés során!'});
+        }
+    })
+    connection.end();
+});
+
+app.post("/felhasznalotorol", bodyParser.json(), function(req,res){
+    var connection = getConnection();
+    connection.connect();
+    const felh = req.body.felh;
+    const hasheltJelszo = req.body.hasheltJelszo;
+    console.log(req.body);
+    connection.query("delete from felhasznalo where felhasznalo.nev = '"+kivalasztottfelhasznalonev+"'" , function(err, result,fields){
+        if(!err){
+            console.log(result);
+            res.send(result);
+        }else{
+            res.send({"Error": 'Hiba a lekérdezés során!'});
+        }
+    })
+    connection.end();
+});
+
+app.post("/jelszovaltoztatas", bodyParser.json(), function(req,res){
+    var connection = getConnection();
+    connection.connect();
+    const felh = req.body.felh;
+    const hasheltJelszo = req.body.hasheltJelszo;
+    console.log(req.body);
+    connection.query("UPDATE felhasznalo f SET f.jelszo = '"+ujjelszohash+"' WHERE f.nev = '"+kivalasztottfelhasznalonev+"'" , function(err, result,fields){
+        if(!err){
+            console.log(result);
+            res.send(result);
+        }else{
+            res.send({"Error": 'Hiba a jelszó változtatás során!'});
+        }
+    })
+    connection.end();
+});
+
 app.post("/regisztracio", bodyParser.json(),async function(req,res){
     const felh = req.body.felh;
     const hasheltJelszo = req.body.hasheltJelszo;
