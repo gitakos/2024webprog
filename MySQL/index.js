@@ -102,7 +102,11 @@ app.post("/regisztracio", bodyParser.json(),async function(req,res){
             var connection = getConnection();
             connection.connect();
             console.log("Felhasználó megfelel!");
-            connection.query("insert into felhasznalo values(NULL,'"+felh+"','"+email+"','"+hasheltJelszo+"','user','2025-12-12')", function(err,result,fields){
+            let temp = Date().split(' ');
+            let honapok = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            let datum = temp[3]+"-"+(parseInt(honapok.indexOf(temp[1]))+1)+"-"+temp[2];
+            console.log(datum);
+            connection.query("insert into felhasznalo values(NULL,'"+felh+"','"+email+"','"+hasheltJelszo+"','user','"+datum+"')", function(err,result,fields){
                 console.log("Belépek!");
                 if(!err){
                     console.log("Belépek ide is HE!");

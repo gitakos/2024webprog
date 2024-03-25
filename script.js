@@ -37,9 +37,40 @@ async function hash(string) {
 function reg()
 {
     const regfn = document.getElementById("regFn");
+    const regxfn = /[a-zA-Z0-9._]{3,16}/;
     const regemail = document.getElementById("regemail");
+    const regxeamil = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
     const regpw = document.getElementById("regPw");
     const regrepw = document.getElementById("regRePw");
+    //regisztralasfunction(regfn,regemail,regpw);
+    if(regfn!="" && regxfn.test(regfn)){
+        if(regemail!="" && regxeamil.test(regemail)){
+            if(true){
+
+            }else{
+
+            }
+        }else{
+
+        }
+    }else{
+
+    }
+    
+}
+
+async function hash(string) {
+    const utf8 = new TextEncoder().encode(string);
+    return crypto.subtle.digest('SHA-256', utf8).then((hashBuffer) => {
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray
+        .map((bytes) => bytes.toString(16).padStart(2, '0'))
+        .join('');
+        return hashHex;
+    });
+}
+
+function regisztralasfunction(regfn,regemail,regpw){
     hash(regpw.value).then((hex)=>{
         regisztracio(regfn.value,hex,regemail.value).then((response)=>{
             console.log("Válasz megérkezett!:")
@@ -65,17 +96,6 @@ function reg()
                 regrepw.style.transition = "ease-in-out .3s";
             }
         })});
-}
-
-async function hash(string) {
-    const utf8 = new TextEncoder().encode(string);
-    return crypto.subtle.digest('SHA-256', utf8).then((hashBuffer) => {
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        const hashHex = hashArray
-        .map((bytes) => bytes.toString(16).padStart(2, '0'))
-        .join('');
-        return hashHex;
-    });
 }
 
 function login()
