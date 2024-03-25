@@ -310,12 +310,14 @@ function JelszoValt(){
     let mezo1 = document.getElementById("ujjelszo");
     let mezo2 = document.getElementById("ujjelszoRe");
 
-    if(mezo1 == mezo2 && mezo1)
+    if(mezo1 == mezo2 && ErosJelszo(mezo1))
     {
-        console.log("GG");
-        if(/*eros a jelszo*/true)
-        {
-            //itt futhat le a jelszó változtatás
-        }
+
+    }
+}
+function ErosJelszo(jelszo){
+    const regxpw = /[a-zA-Z0-9]{6,16}/;
+    if(regxpw.test(jelszo)){
+        return true;
     }
 }
