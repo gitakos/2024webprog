@@ -35,11 +35,11 @@
             <span id="emailinfo"></span><br>
 
             <label for="regPw">Jelszó:</label>
-            <input class="LogRegInp" type="password" id="regPw" required pattern="[a-zA-Z0-9._]{8,16}" placeholder="Jelszó" minlength="8" maxlength="16">
+            <input class="LogRegInp" type="password" id="regPw" required pattern="[a-zA-Z0-9]{6,16}" placeholder="Jelszó" minlength="8" maxlength="16">
             <span id="Pwinfo"></span><br>
     
             <label for="regPwujra">Jelszó újra:</label>
-            <input class="LogRegInp" type="password" id="regRePw" required pattern="[a-zA-Z0-9._]{8,16}" placeholder="Jelszó megerősítése" minlength="8" maxlength="16">
+            <input class="LogRegInp" type="password" id="regRePw" required pattern="[a-zA-Z0-9]{6,16}" placeholder="Jelszó megerősítése" minlength="8" maxlength="16">
             <span id="Pwujrainfo"></span><br>
     
             <p id="info"></p></br>
@@ -59,6 +59,7 @@
             </div>
             <div id="Profil">
                 <img src="Kepek/pfpicon.png" alt="ProfilIcon">
+                <p id="Logout" onclick="Logout()">Kijelentkezés</p>
             </div>
         </div>
         <div id="Feladatsorok">
