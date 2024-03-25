@@ -1,13 +1,15 @@
 var KozepSzintSelect = true;
-
-
-if(sessionStorage.getItem("login") == 'true'){
-    document.getElementById("BejelentkezesDiv").innerHTML = "";
-    document.getElementById("MainDiv").style.display = "block";
-    Szintvalasztas(true);
-}else{
-    document.getElementById("BejelentkezesDiv").style.visibility = "visible";
-    document.getElementById("MainDiv").style.display = "none";
+let adminFeluletenVanE = document.title=="Admin Felület"
+if(!adminFeluletenVanE){
+    if(sessionStorage.getItem("login") == 'true'){
+        document.getElementById("BejelentkezesDiv").innerHTML = "";
+        document.getElementById("MainDiv").style.display = "block";
+        Szintvalasztas(true);
+    }else{
+        document.getElementById("BejelentkezesDiv").style.visibility = "visible";
+        document.getElementById("MainDiv").style.display = "none";
+    }
+    
 }
 
 function Regful(but,regblock)
@@ -250,6 +252,32 @@ const bejelentkezes = (felh,hasheltJelszo) => {
     });
 }
 
+const adatLekerdezes = (felh,hasheltJelszo,fajta,param) => { //És akkor nem kell kilenc millió post kérést írni
+    const data = { felh: felh,hasheltJelszo: hasheltJelszo ,param: param};
+    return fetch("http://127.0.0.1:3000/"+fajta, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(function (response) {
+        if (!response.ok) {
+            // alert("Nem jó válasz érekezett az adatbázisból");
+            return Promise.reject("Nem jó válasz érekezett az adatbázisból");
+        }
+        return response.json();
+    })
+    .then(function (response) {
+        if (response.Error) {
+            // alert(response.Error);
+            return response.Error;
+        } else {
+            return response;
+        }
+    });
+}
+
 var szovegBe;
 function szovegRendezes()
 {
@@ -292,18 +320,51 @@ function TablaSorAdd(nev,datum,feladatsor,maxpont,elertpont,szazalek){
     table.innerHTML += "<tr><td>"+nev+"</td><td>"+datum+"</td><td>"+feladatsor+"</td><td>"+maxpont+"</td><td>"+elertpont+"</td><td>"+szazalek+"</td></tr>";
 }
 //TablaSorAdd();
-hanynev = 10;
+let hanynev = 10;
+let felhLista = new Array();
+let felhKivalasztott = null;
 function NevekLekerdezAdminListaba(){
-    for (let i = 0; i < hanynev; i++) {
-        let cucc = document.getElementById("myMenu");
-        cucc.innerHTML += "<li><a></a></li>";
-    }
     //Ide kell bepakolni a neveket az adatbázisból akik nem adminok
+    adatLekerdezes(null,null,"felhasznaloklekerdez").then((felhasznalok)=>{
+        felhasznalok.forEach(element => {
+            felhLista.push(element.nev);
+        });
+    
+        for (let i = 0; i < felhLista.length&&i<hanynev; i++) {
+            let cucc = document.getElementById("myMenu");
+            cucc.innerHTML += "<li><a onclick='felhKivalaszt(this)'>"+felhLista[i]+"</a></li>";
+        }
+    });
+}
+if(adminFeluletenVanE){
+    NevekLekerdezAdminListaba();
+}
+
+function felhKivalaszt(elem){
+    //console.log(elem.);
+    felhKivalasztott = elem.innerHTML;
+    let kivalasztottElemek = document.getElementsByClassName("kivalasztottElem");
+    if(kivalasztottElemek.length>0){
+        kivalasztottElemek[0].classList.remove("kivalasztottElem");
+    }
+    elem.classList.add("kivalasztottElem");
+    document.getElementById("kiválasztottnev").innerHTML = felhKivalasztott;
 }
 //NevekLekerdezAdminListaba();
 function Torles(){
-    console.log("Törlés");
     //itt kerül meghívásra a törlésés lekérdezés az index.js-ből
+    adatLekerdezes(null,null,"felhasznalotorol",felhKivalasztott).then((eredmeny)=>{
+        if(eredmeny.Error){
+            alert("Felhasználó nem lett törölve!");
+        }
+        else
+        {
+            alert("A felhasználó sikeresen törölve lett!");
+            felhKivalasztott = null;
+            document.getElementById("kiválasztottnev").innerHTML = "Nincs kiválasztott fiók!";
+            document.getElementsByClassName("kivalasztottElem")[0].remove();
+        }
+    });
 }
 
 function JelszoValt(){

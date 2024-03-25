@@ -139,10 +139,10 @@ label{
 #myMenu li a:hover {
     background-color: #eee;
 }
-#myMenu li:before{
+/*#myMenu li:before{
     text-decoration: none; 
     content: counter(list);
-}
+}*/
 #eredmenycim{
     text-align: center;
 }
@@ -362,13 +362,13 @@ ol {
 li{
     padding-top: 10px;
 }
-li:before {
+/*li:before {
     content: counter(list) ")   ";
     counter-increment: list;
-    width: 30px; /* Adjust this width as needed */
+    width: 30px;
     display: inline-block;
     text-align: right;
-}
+} Ez okozta a random countert(?)*/ 
 
 .valaszmezo{
     width: 85%;
@@ -473,4 +473,9 @@ li:before {
 }
 #Logout:hover{
     cursor: pointer;
+}
+.kivalasztottElem{
+    /*A kiválasztott fióknál van használva (Admin panel)*/
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.7);
 }

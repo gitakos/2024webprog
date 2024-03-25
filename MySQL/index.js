@@ -84,15 +84,16 @@ app.post("/useradatlekerdez", bodyParser.json(), function(req,res){
     connection.end();
 });
 
-app.post("/hanyfelhasznalovan", bodyParser.json(), function(req,res){
+app.post("/felhasznaloklekerdez", bodyParser.json(), function(req,res){
     var connection = getConnection();
     connection.connect();
     const felh = req.body.felh;
     const hasheltJelszo = req.body.hasheltJelszo;
+    //Ezek maradhatnak, majd lekéne ellenőrizni hogy tényleg egy admin kéri az adatokat, vagy nem! (ez vonatkozik az összes többi admin felületi lekérdezésre)
     console.log(req.body);
-    connection.query("select count(f.nev) as db where jog = 'user'" , function(err, result,fields){
+    connection.query("select f.nev as nev from felhasznalo f where f.jog = 'user'" , function(err, result,fields){
         if(!err){
-            console.log(result);
+            //console.log(result+"Ez a result!!");
             res.send(result);
         }else{
             res.send({"Error": 'Hiba a lekérdezés során!'});
@@ -106,8 +107,10 @@ app.post("/felhasznalotorol", bodyParser.json(), function(req,res){
     connection.connect();
     const felh = req.body.felh;
     const hasheltJelszo = req.body.hasheltJelszo;
+    const kivalasztottfelhasznalonev = req.body.param;
     console.log(req.body);
-    connection.query("delete from felhasznalo where felhasznalo.nev = '"+kivalasztottfelhasznalonev+"'" , function(err, result,fields){
+    console.log("delete from felhasznalo where nev = '"+kivalasztottfelhasznalonev+"'");
+    connection.query("delete from felhasznalo where nev = '"+kivalasztottfelhasznalonev+"'" , function(err, result,fields){
         if(!err){
             console.log(result);
             res.send(result);
@@ -159,8 +162,7 @@ app.post("/regisztracio", bodyParser.json(),async function(req,res){
     console.log(req.body);
     ellenorzes(felh,hasheltJelszo,email).then((joE)=>{
         let egyezoDB = joE[0].db;
-        console.log(egyezoDB+" ez a joeeeeeeeeeeeeeeeee"); //valamiért undefined, nem kapja meg az ellenorzes értékét (ákos)--> ez azért van mert nem várta be a visszatérő értéket (ami most pár pill a query result)
-        //console.log(joE[0].db);
+        console.log(egyezoDB+" ez a joeeeeeeeeeeeeeeeee");
         console.log(egyezoDB==0+" ez a joeee");
         if(egyezoDB!=0){
             console.log("Felhasználó nem felel meg!");
@@ -175,12 +177,11 @@ app.post("/regisztracio", bodyParser.json(),async function(req,res){
             let datum = temp[3]+"-"+(parseInt(honapok.indexOf(temp[1]))+1)+"-"+temp[2];
             console.log(datum);
             connection.query("insert into felhasznalo values(NULL,'"+felh+"','"+email+"','"+hasheltJelszo+"','user','"+datum+"')", function(err,result,fields){
-                console.log("Belépek!");
                 if(!err){
-                    console.log("Belépek ide is HE!");
+                    console.log("Felhasználó regisztrálva!");
                     res.send({"Valasz":"Sikeres Regisztráció!"});
                 }else{
-                    console.log("EROORRR");
+                    console.log("Error: Felhasználó regisztrálása sikertelen!");
                     res.send({"Error": 'Hiba a regisztrálás során!'});
                 }
             });
@@ -202,8 +203,6 @@ function ellenorzes(felh,jelszo,email){
                 connection.end;
                 resolve(undefined);
             }
-            //ha queryn belül returnölsz a semmibe megy
-            //btw bocsi hogy ennyire túl komplikáltam -ákos
         });
         connection.end;
       });
