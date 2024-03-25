@@ -1,14 +1,14 @@
 var KozepSzintSelect = true;
 
 
-if(sessionStorage.getItem("login")){
-    document.getElementById("BejelentkezesDiv").innerHTML = "";
-    document.getElementById("MainDiv").style.display = "block";
-    Szintvalasztas(true);
-}else{
-    document.getElementById("BejelentkezesDiv").style.visibility = "visible";
-    document.getElementById("MainDiv").style.display = "none";
-}
+// if(sessionStorage.getItem("login")){
+//     document.getElementById("BejelentkezesDiv").innerHTML = "";
+//     document.getElementById("MainDiv").style.display = "block";
+//     Szintvalasztas(true);
+// }else{
+//     document.getElementById("BejelentkezesDiv").style.visibility = "visible";
+//     document.getElementById("MainDiv").style.display = "none";
+// }
 
 function Regful(but,regblock)
 {
@@ -258,4 +258,12 @@ function TablaSorAdd(nev,datum,feladatsor,maxpont,elertpont,szazalek){
     var table = document.getElementById("tablazat");
     table.innerHTML += "<tr><td>"+nev+"</td><td>"+datum+"</td><td>"+feladatsor+"</td><td>"+maxpont+"</td><td>"+elertpont+"</td><td>"+szazalek+"</td></tr>";
 }
-TablaSorAdd("fasz","fasz2","fasz3","fasz4","fasz5","fasz6");
+//TablaSorAdd("fasz","fasz2","fasz3","fasz4","fasz5","fasz6");
+hanynev = 10;
+function NevekLekerdezAdminListaba(){
+    for (let i = 0; i < hanynev; i++) {
+        let cucc = document.getElementById("myMenu");
+        cucc.innerHTML += "<li><a>HTML</a></li>";
+    }
+}
+NevekLekerdezAdminListaba();
