@@ -450,4 +450,16 @@ li:before {
 #ecim {
     text-align: center;
 }
-
+#RegBlockVisszaGomb{
+    background-color: rgba(255, 255, 255, 0.5);
+    border-bottom-left-radius:.6rem;
+    border-bottom-right-radius:.6rem;
+    transition: ease-in-out .5s;
+}
+#RegBlockVisszaGomb:hover{
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-bottom-left-radius:.3rem;
+    border-bottom-right-radius:.3rem;
+    transition: ease-in-out .5s;
+}

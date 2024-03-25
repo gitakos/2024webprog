@@ -1,14 +1,14 @@
 var KozepSzintSelect = true;
 
 
-// if(sessionStorage.getItem("login")){
-//     document.getElementById("BejelentkezesDiv").innerHTML = "";
-//     document.getElementById("MainDiv").style.display = "block";
-//     Szintvalasztas(true);
-// }else{
-//     document.getElementById("BejelentkezesDiv").style.visibility = "visible";
-//     document.getElementById("MainDiv").style.display = "none";
-// }
+if(sessionStorage.getItem("login") == 'true'){
+    document.getElementById("BejelentkezesDiv").innerHTML = "";
+    document.getElementById("MainDiv").style.display = "block";
+    Szintvalasztas(true);
+}else{
+    document.getElementById("BejelentkezesDiv").style.visibility = "visible";
+    document.getElementById("MainDiv").style.display = "none";
+}
 
 function Regful(but,regblock)
 {
@@ -42,19 +42,23 @@ function reg()
     const regxeamil = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
     const regpw = document.getElementById("regPw");
     const regrepw = document.getElementById("regRePw");
-    //regisztralasfunction(regfn,regemail,regpw);
-    if(regfn!="" && regxfn.test(regfn)){
-        if(regemail!="" && regxeamil.test(regemail)){
-            if(true){
-
+    const regxpw = /[a-zA-Z0-9]{6,16}/;
+    let infobox = document.getElementById("info");
+    if(regfn.value !="" && regxfn.test(regfn.value)){
+        if(regemail.value != "" && regxeamil.test(regemail.value)){
+            if(regpw.value == regrepw.value && regxpw.test(regpw.value)){
+                regisztralasfunction(regfn,regemail,regpw);
             }else{
-
+                infobox.innerHTML = "Jelszó hiba";
+                console.log("jelszó hiba");
             }
         }else{
-
+            infobox.innerHTML = "Email hiba";
+            console.log("email hiba");
         }
     }else{
-
+        infobox.innerHTML = "Felhasználónév hiba";
+        console.log("felhasználónév hiba");
     }
     
 }
@@ -108,20 +112,24 @@ function login()
             if(response[0].db!=1)
             {
                 fn.style.border = "solid red 2px";
-                fn.style.boxShadow = "red 1px 1px 4px"
+                fn.style.boxShadow = "red 1px 1px 4px inset,red 1px 1px 4px";
                 fn.style.transition = "ease-in-out .3s";
                 pw.style.border = "solid red 2px";
-                pw.style.boxShadow = "red 1px 1px 4px"
+                pw.style.boxShadow = "red 1px 1px 4px inset,red 1px 1px 4px";
                 pw.style.transition = "ease-in-out .3s";
             }
             else{
-                console.log("Sikeresen bejelentkeztél!");
-                document.getElementById("BejelentkezesDiv").innerHTML = "";
-                document.getElementById("MainDiv").style.display = "block";
-                sessionStorage.setItem("login",true);
-                Szintvalasztas(true);
+                Main();
             }
         })});
+}
+
+function Main(){
+    console.log("Sikeresen bejelentkeztél!");
+    document.getElementById("BejelentkezesDiv").innerHTML = "";
+    document.getElementById("MainDiv").style.display = "block";
+    sessionStorage.setItem("login",true);
+    Szintvalasztas(true);
 }
 
 function Szintvalasztas(kozep){
@@ -179,6 +187,11 @@ function FeladatsorKirakas(){
             document.getElementById("Feladatsorok").appendChild(SorDiv);
         }
     }
+}
+
+function Logout(){
+    sessionStorage.setItem("login",false);
+    location.reload();
 }
 
 function FeladatsorClick(div){
