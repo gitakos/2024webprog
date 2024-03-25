@@ -62,20 +62,24 @@ label{
 }
 #RegGombDiv{
     font-size: small;
-    margin: 2vw;
+    margin-top: 2vw;
 }
 #RegGombDiv button{
-    color: rgb(71, 71, 252);
+    border-top-left-radius: .6rem;
+    border-top-right-radius: .6rem;
     text-shadow: rgba(0, 0, 0, 0.5) 1px 1px 2px;
-    border: none;
-    background-color: inherit;
-    transition: ease-in-out .2s;
+    border: solid black 2px;
+    background-color: rgba(255, 255, 255, 0.5);
+    transition: ease-in-out .3s;
 }
 #RegGombDiv button:hover{
     cursor: pointer;
-    color: rgb(15, 89, 247);
+    border-top-left-radius: .3rem;
+    border-top-right-radius: .3rem;
     text-shadow: rgba(0, 0, 0, 0.75) 1px 1px 4px;
-    transition: ease-in-out .2s;
+    background-color: rgba(255, 255, 255, 0.7);
+    font-weight: bold;
+    transition: ease-in-out .3s;
 }
 #regisztracio{
     display: none;
@@ -454,12 +458,19 @@ li:before {
     background-color: rgba(255, 255, 255, 0.5);
     border-bottom-left-radius:.6rem;
     border-bottom-right-radius:.6rem;
-    transition: ease-in-out .5s;
+    transition: ease-in-out .3s;
 }
 #RegBlockVisszaGomb:hover{
     font-weight: bold;
     background-color: rgba(255, 255, 255, 0.7);
     border-bottom-left-radius:.3rem;
     border-bottom-right-radius:.3rem;
-    transition: ease-in-out .5s;
+    transition: ease-in-out .3s;
+}
+#Logout{
+    font-size: small;
+    text-align: center;
+}
+#Logout:hover{
+    cursor: pointer;
 }
