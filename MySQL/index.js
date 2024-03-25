@@ -84,18 +84,21 @@ app.post("/useradatlekerdez", bodyParser.json(), function(req,res){
     connection.end();
 });
 
-app.post("/regisztracio", bodyParser.json(), function(req,res){
+app.post("/regisztracio", bodyParser.json(),async function(req,res){
     const felh = req.body.felh;
     const hasheltJelszo = req.body.hasheltJelszo;
     const email = req.body.email;
     console.log(req.body);
     ellenorzes(felh,hasheltJelszo,email).then((joE)=>{
-        console.log(joE+" ez a joeee");
-        if(joE == false){
+        let egyezoDB = joE[0].db;
+        console.log(egyezoDB+" ez a joeeeeeeeeeeeeeeeee"); //valamiért undefined, nem kapja meg az ellenorzes értékét (ákos)--> ez azért van mert nem várta be a visszatérő értéket (ami most pár pill a query result)
+        //console.log(joE[0].db);
+        console.log(egyezoDB==0+" ez a joeee");
+        if(egyezoDB!=0){
             console.log("Felhasználó nem felel meg!");
             res.send({"Error": 'Ilyen felhasználó ezzel az email címmel vagy felhasználó névvel már létezik!'});
         }
-        else if(joE == true){
+        else if(egyezoDB==0){
             var connection = getConnection();
             connection.connect();
             console.log("Felhasználó megfelel!");
@@ -103,7 +106,7 @@ app.post("/regisztracio", bodyParser.json(), function(req,res){
                 console.log("Belépek!");
                 if(!err){
                     console.log("Belépek ide is HE!");
-                    res.send(result);
+                    res.send({"Valasz":"Sikeres Regisztráció!"});
                 }else{
                     console.log("EROORRR");
                     res.send({"Error": 'Hiba a regisztrálás során!'});
@@ -114,20 +117,23 @@ app.post("/regisztracio", bodyParser.json(), function(req,res){
     });
 });
 
-async function ellenorzes (felh,jelszo,email){
-    var connection = getConnection();
-    connection.connect();
-    let valasz = null;
-    connection.query("select count(*) as db from felhasznalo f where (f.email = '"+email+"' or f.nev = '"+felh+"') and f.jelszo = '"+jelszo+"'", function(err, result,fields){
-        if(!err){
-            console.log(result[0].db+" ennyi darab egyező");
-            valasz = result;
-        }else{
-            valasz = undefined;
-        }
-    });
-    connection.end;
-    console.log(valasz+" ez-<<<<<");
-    return valasz;
+function ellenorzes(felh,jelszo,email){
+    return new Promise((resolve) => {
+        var connection = getConnection();
+        connection.connect();
+        connection.query("select count(*) as db from felhasznalo f where (f.email = '"+email+"' or f.nev = '"+felh+"')", function(err, result,fields){
+            if(!err){
+                console.log(result[0].db+" ennyi darab egyező");
+                connection.end;
+                resolve(result);
+            }else{
+                connection.end;
+                resolve(undefined);
+            }
+            //ha queryn belül returnölsz a semmibe megy
+            //btw bocsi hogy ennyire túl komplikáltam -ákos
+        });
+        connection.end;
+      });
 }
 app.listen(3000);
