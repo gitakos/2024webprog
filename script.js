@@ -262,7 +262,7 @@ function DatumMegjelenit()
         csakazertis_VAR[i].innerHTML = datum;
     }
 }
-DatumMegjelenit();
+//DatumMegjelenit();
 
 let hanyvalasz = 15; //hány válaszlehetőség van feladatsoronként a nyelvhelyességre
 
@@ -286,4 +286,4 @@ function NevekLekerdezAdminListaba(){
         cucc.innerHTML += "<li><a>HTML</a></li>";
     }
 }
-NevekLekerdezAdminListaba();
+//NevekLekerdezAdminListaba();
