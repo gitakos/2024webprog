@@ -291,13 +291,14 @@ function TablaSorAdd(nev,datum,feladatsor,maxpont,elertpont,szazalek){
     var table = document.getElementById("tablazat");
     table.innerHTML += "<tr><td>"+nev+"</td><td>"+datum+"</td><td>"+feladatsor+"</td><td>"+maxpont+"</td><td>"+elertpont+"</td><td>"+szazalek+"</td></tr>";
 }
-//TablaSorAdd("fasz","fasz2","fasz3","fasz4","fasz5","fasz6");
+//TablaSorAdd();
 hanynev = 10;
 function NevekLekerdezAdminListaba(){
     for (let i = 0; i < hanynev; i++) {
         let cucc = document.getElementById("myMenu");
-        cucc.innerHTML += "<li><a>HTML</a></li>";
+        cucc.innerHTML += "<li><a></a></li>";
     }
+    //Ide kell bepakolni a neveket az adatbázisból akik nem adminok
 }
 //NevekLekerdezAdminListaba();
 function Torles(){
@@ -307,12 +308,16 @@ function Torles(){
 
 function JelszoValt(){
     console.log("Jelszo változtat");
-    let mezo1 = document.getElementById("ujjelszo");
-    let mezo2 = document.getElementById("ujjelszoRe");
+    let mezo1 = document.getElementById("ujjelszo").value;
+    let mezo2 = document.getElementById("ujjelszoRe").value;
 
-    if(mezo1 == mezo2 && ErosJelszo(mezo1))
+    if(mezo1 == mezo2  && ErosJelszo(mezo1))
     {
-
+        console.log("Jó a jelszó");
+        //itt futhat le a jelszó felvitel az index.js-ből
+    }
+    else{
+        console.log("Hiba");
     }
 }
 function ErosJelszo(jelszo){
@@ -320,4 +325,10 @@ function ErosJelszo(jelszo){
     if(regxpw.test(jelszo)){
         return true;
     }
+    else{
+        return false;
+    }
+}
+function PromoteToAdmin(){
+    //itt kell a kiválasztott felhasználót adminná tenni
 }

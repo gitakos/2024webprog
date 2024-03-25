@@ -135,6 +135,23 @@ app.post("/jelszovaltoztatas", bodyParser.json(), function(req,res){
     connection.end();
 });
 
+app.post("/adminnatetel", bodyParser.json(), function(req,res){
+    var connection = getConnection();
+    connection.connect();
+    const felh = req.body.felh;
+    const hasheltJelszo = req.body.hasheltJelszo;
+    console.log(req.body);
+    connection.query("UPDATE felhasznalo f SET f.jog = 'admin' WHERE f.nev = '"+kivalasztottfelhasznalonev+"'" , function(err, result,fields){
+        if(!err){
+            console.log(result);
+            res.send(result);
+        }else{
+            res.send({"Error": 'Hiba a jelszó változtatás során!'});
+        }
+    })
+    connection.end();
+});
+
 app.post("/regisztracio", bodyParser.json(),async function(req,res){
     const felh = req.body.felh;
     const hasheltJelszo = req.body.hasheltJelszo;
