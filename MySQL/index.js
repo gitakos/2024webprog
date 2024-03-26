@@ -126,6 +126,8 @@ app.post("/jelszovaltoztatas", bodyParser.json(), function(req,res){
     connection.connect();
     const felh = req.body.felh;
     const hasheltJelszo = req.body.hasheltJelszo;
+    const kivalasztottfelhasznalonev = req.body.param.felhasznalo;
+    const ujjelszohash = req.body.param.jelszo;
     console.log(req.body);
     connection.query("UPDATE felhasznalo f SET f.jelszo = '"+ujjelszohash+"' WHERE f.nev = '"+kivalasztottfelhasznalonev+"'" , function(err, result,fields){
         if(!err){
@@ -143,6 +145,7 @@ app.post("/adminnatetel", bodyParser.json(), function(req,res){
     connection.connect();
     const felh = req.body.felh;
     const hasheltJelszo = req.body.hasheltJelszo;
+    const kivalasztottfelhasznalonev = req.body.param;
     console.log(req.body);
     connection.query("UPDATE felhasznalo f SET f.jog = 'admin' WHERE f.nev = '"+kivalasztottfelhasznalonev+"'" , function(err, result,fields){
         if(!err){

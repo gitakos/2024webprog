@@ -375,7 +375,18 @@ function JelszoValt(){
     if(mezo1 == mezo2  && ErosJelszo(mezo1))
     {
         console.log("Jó a jelszó");
-        //itt futhat le a jelszó felvitel az index.js-ből
+        hash(mezo1).then((hasheltJelsz)=>{
+            adatLekerdezes(null,null,"jelszovaltoztatas",{"felhasznalo":felhKivalasztott,"jelszo":hasheltJelsz}).then((eredmeny)=>{
+                if(eredmeny.Error){
+                    alert("Hiba! Jelszó nem lett megváltoztatva");
+                }
+                else
+                {
+                    alert("Jelszó sikeresen megváltoztatva!");
+                }
+            });
+        });
+        
     }
     else{
         console.log("Hiba");
@@ -392,4 +403,13 @@ function ErosJelszo(jelszo){
 }
 function PromoteToAdmin(){
     //itt kell a kiválasztott felhasználót adminná tenni
+    adatLekerdezes(null,null,"adminnatetel",felhKivalasztott).then((eredmeny)=>{
+        if(eredmeny.Error){
+            alert("Hiba! Felhasználó nem lett admin");
+        }
+        else
+        {
+            alert("Sikeresen admináá vált a fiók!");
+        }
+    });
 }
