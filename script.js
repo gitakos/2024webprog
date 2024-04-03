@@ -65,12 +65,12 @@ async function hash(string) {
 function reg()
 {
     const regfn = document.getElementById("regFn");
-    const regxfn = /^[0-9A-Za-z]{6,16}$/;
+    const regxfn = /^[A-Za-z0-9áéíóöőúüű.]{6,16}$/;
     const regemail = document.getElementById("regemail");
-    const regxeamil = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+    const regxeamil = /^[a-zA-Z0-9áéíóöőúüű._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
     const regpw = document.getElementById("regPw");
     const regrepw = document.getElementById("regRePw");
-    const regxpw = /^(?=.*[0-9])(?=.*A-Z)[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+    const regxpw = /^(?=.*[0-9])(?=.*[A-ZÁÉÍÓÖŐÚÜŰ])[a-zA-Z0-9!@#$%^&*áéíóöőúüű]{6,16}$/;
     let infobox = document.getElementById("info");
     infobox.innerHTML = "";
     let fninfo = document.getElementById("Fninfo");
@@ -112,7 +112,7 @@ function reg()
             pwinfo.innerHTML = "Gyenge jelszó!";
             megfelelo = false;
         }
-        if(regpw.value == regrepw.value){
+        if(regpw.value != regrepw.value){
             pwujrainfo.innerHTML = "A két megadott jelszó nem egyezik!";
             megfelelo = false;
         }
