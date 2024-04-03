@@ -91,7 +91,7 @@ app.post("/felhasznaloklekerdez", bodyParser.json(), function(req,res){
     const hasheltJelszo = req.body.hasheltJelszo;
     //Ezek maradhatnak, majd lekéne ellenőrizni hogy tényleg egy admin kéri az adatokat, vagy nem! (ez vonatkozik az összes többi admin felületi lekérdezésre)
     console.log(req.body);
-    connection.query("select f.nev as nev from felhasznalo f where f.jog = 'user'" , function(err, result,fields){
+    connection.query("select f.nev as nev from felhasznalo f" , function(err, result,fields){
         if(!err){
             //console.log(result+"Ez a result!!");
             res.send(result);
@@ -192,6 +192,60 @@ app.post("/regisztracio", bodyParser.json(),async function(req,res){
         }
     });
 });
+
+app.post("/felhasznalonevELL", bodyParser.json(), function(req,res){
+    var connection = getConnection();
+    connection.connect();
+    const felh = req.body.felh;
+    const hasheltJelszo = req.body.hasheltJelszo;
+    const kivalasztottfelhasznalonev = req.body.param;
+    console.log(req.body);
+    connection.query("select count(*) from felhasznalo f WHERE f.nev = '"+kivalasztottfelhasznalonev+"'" , function(err, result,fields){
+        if(!err){
+            console.log(result[0].db);
+            if(result[0].db == 0)
+            {
+                res.send({"Valasz":false})
+            }
+            else
+            {
+                res.send({"Valasz":true})
+            }
+            res.send(result);
+        }else{
+            res.send({"Error": 'Hiba a jelszó változtatás során!'});
+        }
+    })
+    connection.end();
+});
+
+app.post("/emailELL", bodyParser.json(), function(req,res){
+    var connection = getConnection();
+    connection.connect();
+    const felh = req.body.felh;
+    const hasheltJelszo = req.body.hasheltJelszo;
+    const kivalasztottfelhasznalonev = req.body.param;
+    console.log(req.body);
+    connection.query("select count(*) from felhasznalo f WHERE f.email = '"+kivalasztottfelhasznalonev+"'" , function(err, result,fields){
+        if(!err){
+            console.log(result[0].db);
+            if(result[0].db == 0)
+            {
+                res.send({"Valasz":false})
+            }
+            else
+            {
+                res.send({"Valasz":true})
+            }
+            res.send(result);
+        }else{
+            res.send({"Error": 'Hiba a jelszó változtatás során!'});
+        }
+    })
+    connection.end();
+});
+
+
 
 function ellenorzes(felh,jelszo,email){
     return new Promise((resolve) => {
