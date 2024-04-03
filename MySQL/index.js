@@ -237,7 +237,6 @@ app.post("/emailELL", bodyParser.json(), function(req,res){
             {
                 res.send({"Valasz":true})
             }
-            res.send(result);
         }else{
             res.send({"Error": 'Hiba a jelszó változtatás során!'});
         }
@@ -245,7 +244,21 @@ app.post("/emailELL", bodyParser.json(), function(req,res){
     connection.end();
 });
 
-
+app.post("/feladatsorListaLekerdez", bodyParser.json(), function(req,res){
+    var connection = getConnection();
+    connection.connect();
+    const felh = req.body.felh;
+    const hasheltJelszo = req.body.hasheltJelszo;
+    console.log(req.body);
+    connection.query("select f.id as id,f.feladatok as fel, f.ev as ev, f.honap as honap from feladatsor f", function(err, result,fields){
+        if(!err){
+            res.send(result);
+        }else{
+            res.send({"Error": 'Hiba a jelszó változtatás során!'});
+        }
+    })
+    connection.end();
+});
 
 function ellenorzes(felh,jelszo,email){
     return new Promise((resolve) => {

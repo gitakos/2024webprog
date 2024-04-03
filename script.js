@@ -1,5 +1,6 @@
 var KozepSzintSelect = true;
 let adminFeluletenVanE = document.title=="Admin Felület"
+let feladatFeluletVanE = document.title=="Angol érettségi gyakorló"
 if(!adminFeluletenVanE){
     if(sessionStorage.getItem("login") == 'true'){
         document.getElementById("BejelentkezesDiv").innerHTML = "";
@@ -10,6 +11,32 @@ if(!adminFeluletenVanE){
         document.getElementById("MainDiv").style.display = "none";
     }
     
+}
+
+const adatLekerdezes = (felh,hasheltJelszo,fajta,param) => { //És akkor nem kell kilenc millió post kérést írni
+    const data = { felh: felh,hasheltJelszo: hasheltJelszo ,param: param};
+    return fetch("http://127.0.0.1:3000/"+fajta, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(function (response) {
+        if (!response.ok) {
+            // alert("Nem jó válasz érekezett az adatbázisból");
+            return Promise.reject("Nem jó válasz érekezett az adatbázisból");
+        }
+        return response.json();
+    })
+    .then(function (response) {
+        if (response.Error) {
+            // alert(response.Error);
+            return response.Error;
+        } else {
+            return response;
+        }
+    });
 }
 
 function Regful(but,regblock)
@@ -144,60 +171,62 @@ function FeladatsorKirakas(){
     let feladatDiv = document.getElementById("Feladatsorok");
     feladatDiv.innerHTML = "";
     let x = 0;
-    for(let i = 0 ;i < 10 /* feladatsorok hossza */;i++){
-        if(x%6==0){
-            var SorDiv = document.createElement("div");
-            SorDiv.classList.add("row");
-            SorDiv.classList.add("SorDiv");
+
+    adatLekerdezes(null,null,"feladatsorListaLekerdez",null).then((feladatok)=>{
+        console.log(feladatok)
+        console.log(feladatok.length)
+        for(let i = 0 ;i < feladatok.length /* feladatsorok hossza */;i++){
+            console.log(i)
+            if(x%6==0){
+                var SorDiv = document.createElement("div");
+                SorDiv.classList.add("row");
+                SorDiv.classList.add("SorDiv");
+            }
+            x++;
+            let FeladatsorDiv = document.createElement("div");
+            FeladatsorDiv.classList.add("col-12");
+            FeladatsorDiv.classList.add("col-sm-4");
+            FeladatsorDiv.classList.add("col-lg-2");
+            FeladatsorDiv.classList.add("FeladatsorDiv");
+    
+            let FeladatsorEv = document.createElement("h2");
+            FeladatsorEv.innerHTML = feladatok[i].ev+" Év";
+            let FeladatsorEvDiv = document.createElement("div");
+            FeladatsorEvDiv.classList.add("FeladatsorEvDiv");
+            FeladatsorEvDiv.appendChild(FeladatsorEv);
+    
+            let FeladatImg = document.createElement("img");
+            FeladatImg.src = "Kepek/"+(KozepSzintSelect ? "KozepLap" : "EmeltLap")+".png";
+            FeladatImg.title = KozepSzintSelect ? "Közép szintű feladatlap" : "Emelt szintű feladatlap";
+            FeladatImg.alt = KozepSzintSelect ? "Közép szintű feladatlap" : "Emelt szintű feladatlap";
+            let FeladatImgDiv = document.createElement("div");
+            // FeladatImgDiv.dataset.szint = "nagy";
+            // FeladatImgDiv.dataset.ev = "1";
+            // FeladatImgDiv.dataset.honap = "januar";
+            FeladatImgDiv.onclick = ()=>{feladatSorGen(FeladatImgDiv);};
+            FeladatImgDiv.classList.add("FeladatImgDiv");
+            FeladatImgDiv.appendChild(FeladatImg);
+    
+            let FeladatsorHonap = document.createElement("h3");
+            FeladatsorHonap.innerHTML = "x Hónap";
+            let FeladatsorHonapDiv = document.createElement("div");
+            FeladatsorHonapDiv.classList.add("FeladatsorHonapDiv");
+            FeladatsorHonapDiv.appendChild(FeladatsorHonap);
+    
+            FeladatsorDiv.appendChild(FeladatsorEvDiv);
+            FeladatsorDiv.appendChild(FeladatImgDiv);
+            FeladatsorDiv.appendChild(FeladatsorHonapDiv);
+            SorDiv.appendChild(FeladatsorDiv);
+            if(x%6==5 || i==9 /* feladatsorok hossza */ ){
+                document.getElementById("Feladatsorok").appendChild(SorDiv);
+            }
         }
-        x++;
-        let FeladatsorDiv = document.createElement("div");
-        FeladatsorDiv.classList.add("col-12");
-        FeladatsorDiv.classList.add("col-sm-4");
-        FeladatsorDiv.classList.add("col-lg-2");
-        FeladatsorDiv.classList.add("FeladatsorDiv");
-
-        let FeladatsorEv = document.createElement("h2");
-        FeladatsorEv.innerHTML = "x Év";
-        let FeladatsorEvDiv = document.createElement("div");
-        FeladatsorEvDiv.classList.add("FeladatsorEvDiv");
-        FeladatsorEvDiv.appendChild(FeladatsorEv);
-
-        let FeladatImg = document.createElement("img");
-        FeladatImg.src = "Kepek/"+(KozepSzintSelect ? "KozepLap" : "EmeltLap")+".png";
-        FeladatImg.title = KozepSzintSelect ? "Közép szintű feladatlap" : "Emelt szintű feladatlap";
-        FeladatImg.alt = KozepSzintSelect ? "Közép szintű feladatlap" : "Emelt szintű feladatlap";
-        let FeladatImgDiv = document.createElement("div");
-        // FeladatImgDiv.dataset.szint = "nagy";
-        // FeladatImgDiv.dataset.ev = "1";
-        // FeladatImgDiv.dataset.honap = "januar";
-        FeladatImgDiv.onclick = ()=>{FeladatsorClick(FeladatImgDiv);};
-        FeladatImgDiv.classList.add("FeladatImgDiv");
-        FeladatImgDiv.appendChild(FeladatImg);
-
-        let FeladatsorHonap = document.createElement("h3");
-        FeladatsorHonap.innerHTML = "x Hónap";
-        let FeladatsorHonapDiv = document.createElement("div");
-        FeladatsorHonapDiv.classList.add("FeladatsorHonapDiv");
-        FeladatsorHonapDiv.appendChild(FeladatsorHonap);
-
-        FeladatsorDiv.appendChild(FeladatsorEvDiv);
-        FeladatsorDiv.appendChild(FeladatImgDiv);
-        FeladatsorDiv.appendChild(FeladatsorHonapDiv);
-        SorDiv.appendChild(FeladatsorDiv);
-        if(x%6==5 || i==9 /* feladatsorok hossza */ ){
-            document.getElementById("Feladatsorok").appendChild(SorDiv);
-        }
-    }
+    })
 }
 
 function Logout(){
     sessionStorage.setItem("login",false);
     location.reload();
-}
-
-function FeladatsorClick(div){
-    console.log(div);
 }
 
 const regisztracio = (felh,hasheltJelszo,email) => {
@@ -252,32 +281,6 @@ const bejelentkezes = (felh,hasheltJelszo) => {
     });
 }
 
-const adatLekerdezes = (felh,hasheltJelszo,fajta,param) => { //És akkor nem kell kilenc millió post kérést írni
-    const data = { felh: felh,hasheltJelszo: hasheltJelszo ,param: param};
-    return fetch("http://127.0.0.1:3000/"+fajta, {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-        },
-        body: JSON.stringify(data)
-    })
-    .then(function (response) {
-        if (!response.ok) {
-            // alert("Nem jó válasz érekezett az adatbázisból");
-            return Promise.reject("Nem jó válasz érekezett az adatbázisból");
-        }
-        return response.json();
-    })
-    .then(function (response) {
-        if (response.Error) {
-            // alert(response.Error);
-            return response.Error;
-        } else {
-            return response;
-        }
-    });
-}
-
 var szovegBe;
 function szovegRendezes()
 {
@@ -303,7 +306,6 @@ function DatumMegjelenit()
         csakazertis_VAR[i].innerHTML = datum;
     }
 }
-//DatumMegjelenit();
 
 let hanyvalasz = 15; //hány válaszlehetőség van feladatsoronként a nyelvhelyességre
 
@@ -313,7 +315,6 @@ function valaszMezoGeneral(){
         cucc.innerHTML += "<li><input type='text' class='valaszmezo' name='Valasz' id="+i+"></li>";
     }
 }
-//valaszMezoGeneral();
 
 function TablaSorAdd(nev,datum,feladatsor,maxpont,elertpont,szazalek){
     var table = document.getElementById("tablazat");
@@ -413,3 +414,63 @@ function PromoteToAdmin(){
         }
     });
 }
+//feladatSor változók
+let kivalasztottFeladatsorID = 0
+let feladatsorokLista = new Array();
+function feladatSorGen(){
+    document.body.innerHTML = "<div id='oldal1'>"+
+    "<div class='align-top row '>"+
+            "<div class='col-6'>"+
+                "Angol nyelv <a id='szint'>Ide kerül a szint</a>"+
+            "</div>"+
+            "<div class='col-6 text-end'>"+
+                "Név: <a id='nev'>Ide kerül a Felhasználónév</a>"+
+            "</div>"+
+            "<!-- <div class='clear'></div> -->"+
+    "</div>"+
+    "<div class='szovegresz' id='szovegresz1'>"+
+
+    "</div>"+
+    "<div class='align-bottom row '>"+
+        "<div class='col-6'>"+
+            "írásbeli vizsga, II. összetevő"+
+        "</div>"+
+            "<div class='col-6 text-end'>"+
+                "<a class='Datum'>Ide kerül be dátum</a>"+
+            "</div>"+
+        "</div>"+
+    "</div>"+
+
+    "<div id='oldal2'>"+
+        "<div class='align-top row'>"+
+            "<div class='col-6'>"+
+                "Angol nyelv <a id='szint'>Ide kerül a szint</a>"+
+            "</div>"+
+            "<div class='col-6 text-end'>"+
+                "Név: <a id='nev'>Ide kerül a Felhasználónév</a>"+
+            "</div>"+
+            "<!-- <div class='clear'></div> -->"+
+        "</div>"+
+        
+        "<div class='szovegresz' id='szovegresz2'>"+
+            "<ol id='valaszok'>"+
+                
+            "</ol>"+
+        "</div>"+
+        "<div class='align-bottom row'>"+
+            "<div class='col-6'>"+
+                "írásbeli vizsga, II. összetevő"+
+            "</div>"+
+            "<div class='col-6 text-end'>"+
+                "<a class='Datum'>Ide kerül be dátum</a>"+
+            "</div>"+
+        "</div>"+
+    "</div>"+
+    "<button id='kuldes'>LESSGOO</button>"
+    DatumMegjelenit();
+    valaszMezoGeneral();
+    adatLekerdezes(null,null,"feladatsorListaLekerdez",null).then((feladatsorokDB)=>{
+        console.log(feladatsorokDB);
+    });
+}
+

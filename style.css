@@ -479,3 +479,10 @@ li{
     font-weight: bold;
     background-color: rgba(255, 255, 255, 0.7);
 }
+#valaszok li:before{
+    content: counter(list) ")   ";
+    counter-increment: list;
+    width: 30px;
+    display: inline-block;
+    text-align: right;
+}
