@@ -1,3 +1,5 @@
+const { info } = require("console");
+
 var KozepSzintSelect = true;
 let adminFeluletenVanE = document.title=="Admin Felület"
 if(!adminFeluletenVanE){
@@ -46,8 +48,26 @@ function reg()
     const regrepw = document.getElementById("regRePw");
     const regxpw = /[a-zA-Z0-9]{6,16}/;
     let infobox = document.getElementById("info");
-    if(regfn.value !="" && regxfn.test(regfn.value)){
-        if(regemail.value != "" && regxeamil.test(regemail.value)){
+    infobox.innerHTML = "";
+    let fninfo = document.getElementById("Fninfo");
+    fninfo.innerHTML = "";
+    let emailinfo = document.getElementById("Emailinfo");
+    emailinfo.innerHTML = "";
+    let pwinfo = document.getElementById("Pwinfo");
+    pwinfo.innerHTML = "";
+    let pwujrainfo = document.getElementById("Pwujrainfo");
+    pwujrainfo.innerHTML = "";
+    if(regfn.value =="" || regemail.value == "" || regpw.value == ""){
+        infobox.innerHTML = "Hiányzó adat/adatok!";
+    }
+    if(false ){ //létező fnnev
+
+    }
+    if(false ){ //létező email
+
+    }
+    if(regxfn.test(regfn.value)){
+        if( regxeamil.test(regemail.value)){
             if(regpw.value == regrepw.value && regxpw.test(regpw.value)){
                 regisztralasfunction(regfn,regemail,regpw);
             }else{
