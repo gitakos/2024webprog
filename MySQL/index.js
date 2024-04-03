@@ -200,7 +200,7 @@ app.post("/felhasznalonevELL", bodyParser.json(), function(req,res){
     const hasheltJelszo = req.body.hasheltJelszo;
     const kivalasztottfelhasznalonev = req.body.param;
     console.log(req.body);
-    connection.query("select count(*) from felhasznalo f WHERE f.nev = '"+kivalasztottfelhasznalonev+"'" , function(err, result,fields){
+    connection.query("select count(*) as db from felhasznalo f WHERE f.nev = '"+kivalasztottfelhasznalonev+"'" , function(err, result,fields){
         if(!err){
             console.log(result[0].db);
             if(result[0].db == 0)
@@ -211,7 +211,6 @@ app.post("/felhasznalonevELL", bodyParser.json(), function(req,res){
             {
                 res.send({"Valasz":true})
             }
-            res.send(result);
         }else{
             res.send({"Error": 'Hiba a jelszó változtatás során!'});
         }
@@ -226,7 +225,7 @@ app.post("/emailELL", bodyParser.json(), function(req,res){
     const hasheltJelszo = req.body.hasheltJelszo;
     const kivalasztottfelhasznalonev = req.body.param;
     console.log(req.body);
-    connection.query("select count(*) from felhasznalo f WHERE f.email = '"+kivalasztottfelhasznalonev+"'" , function(err, result,fields){
+    connection.query("select count(*) as db from felhasznalo f WHERE f.email = '"+kivalasztottfelhasznalonev+"'" , function(err, result,fields){
         if(!err){
             console.log(result[0].db);
             if(result[0].db == 0)
@@ -237,7 +236,6 @@ app.post("/emailELL", bodyParser.json(), function(req,res){
             {
                 res.send({"Valasz":true})
             }
-            res.send(result);
         }else{
             res.send({"Error": 'Hiba a jelszó változtatás során!'});
         }
