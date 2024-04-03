@@ -316,13 +316,7 @@ function szovegRendezes()
     var div = document.getElementById("feladatsor");
     //szöveg tördelés és létrehozás ide
 }
-var valaszok = []
-function valaszokKimentese(){
-    for (let i = 1; i < 10; i++) {   
-        valaszok.push(document.getElementById("valasz"+i).value);   
-    }    
-   
-}
+
 
 function DatumMegjelenit()
 {
@@ -441,7 +435,55 @@ function PromoteToAdmin(){
         }
         else
         {
-            alert("Sikeresen admináá vált a fiók!");
+            alert("Sikeresen adminá vált a fiók!");
         }
     });
+}
+
+function emailvaltoztat(){
+    var uje = document.getElementById("valami").value;
+    adatLekerdezes(null,null,"emailvaltoztatas",{"kivalasztottFelh":felhKivalasztott,"ujemail":uje}).then((eredmeny)=>{
+        if(eredmeny.Error){
+            alert("Hiba! Az email változtatás sikertelen.😊");
+        }
+        else
+        {
+            alert("Sikeres email cím változtatás.🤞👏💋");
+        }
+    });
+}
+
+function nevvaltoztat(){
+    var ujnev = document.getElementById("valami").value;
+    adatLekerdezes(null,null,"fnnevvaltoztatas",{"kivalasztottFelh":felhKivalasztott,"ujnev":ujnev}).then((eredmeny)=>{
+        if(eredmeny.Error){
+            alert("Hiba! A felhasználónév változtatás sikertelen.😊");
+        }
+        else
+        {
+            alert("Sikeres felhasználónév változtatás.🤞👏💋");
+        }
+    });
+}
+var valaszokt;
+function valaszokKimentese(){
+    adatLekerdezes(null,null,"valaszlekerd").then((valasz)=>{
+        if(eredmeny.Error)
+        {
+            alert("Hiba a valaszok lekérése során");
+        }
+        else
+        {
+            alert("sikeres válasz lekérés");
+            valaszokt = valasz;
+        }
+    });
+        
+}
+
+function valaszokEllenorzese(){
+    var valaszok = valaszokt.split(' ');
+    var vhossz = valaszok.length;
+    
+    //Itt kerül ellenőrzésre az adag válasz...
 }
