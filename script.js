@@ -1,6 +1,5 @@
 var KozepSzintSelect = true;
-let adminFeluletenVanE = document.title=="Admin Felület"
-let feladatFeluletVanE = document.title=="Angol érettségi gyakorló"
+let adminFeluletenVanE = document.title=="Admin Felület";
 if(!adminFeluletenVanE){
     if(sessionStorage.getItem("login") == 'true'){
         document.getElementById("BejelentkezesDiv").innerHTML = "";
@@ -66,30 +65,62 @@ async function hash(string) {
 function reg()
 {
     const regfn = document.getElementById("regFn");
-    const regxfn = /[a-zA-Z0-9._]{3,16}/;
+    const regxfn = /^[0-9A-Za-z]{6,16}$/;
     const regemail = document.getElementById("regemail");
     const regxeamil = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
     const regpw = document.getElementById("regPw");
     const regrepw = document.getElementById("regRePw");
-    const regxpw = /[a-zA-Z0-9]{6,16}/;
+    const regxpw = /^(?=.*[0-9])(?=.*A-Z)[a-zA-Z0-9!@#$%^&*]{6,16}$/;
     let infobox = document.getElementById("info");
-    if(regfn.value !="" && regxfn.test(regfn.value)){
-        if(regemail.value != "" && regxeamil.test(regemail.value)){
-            if(regpw.value == regrepw.value && regxpw.test(regpw.value)){
-                regisztralasfunction(regfn,regemail,regpw);
-            }else{
-                infobox.innerHTML = "Jelszó hiba";
-                console.log("jelszó hiba");
-            }
-        }else{
-            infobox.innerHTML = "Email hiba";
-            console.log("email hiba");
-        }
+    infobox.innerHTML = "";
+    let fninfo = document.getElementById("Fninfo");
+    fninfo.innerHTML = "";
+    let emailinfo = document.getElementById("Emailinfo");
+    emailinfo.innerHTML = "";
+    let pwinfo = document.getElementById("Pwinfo");
+    pwinfo.innerHTML = "";
+    let pwujrainfo = document.getElementById("Pwujrainfo");
+    pwujrainfo.innerHTML = "";
+    let megfelelo = true;
+    if(regfn.value =="" || regemail.value == "" || regpw.value == "" || regrepw.value == ""){
+        infobox.innerHTML = "Hiányzó adat/adatok!";
+        megfelelo = false;
     }else{
-        infobox.innerHTML = "Felhasználónév hiba";
-        console.log("felhasználónév hiba");
+        adatLekerdezes(null,null,"felhasznalonevELL",regfn.value).then((valasz) =>
+        {
+            if(valasz.Valasz){
+                fninfo.innerHTML = "Létező felhasználónév!";
+                megfelelo = false;
+            }
+        });
+        adatLekerdezes(null,null,"emailELL",regemail.value).then((valasz) =>
+        {
+            if(valasz.Valasz){
+                emailinfo.innerHTML = "Létező email!";
+                megfelelo = false;
+            }
+        });
+        if(!regxfn.test(regfn.value)){
+            fninfo.innerHTML = "Nem megfelelő felhasználónév!";
+            megfelelo = false;
+        }
+        if(!regxeamil.test(regemail.value)){
+            emailinfo.innerHTML = "Nem megfelelő email!";
+            megfelelo = false;
+        }
+        if(!regxpw.test(regpw.value)){
+            pwinfo.innerHTML = "Gyenge jelszó!";
+            megfelelo = false;
+        }
+        if(regpw.value == regrepw.value){
+            pwujrainfo.innerHTML = "A két megadott jelszó nem egyezik!";
+            megfelelo = false;
+        }
     }
-    
+    if(megfelelo){
+        regisztralasfunction(regfn,regemail,regpw);
+    }
+ 
 }
 
 async function hash(string) {
