@@ -193,6 +193,60 @@ app.post("/regisztracio", bodyParser.json(),async function(req,res){
     });
 });
 
+app.post("/felhasznalonevELL", bodyParser.json(), function(req,res){
+    var connection = getConnection();
+    connection.connect();
+    const felh = req.body.felh;
+    const hasheltJelszo = req.body.hasheltJelszo;
+    const kivalasztottfelhasznalonev = req.body.param;
+    console.log(req.body);
+    connection.query("select count(*) from felhasznalo f WHERE f.nev = '"+kivalasztottfelhasznalonev+"'" , function(err, result,fields){
+        if(!err){
+            console.log(result[0].db);
+            if(result[0].db == 0)
+            {
+                res.send({"Valasz":false})
+            }
+            else
+            {
+                res.send({"Valasz":true})
+            }
+            res.send(result);
+        }else{
+            res.send({"Error": 'Hiba a jelszó változtatás során!'});
+        }
+    })
+    connection.end();
+});
+
+app.post("/emailELL", bodyParser.json(), function(req,res){
+    var connection = getConnection();
+    connection.connect();
+    const felh = req.body.felh;
+    const hasheltJelszo = req.body.hasheltJelszo;
+    const kivalasztottfelhasznalonev = req.body.param;
+    console.log(req.body);
+    connection.query("select count(*) from felhasznalo f WHERE f.email = '"+kivalasztottfelhasznalonev+"'" , function(err, result,fields){
+        if(!err){
+            console.log(result[0].db);
+            if(result[0].db == 0)
+            {
+                res.send({"Valasz":false})
+            }
+            else
+            {
+                res.send({"Valasz":true})
+            }
+            res.send(result);
+        }else{
+            res.send({"Error": 'Hiba a jelszó változtatás során!'});
+        }
+    })
+    connection.end();
+});
+
+
+
 function ellenorzes(felh,jelszo,email){
     return new Promise((resolve) => {
         var connection = getConnection();
