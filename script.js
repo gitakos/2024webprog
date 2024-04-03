@@ -284,13 +284,7 @@ function szovegRendezes()
     var div = document.getElementById("feladatsor");
     //szöveg tördelés és létrehozás ide
 }
-var valaszok = []
-function valaszokKimentese(){
-    for (let i = 1; i < 10; i++) {   
-        valaszok.push(document.getElementById("valasz"+i).value);   
-    }    
-   
-}
+
 
 function DatumMegjelenit()
 {
@@ -438,4 +432,26 @@ function nevvaltoztat(){
             alert("Sikeres felhasználónév változtatás.🤞👏💋");
         }
     });
+}
+var valaszokt;
+function valaszokKimentese(){
+    adatLekerdezes(null,null,"valaszlekerd").then((valasz)=>{
+        if(eredmeny.Error)
+        {
+            alert("Hiba a valaszok lekérése során");
+        }
+        else
+        {
+            alert("sikeres válasz lekérés");
+            valaszokt = valasz;
+        }
+    });
+        
+}
+
+function valaszokEllenorzese(){
+    var valaszok = valaszokt.split(' ');
+    var vhossz = valaszok.length;
+    
+    //Itt kerül ellenőrzésre az adag válasz...
 }

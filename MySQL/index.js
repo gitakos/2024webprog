@@ -188,7 +188,24 @@ app.post("/adminnatetel", bodyParser.json(), function(req,res){
             console.log(result);
             res.send(result);
         }else{
-            res.send({"Error": 'Hiba a jelszó változtatás során!'});
+            res.send({"Error": 'Hiba az adminná tétel változtatás során!'});
+        }
+    })
+    connection.end();
+});
+
+app.post("/valaszlekerd", bodyParser.json(), function(req,res){
+    var connection = getConnection();
+    connection.connect();
+    const felh = req.body.felh;
+    const mikorierettsegi = req.body.param;
+    console.log(req.body);
+    connection.query("select f.valaszok from feladatsor f where f.mikorierettsegi ='"+mikorierettsegi+"'" , function(err, result,fields){
+        if(!err){
+            console.log(result);
+            res.send(result);
+        }else{
+            res.send({"Error": 'Hiba válaszok lekérdezése során!'});
         }
     })
     connection.end();
