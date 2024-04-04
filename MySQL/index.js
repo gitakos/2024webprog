@@ -302,7 +302,7 @@ app.post("/feladatsorListaLekerdez", bodyParser.json(), function(req,res){
     const felh = req.body.felh;
     const hasheltJelszo = req.body.hasheltJelszo;
     console.log(req.body);
-    connection.query("select f.id as id,f.feladatok as fel, f.ev as ev, f.honap as honap from feladatsor f", function(err, result,fields){
+    connection.query("select f.id as id,f.feladatok as fel, f.ev as ev, f.honap as honap, f.cim as cim, f.feladatleiras as fleiras from feladatsor f", function(err, result,fields){
         if(!err){
             res.send(result);
         }else{

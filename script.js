@@ -197,6 +197,10 @@ function Szintvalasztas(kozep){
     FeladatsorKirakas();
 }
 
+//feladatSor változók
+let kivalasztottFeladatsorID = 0
+let feladatsorokLista = new Array();
+
 function FeladatsorKirakas(){
     //let feladatsorok = [];
     let feladatDiv = document.getElementById("Feladatsorok");
@@ -204,6 +208,7 @@ function FeladatsorKirakas(){
     let x = 0;
 
     adatLekerdezes(null,null,"feladatsorListaLekerdez",null).then((feladatok)=>{
+        feladatsorokLista = feladatok;
         console.log(feladatok)
         console.log(feladatok.length)
         for(let i = 0 ;i < feladatok.length /* feladatsorok hossza */;i++){
@@ -231,15 +236,13 @@ function FeladatsorKirakas(){
             FeladatImg.title = KozepSzintSelect ? "Közép szintű feladatlap" : "Emelt szintű feladatlap";
             FeladatImg.alt = KozepSzintSelect ? "Közép szintű feladatlap" : "Emelt szintű feladatlap";
             let FeladatImgDiv = document.createElement("div");
-            // FeladatImgDiv.dataset.szint = "nagy";
-            // FeladatImgDiv.dataset.ev = "1";
-            // FeladatImgDiv.dataset.honap = "januar";
+            FeladatImgDiv.dataset.feladatID = feladatok[i].id;
             FeladatImgDiv.onclick = ()=>{feladatSorGen(FeladatImgDiv);};
             FeladatImgDiv.classList.add("FeladatImgDiv");
             FeladatImgDiv.appendChild(FeladatImg);
     
             let FeladatsorHonap = document.createElement("h3");
-            FeladatsorHonap.innerHTML = "x Hónap";
+            FeladatsorHonap.innerHTML = feladatok[i].honap+" Hónap";
             let FeladatsorHonapDiv = document.createElement("div");
             FeladatsorHonapDiv.classList.add("FeladatsorHonapDiv");
             FeladatsorHonapDiv.appendChild(FeladatsorHonap);
@@ -248,7 +251,7 @@ function FeladatsorKirakas(){
             FeladatsorDiv.appendChild(FeladatImgDiv);
             FeladatsorDiv.appendChild(FeladatsorHonapDiv);
             SorDiv.appendChild(FeladatsorDiv);
-            if(x%6==5 || i==9 /* feladatsorok hossza */ ){
+            if(x%6==5 || i==9||i == feladatok.length-1 /* feladatsorok hossza */ ){
                 document.getElementById("Feladatsorok").appendChild(SorDiv);
             }
         }
@@ -465,10 +468,8 @@ function nevvaltoztat(){
         }
     });
 }
-//feladatSor változók
-let kivalasztottFeladatsorID = 0
-let feladatsorokLista = new Array();
-function feladatSorGen(){
+function feladatSorGen(img){
+    kivalasztottFeladatsorID = img.dataset.feladatID
     document.body.innerHTML = "<div id='oldal1'>"+
     "<div class='align-top row '>"+
             "<div class='col-6'>"+
@@ -479,8 +480,18 @@ function feladatSorGen(){
             "</div>"+
             "<!-- <div class='clear'></div> -->"+
     "</div>"+
-    "<div class='szovegresz' id='szovegresz1'>"+
+    "<div id='szovegresz1'>"+
+        "<div class='szovegresz' id='feladatleiras1'>"+
 
+        "</div>"+
+        "<br>"+
+        "<div class='szovegresz' id='cim1'>"+
+
+        "</div>"+
+        "<br>"+
+        "<div class='szovegresz' id='feladatszoveg1'>"+
+
+        "</div>"+
     "</div>"+
     "<div class='align-bottom row '>"+
         "<div class='col-6'>"+
@@ -520,14 +531,14 @@ function feladatSorGen(){
     "<button id='kuldes'>LESSGOO</button>"
     DatumMegjelenit();
     valaszMezoGeneral();
-    adatLekerdezes(null,null,"feladatsorListaLekerdez",null).then((feladatsorokDB)=>{
-        console.log(feladatsorokDB);
-    });
+    document.getElementById("feladatleiras1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).fleiras
+    document.getElementById("cim1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).cim
+    document.getElementById("feladatszoveg1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).fel
 }
 
 var valaszokt;
 function valaszokKimentese(){
-    adatLekerdezes(null,null,"valaszlekerd").then((valasz)=>{
+    adatLekerdezes(null,null,"valaszlekerd",kivalasztottFeladatsorID).then((valasz)=>{
         if(eredmeny.Error)
         {
             alert("Hiba a valaszok lekérése során");
