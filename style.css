@@ -319,9 +319,9 @@ input[type="radio"] {
 }
 #oldal1, #oldal2 {
     width: 90vw;
-    height: 100vh;
+    height: 120vh;
     max-width: 20cm; 
-    max-height: 29.7cm; 
+    max-height: 40.7cm; 
     margin: auto;
     margin-bottom: 5%;
     background-color: white;
@@ -398,6 +398,13 @@ li{
         padding-bottom: 8%;
     }
     .align-top, .align-bottom{
+        font-size: smaller;
+    }
+    #feladatleiras1{
+        font-size: smaller;
+    }
+    #feladatszoveg1{
+        padding-bottom: 1%;
         font-size: smaller;
     }
 
@@ -486,4 +493,10 @@ li{
     width: 30px;
     display: inline-block;
     text-align: right;
+}
+#feladatszoveg1{
+    padding-bottom: 15%;
+}
+#cim1{
+    text-align: center;
 }

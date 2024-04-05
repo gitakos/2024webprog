@@ -550,5 +550,17 @@ function valaszFelkuldes(){
         {
             alert("Feladat sikeresen leadva!");
         }
-    })
+    });
 }
+
+function szovegtordel(){
+    var szoveg = document.getElementById("feladatleiras1").innerHTML;
+    for (let i = 0; i < szoveg.length; i++) {
+        if(szoveg[i] == '•')
+        {
+            szoveg[i].innerHTML += "<br>";
+        }
+        
+    }
+}
+//szovegtordel();
