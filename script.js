@@ -528,7 +528,7 @@ function feladatSorGen(img){
             "</div>"+
         "</div>"+
     "</div>"+
-    "<button id='kuldes'>LESSGOO</button>"
+    "<button id='kuldes' onclick='valaszFelkuldes()'>LESSGOO</button>"
     DatumMegjelenit();
     valaszMezoGeneral();
     document.getElementById("feladatleiras1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).fleiras
@@ -536,25 +536,19 @@ function feladatSorGen(img){
     document.getElementById("feladatszoveg1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).fel
 }
 
-var valaszokt;
-function valaszokKimentese(){
-    adatLekerdezes(null,null,"valaszlekerd",kivalasztottFeladatsorID).then((valasz)=>{
-        if(eredmeny.Error)
-        {
-            alert("Hiba a valaszok lekérése során");
+function valaszFelkuldes(){
+    let valaszLista =  document.getElementById("valaszok").getElementsByTagName("li");
+    let lista = new Array();
+    for(let i = 0;i<valaszLista.length;i++){
+        lista.push(valaszLista[i].getElementsByTagName("input")[0].value)
+    }
+    adatLekerdezes(null,null,"feladatLeadas",{valaszok:lista,feladatID:kivalasztottFeladatsorID}).then((valasz)=>{
+        if(valasz.Error){
+            alert("Hiba lépett fel a feladat leadása közben")
         }
         else
         {
-            alert("sikeres válasz lekérés");
-            valaszokt = valasz;
+            alert("Feladat sikeresen leadva!");
         }
-    });
-        
-}
-
-function valaszokEllenorzese(){
-    var valaszok = valaszokt.split(' ');
-    var vhossz = valaszok.length;
-    
-    //Itt kerül ellenőrzésre az adag válasz...
+    })
 }
