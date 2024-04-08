@@ -305,6 +305,9 @@ input[type="radio"] {
         max-height: 70% !important;
        
     }
+    #Feladatsorok{
+        margin-top: 6rem !important;
+    }
   }
 
 
@@ -499,4 +502,27 @@ li{
 }
 #cim1{
     text-align: center;
+}
+.Tooltip {
+    position: relative;
+    display: inline-block;
+    color: rgba(128, 128, 128, 0.7);
+}
+
+.Tooltip .TooltipText {
+    visibility: hidden;
+    width: 25vh;
+    font-size: medium;
+    background-color: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    top: -5px;
+    right: 105%;
+}
+  
+.Tooltip:hover .TooltipText {
+    visibility: visible;
 }
