@@ -26,7 +26,9 @@
             <div>
                 <button onclick="Regful(this,false)" id="RegBlockVisszaGomb">Vissza</button>
             </div>
-            <label for="regFn">Felhasználónév:</label>
+            <label for="regFn">Felhasználónév: <div class="Tooltip">?
+                <span class="TooltipText">6-16 hosszú,</br>Kis betű, nagy betű, szám engedélyezett</span>
+              </div></label>
             <input class="LogRegInp" type="text" id="regFn" required pattern="[a-zA-Z0-9._]{6,16}" placeholder="Adj meg felhasználónevet" minlength="3" maxlength="16">
             <span id="Fninfo"></span><br>
     
@@ -34,7 +36,9 @@
             <input class="LogRegInp" type="email" id="regemail" required pattern="^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$" placeholder="Add meg az email címed">
             <span id="Emailinfo"></span><br>
 
-            <label for="regPw">Jelszó:</label>
+            <label for="regPw">Jelszó: <div class="Tooltip">?
+                <span class="TooltipText">6-16 hosszú,</br>Kötelező 1szám és 1nagybetű,</br>Kis betű, nagy betű, szám, speciális karakterek engedélyezettek</span>
+              </div></label>
             <input class="LogRegInp" type="password" id="regPw" required pattern="[a-zA-Z0-9]{6,16}" placeholder="Jelszó" minlength="8" maxlength="16">
             <span id="Pwinfo"></span><br>
     
@@ -59,7 +63,7 @@
             </div>
             <div id="Profil">
                 <img src="Kepek/pfpicon.png" alt="ProfilIcon">
-                <p id="Logout" onclick="Logout()">Kijelentkezés</p>
+                <!-- <p id="Logout" onclick="Logout()">Kijelentkezés</p> -->
             </div>
         </div>
         <div id="Feladatsorok">
@@ -68,4 +72,4 @@
     </div>
 </body>
 </html>
-<!-- https://codepen.io/bilalhaidar/pen/wvWNzrJ -->
+<!-- https://codepen.io/bilalhaidar/pen/wvWNzrJ SIDE MODALHOZ-->
