@@ -306,7 +306,7 @@ app.post("/feladatsorListaLekerdez", bodyParser.json(), function(req,res){
         if(!err){
             res.send(result);
         }else{
-            res.send({"Error": 'Hiba a jelszó változtatás során!'});
+            res.send({"Error": 'Hiba a feladatsor lekérdezése során!'});
         }
     })
     connection.end();
@@ -317,19 +317,56 @@ app.post("/feladatLeadas", bodyParser.json(), function(req,res){
     connection.connect();*/
     const felh = req.body.felh;
     const hasheltJelszo = req.body.hasheltJelszo;
-    const valaszok = req.body.param.valaszok
+    const userValaszok = req.body.param.valaszok
     const feladatID = req.body.param.feladatID
     console.log(req.body);
     res.send("kijavított feladat");
-    /*connection.query("select f.id as id,f.feladatok as fel, f.ev as ev, f.honap as honap, f.cim as cim, f.feladatleiras as fleiras from feladatsor f", function(err, result,fields){
-        if(!err){
-            res.send(result);
-        }else{
-            res.send({"Error": 'Hiba a jelszó változtatás során!'});
-        }
+    feladatValaszLekerd(feladatID).then((feladatValaszok)=>{
+        console.log(feladatKijav());
     })
-    connection.end();*/
 });
+
+function feladatValaszLekerd(feladatID){
+    return new Promise((resolve) => {
+        var connection = getConnection();
+        connection.connect();
+        connection.query("select f.valaszok as valaszok from feladatsor f where f.id = "+feladatID, function(err, result,fields){
+            if(!err){
+                connection.end;
+                resolve(result);
+            }else{
+                connection.end;
+                resolve(undefined);
+            }
+        });
+        connection.end;
+      });
+}
+function feladatKijav(userValaszok,feladatValaszok){
+    let pontok = 0
+    for(let i = 0; i<feladatValaszok.length;i++){
+        if(feladatValaszok[i]==userValaszok[i]){
+            pontok++;
+        }
+    }
+    return pontok
+}
+function valaszLement(felhasznaloID,pontok,feladatsorID,valaszok){
+    return new Promise((resolve) => {
+        var connection = getConnection();
+        connection.connect();
+        connection.query("insert into eredmenyek values(null,"+feladatsorID+","+pontok+",'"+Date.now+"',"+feladatsorID+","+valaszok+")", function(err, result,fields){
+            if(!err){
+                connection.end;
+                resolve(result);
+            }else{
+                connection.end;
+                resolve(undefined);
+            }
+        });
+        connection.end;
+      });
+}
 
 function ellenorzes(felh,jelszo,email){
     return new Promise((resolve) => {

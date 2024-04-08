@@ -208,6 +208,10 @@ function FeladatsorKirakas(){
     let x = 0;
 
     adatLekerdezes(null,null,"feladatsorListaLekerdez",null).then((feladatok)=>{
+        if(feladatok.Error){
+            alert("Hiba a feladatok lekérdezése során")
+            return
+        }
         feladatsorokLista = feladatok;
         console.log(feladatok)
         console.log(feladatok.length)

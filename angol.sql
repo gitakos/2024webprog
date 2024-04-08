@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2024. Ápr 04. 11:02
+-- Létrehozás ideje: 2024. Ápr 08. 07:48
 -- Kiszolgáló verziója: 10.4.20-MariaDB
 -- PHP verzió: 8.0.9
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `eredmenyek` (
   `id` int(255) NOT NULL,
   `felhasznaloid` int(255) NOT NULL,
-  `szazalekos_eredmeny` varchar(255) NOT NULL,
+  `pontszam` int(255) NOT NULL,
   `datum` date NOT NULL,
   `feladatsorid` int(255) NOT NULL,
   `megadott_valaszok` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`megadott_valaszok`))
@@ -48,15 +48,16 @@ CREATE TABLE `feladatsor` (
   `ev` int(11) NOT NULL,
   `honap` varchar(50) NOT NULL,
   `cim` varchar(255) NOT NULL,
-  `feladatleiras` text NOT NULL
+  `feladatleiras` text NOT NULL,
+  `valaszok` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- A tábla adatainak kiíratása `feladatsor`
 --
 
-INSERT INTO `feladatsor` (`id`, `feladatok`, `ev`, `honap`, `cim`, `feladatleiras`) VALUES
-(1, 'In Dutch the @ sign is called a “monkey tail”, in (0) ______ (Hungary) a “maggot”, in Danish an “elephant’s trunk”, and in (9) ______ (Wales) a “snail”. Appearing everywhere now in emails, the @ sign has history. \n  \nThe first (10) ______ (record) use was in The Mannasses Chronicle in 1345, where an @ sign is the first letter in the word ‘Amen’. By the 16th century, in southern (11) ______ (Europe) documents of trade, the sign represented amphora, a storage jar (12) _______ (use) since Roman times. By the 18th century it was called ‘commercial A’ and meant ‘at the rate of’  (eg.: 10 hats @ 1 shilling = 10 shillings). \n  \nIt didn’t make it onto the earliest typewriters but was included by 1889, when it became a standard character. By 1963 @ was included in the new (13) _______ (international) recognised character set. \n  \nIn 1971 computer (14) _______ (programme) Ray Tomlinson was at work on Arpanet, the prototype of the internet. He added some of his own code to an (15) _______ (exist) programme and sent a message from one computer to (16) ______ (other) – the first email. Ray needed a character to separate the message’s recipient from the computer it would arrive at, and  (17) _______ (look) down at his teletype keyboard, he chose the @ symbol and changed the world forever.', 2021, 'október', 'A WELL-KNOWN SIGN', 'Task 2                                                                       •	You are going to read an article about the origins of the @ sign. Some words are missing from the text.  •	Use the words in brackets to form the words that fit in the gaps (9-17).  •	Then write the appropriate form of these words on the dotted lines after the text.  •	There might be cases when you do not have to change the word in brackets.  •	Use only one word for each gap.  •	There is an example (0) at the beginning. ');
+INSERT INTO `feladatsor` (`id`, `feladatok`, `ev`, `honap`, `cim`, `feladatleiras`, `valaszok`) VALUES
+(1, 'In Dutch the @ sign is called a “monkey tail”, in (0) ______ (Hungary) a “maggot”, in Danish an “elephant’s trunk”, and in (9) ______ (Wales) a “snail”. Appearing everywhere now in emails, the @ sign has history. \n  \nThe first (10) ______ (record) use was in The Mannasses Chronicle in 1345, where an @ sign is the first letter in the word ‘Amen’. By the 16th century, in southern (11) ______ (Europe) documents of trade, the sign represented amphora, a storage jar (12) _______ (use) since Roman times. By the 18th century it was called ‘commercial A’ and meant ‘at the rate of’  (eg.: 10 hats @ 1 shilling = 10 shillings). \n  \nIt didn’t make it onto the earliest typewriters but was included by 1889, when it became a standard character. By 1963 @ was included in the new (13) _______ (international) recognised character set. \n  \nIn 1971 computer (14) _______ (programme) Ray Tomlinson was at work on Arpanet, the prototype of the internet. He added some of his own code to an (15) _______ (exist) programme and sent a message from one computer to (16) ______ (other) – the first email. Ray needed a character to separate the message’s recipient from the computer it would arrive at, and  (17) _______ (look) down at his teletype keyboard, he chose the @ symbol and changed the world forever.', 2021, 'október', 'A WELL-KNOWN SIGN', 'Task 2                                                                       •	You are going to read an article about the origins of the @ sign. Some words are missing from the text.  •	Use the words in brackets to form the words that fit in the gaps (9-17).  •	Then write the appropriate form of these words on the dotted lines after the text.  •	There might be cases when you do not have to change the word in brackets.  •	Use only one word for each gap.  •	There is an example (0) at the beginning. ', '');
 
 -- --------------------------------------------------------
 
@@ -78,7 +79,8 @@ CREATE TABLE `felhasznalo` (
 --
 
 INSERT INTO `felhasznalo` (`id`, `nev`, `email`, `jelszo`, `jog`, `letrehozas`) VALUES
-(1, 'jozsi', 'jozsi@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'user', '2024-03-05');
+(1, 'jozsi', 'jozsi@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'user', '2024-03-05'),
+(2, 'haha123', 'email@email.email', 'd8172b5b9f06f9173aff5d57e825c60d24aa06c695e86a0e17fedc48ff420807', 'user', '2024-04-08');
 
 --
 -- Indexek a kiírt táblákhoz
@@ -124,7 +126,7 @@ ALTER TABLE `feladatsor`
 -- AUTO_INCREMENT a táblához `felhasznalo`
 --
 ALTER TABLE `felhasznalo`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Megkötések a kiírt táblákhoz
