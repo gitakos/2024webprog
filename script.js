@@ -314,9 +314,7 @@ function DatumMegjelenit()
     }
 }
 
-let hanyvalasz = 15; //hány válaszlehetőség van feladatsoronként a nyelvhelyességre
-
-function valaszMezoGeneral(){
+function valaszMezoGeneral(hanyvalasz){
     for (let i = 0; i < hanyvalasz; i++) {
         let cucc = document.getElementById("valaszok");
         cucc.innerHTML += "<li><input type='text' class='valaszmezo' name='Valasz' id="+i+"></li>";
@@ -509,7 +507,7 @@ function feladatSorGen(img){
     "</div>"+
     "<button id='kuldes' onclick='valaszFelkuldes()'>LESSGOO</button>"
     DatumMegjelenit();
-    valaszMezoGeneral();
+    valaszMezoGeneral(feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).valaszDB);
     document.getElementById("feladatleiras1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).fleiras
     document.getElementById("cim1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).cim
     document.getElementById("feladatszoveg1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).fel
