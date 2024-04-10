@@ -241,7 +241,10 @@ input[type="radio"] {
     .Emelt:checked ~ .selector {
         left: 15.5vw;
     }
-
+    .modal-content{
+        border-top-left-radius: 2rem !important;
+        border-bottom-left-radius: 2rem !important;
+    }
 }
 
 @media screen and (max-width: 575px) {
@@ -307,6 +310,10 @@ input[type="radio"] {
     }
     #Feladatsorok{
         margin-top: 6rem !important;
+    }
+    .modal-content{
+        border-top-left-radius: 0rem !important;
+        border-bottom-left-radius: 0rem !important;
     }
   }
 
@@ -566,7 +573,7 @@ li{
 }
       
 .modal.right .modal-header {
-    background-color:#50caff;
+    background-color:#ff4d4d;
     color:#fff;
 }
 .modal.right .modal-header::after {
@@ -577,7 +584,7 @@ li{
     text-shadow:none;
      opacity:1; 
      color:#ff4d4d; 
-     font-size:26px
+     font-size:large;
 }
 /*  form-control  */
       
@@ -588,6 +595,8 @@ li{
       
 .btn {border-radius:0}
 .modal-header{
+    width: 100%;
+    border-radius: 0px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -596,10 +605,25 @@ li{
     align-items: center;
 }
 .SideModalClose{
+    transition: ease-in-out .3s;
+    width: 10%;
     float: right;
+    background-color: rgba(128, 128, 128, 0.7);
+    border-radius: 1rem;
     width: 5vh;
     height: 5vh;
 }
-#SideModalTitle{
+.SideModalClose:hover{
+    transition: ease-in-out .3s;
+    background-color: rgba(211, 211, 211, 0.7);
+    border-radius: .75rem;
+}
+#SideModalDiakNev{
+    width: 90%;
     text-align: center;
+    margin-bottom: 0;
+}
+.modal-footer{
+    margin: auto;
+    font-size: medium;
 }
