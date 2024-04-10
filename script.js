@@ -548,3 +548,8 @@ function SideModalAktiv(){
     let diaknev = document.getElementById("SideModalDiakNev");
     diaknev.innerHTML = "NÉV";
 }
+function EredmenyKimutat(){
+    let selectBox = document.getElementById("EredmenySelect")
+    selectBox.options[selectBox.selectedIndex].value
+    console.log(selectBox.options[selectBox.selectedIndex].value);
+}
