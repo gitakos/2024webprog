@@ -62,14 +62,69 @@
                 <div class="selector">&nbsp;</div>
             </div>
             <div id="Profil">
-                <img src="Kepek/pfpicon.png" alt="ProfilIcon">
+                <img src="Kepek/pfpicon.png" alt="ProfilIcon"type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#SideModal" onclick="SideModalAktiv()">
                 <!-- <p id="Logout" onclick="Logout()">Kijelentkezés</p> -->
-            </div>
+
+  
+                
+            </div>  
         </div>
         <div id="Feladatsorok">
 
         </div>
     </div>
+   
+  <!-- SideModal -->
+  <div class="modal right fade" id="SideModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- SideModal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="SideModalDiakNev"></h3>
+            <button type="button" class="SideModalClose" data-bs-toggle="modal" data-bs-target="#SideModal">X</button>
+        </div>
+        <div class="modal-body">
+         
+            <div class="row">
+            
+                <div class="col-sm-6 form-group">
+                <input type="text" class="form-control" placeholder="First Name" name="First Name">
+            </div>
+                <div class="col-sm-6 form-group">
+                <input type="text" class="form-control" placeholder="Last Name" name="Last Name">
+            </div>
+                
+                 <div class="col-sm-12 form-group">
+      
+      <select class="form-control" style="color:#999">
+          <option >Select College</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+      </select>
+                </div>
+                <div class="col-sm-12 form-group">
+                <textarea class="form-control" rows="5" placeholder="Address"></textarea>
+                </div>
+                 <div class="col-sm-12 form-group">
+                <input type="text" class="form-control" placeholder="Text" name="text">
+            </div>
+                
+                
+        </div>
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success">Save</button>
+          <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
 </body>
 </html>
 <!-- https://codepen.io/bilalhaidar/pen/wvWNzrJ SIDE MODALHOZ-->

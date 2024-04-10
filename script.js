@@ -1,16 +1,5 @@
 var KozepSzintSelect = true;
 let adminFeluletenVanE = document.title=="Admin Felület";
-if(!adminFeluletenVanE){
-    if(sessionStorage.getItem("login") == 'true'){
-        document.getElementById("BejelentkezesDiv").innerHTML = "";
-        document.getElementById("MainDiv").style.display = "block";
-        Szintvalasztas(true);
-    }else{
-        document.getElementById("BejelentkezesDiv").style.visibility = "visible";
-        document.getElementById("MainDiv").style.display = "none";
-    }
-    
-}
 
 const adatLekerdezes = (felh,hasheltJelszo,fajta,param) => { //És akkor nem kell kilenc millió post kérést írni
     const data = { felh: felh,hasheltJelszo: hasheltJelszo ,param: param};
@@ -37,6 +26,17 @@ const adatLekerdezes = (felh,hasheltJelszo,fajta,param) => { //És akkor nem kel
         }
     });
 }
+if(!adminFeluletenVanE){
+    if(sessionStorage.getItem("login") == 'true'){
+        document.getElementById("BejelentkezesDiv").innerHTML = "";
+        document.getElementById("MainDiv").style.display = "block";
+        Szintvalasztas(true);
+    }else{
+        document.getElementById("BejelentkezesDiv").style.visibility = "visible";
+        document.getElementById("MainDiv").style.display = "none";
+    }
+    
+}
 
 function Regful(but,regblock)
 {
@@ -60,7 +60,7 @@ async function hash(string) {
       .map((bytes) => bytes.toString(16).padStart(2, '0'))
       .join('');
     return hashHex;
-  }
+}
 
 function reg()
 {
@@ -123,16 +123,6 @@ function reg()
  
 }
 
-async function hash(string) {
-    const utf8 = new TextEncoder().encode(string);
-    return crypto.subtle.digest('SHA-256', utf8).then((hashBuffer) => {
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        const hashHex = hashArray
-        .map((bytes) => bytes.toString(16).padStart(2, '0'))
-        .join('');
-        return hashHex;
-    });
-}
 
 function regisztralasfunction(regfn,regemail,regpw){
     hash(regpw.value).then((hex)=>{
@@ -143,21 +133,6 @@ function regisztralasfunction(regfn,regemail,regpw){
                 console.log("Sikeresen regisztráltál!");
                 Regful(document.getElementById("RegBlockVisszaGomb"),false);
                 alert("Sikeres Regisztráció!");
-            }
-            else
-            {
-                regfn.style.border = "solid red 2px";
-                regfn.style.boxShadow = "red 1px 1px 4px"
-                regfn.style.transition = "ease-in-out .3s";
-                regemail.style.border = "solid red 2px";
-                regemail.style.boxShadow = "red 1px 1px 4px"
-                regemail.style.transition = "ease-in-out .3s";
-                regpw.style.border = "solid red 2px";
-                regpw.style.boxShadow = "red 1px 1px 4px"
-                regpw.style.transition = "ease-in-out .3s";
-                regrepw.style.border = "solid red 2px";
-                regrepw.style.boxShadow = "red 1px 1px 4px"
-                regrepw.style.transition = "ease-in-out .3s";
             }
         })});
 }
@@ -568,3 +543,8 @@ function szovegtordel(){
     }
 }
 //szovegtordel();
+
+function SideModalAktiv(){
+    let diaknev = document.getElementById("SideModalDiakNev");
+    diaknev.innerHTML = "NÉV";
+}
