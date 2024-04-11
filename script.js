@@ -244,6 +244,9 @@ function FeladatsorKirakas(){
 
 function Logout(){
     sessionStorage.setItem("login",false);
+    sessionStorage.removeItem("AdminUser");
+    sessionStorage.removeItem("Felhasznalonev");
+    sessionStorage.removeItem("Jelszo");
     location.reload();
 }
 
@@ -557,7 +560,7 @@ function szovegtordel(){
 function SideModalAktiv(){
     let diaknev = document.getElementById("SideModalDiakNev");
     let fnev = sessionStorage.getItem("Felhasznalonev");
-    diaknev.innerHTML = sessionStorage.getItem("AdminUser")=="admin"? fnev+"(admin)":fnev;
+    diaknev.innerHTML = sessionStorage.getItem("AdminUser")=="admin"? fnev+" (admin)":fnev;
 }
 function EredmenyKimutat(){
     let selectBox = document.getElementById("EredmenySelect")
