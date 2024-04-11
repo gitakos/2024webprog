@@ -627,3 +627,38 @@ li{
     margin: auto;
     font-size: medium;
 }
+.modal-body div{
+    margin: 1%;
+}
+.ValtoztatasGombInfo{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+.ValtoztatasGombInfo p{
+    margin: 0;
+    text-align: center;
+}
+.ValtoztatasGombInfo button{
+    transition: ease-in-out .3s;
+    border-radius: .5rem;
+    border: solid black 2px;
+    background-color: rgba(128, 128, 128, 0.3);
+    margin: 1%;
+    width: 12vh;
+    height: 5vh;
+}
+.ValtoztatasGombInfo button:hover{
+    transition: ease-in-out .3s;
+    border-radius: .75rem;
+    border: solid black 2px;
+    box-shadow: 1px 1px 2px black;
+    background-color: rgba(128, 128, 128, 0.2);
+}
+.SideBarh5{
+    margin: 0;
+    margin-top: .75rem;
+    font-size: large;
+}

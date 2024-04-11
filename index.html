@@ -84,6 +84,9 @@
           
             <div class="row">
               <div class="col-sm-12 form-group">
+                <h5 class="SideBarh5">Eredmények megnézése:</h5>
+              </div>
+              <div class="col-sm-12 form-group">
                 <select onchange="EredmenyKimutat()" class="form-control" style="color:#999" id="EredmenySelect">
                   <option>Eredmények</option>
                   <option>1</option>
@@ -93,7 +96,33 @@
                 </select>
               </div>
               <div class="col-sm-12 form-group">
-                <input type="text" class="form-control" placeholder="Last Name" name="Last Name">
+                <h5 class="SideBarh5">Felhasználónév változtatás:</h5>
+              </div>
+              <div class="col-sm-12 form-group">
+                <input type="text" class="form-control" placeholder="Jelenlegi Felhasználónév" id="felhasznalonevValtJelenlegi">
+              </div>
+              <div class="col-sm-12 form-group">
+                <input type="text" class="form-control" placeholder="Új Felhasználónév" id="felhasznalonevValtUj">
+              </div>
+              <div class="ValtoztatasGombInfo">
+                <button>Mentés</button>
+                <p id="felhasznalonevValtInfo"> info </p>
+              </div>
+              <div class="col-sm-12 form-group">
+                <h5 class="SideBarh5">Jelszó változtatás:</h5>
+              </div>
+              <div class="col-sm-12 form-group">
+                <input type="password" class="form-control" placeholder="Jelenlegi Jelszó" id="jelszoValtJelenlegi">
+              </div>
+              <div class="col-sm-12 form-group">
+                <input type="password" class="form-control" placeholder="Új Jelszó" id="jelszoValtUj">
+              </div>
+              <div class="col-sm-12 form-group">
+                <input type="password" class="form-control" placeholder="Új Jelszó Mégegyszer" id="jelszoValtUjMegegyszer">
+              </div>
+              <div class="ValtoztatasGombInfo">
+                <button>Mentés</button>
+                <p id="jelszoValtInfo"> Nem egyezik a faszomnak a mérete az átlaggal és ezért nagyon szomorú és depressziós vagyok </p>
               </div>
                 
                 

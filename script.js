@@ -154,18 +154,20 @@ function login()
                 pw.style.transition = "ease-in-out .3s";
             }
             else{
-                Main(fn.value,hex);
+                adatLekerdezes(fn.value,hex,"useradatlekerdez",null).then((valasz) =>{
+                    sessionStorage.setItem("AdminUser",valasz[0].jog);
+                });
+                sessionStorage.setItem("Felhasznalonev",fn.value);
+                sessionStorage.setItem("Jelszo",hash(hex));
+                Main();
             }
         })});
 }
 
-function Main(felh,jelszo){
+function Main(){
     console.log("Sikeresen bejelentkeztél!");
     document.getElementById("BejelentkezesDiv").innerHTML = "";
     document.getElementById("MainDiv").style.display = "block";
-    sessionStorage.setItem("login",true);
-    sessionStorage.setItem("fn",felh);
-    sessionStorage.setItem("pw",jelszo);
     Szintvalasztas(true);
 }
 
@@ -241,6 +243,9 @@ function FeladatsorKirakas(){
 
 function Logout(){
     sessionStorage.setItem("login",false);
+    sessionStorage.removeItem("AdminUser");
+    sessionStorage.removeItem("Felhasznalonev");
+    sessionStorage.removeItem("Jelszo");
     location.reload();
 }
 
@@ -448,7 +453,7 @@ function nevvaltoztat(){
     });
 }
 function feladatSorGen(img){
-    kivalasztottFeladatsorID = img.dataset.feladatID
+    kivalasztottFeladatsorID = img.dataset.feladatID;
     document.body.innerHTML = "<div id='oldal1'>"+
     "<div class='align-top row '>"+
             "<div class='col-6'>"+
@@ -513,8 +518,15 @@ function feladatSorGen(img){
     document.getElementById("feladatleiras1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).fleiras
     document.getElementById("cim1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).cim
     document.getElementById("feladatszoveg1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).fel
+    FeladatTagol();
 }
 
+function FeladatTagol(){
+    var div = document.getElementById("feladatleiras1");
+    var temp = div.innerText;
+    temp = temp.replace(/•/g, "<br>•"); 
+    div.innerHTML = temp;
+}
 function valaszFelkuldes(){
     let valaszLista =  document.getElementById("valaszok").getElementsByTagName("li");
     let lista = new Array();
@@ -556,7 +568,8 @@ function szovegtordel(){
 
 function SideModalAktiv(){
     let diaknev = document.getElementById("SideModalDiakNev");
-    diaknev.innerHTML = "NÉV";
+    let fnev = sessionStorage.getItem("Felhasznalonev");
+    diaknev.innerHTML = sessionStorage.getItem("AdminUser")=="admin"? fnev+" (admin)":fnev;
 }
 function EredmenyKimutat(){
     let selectBox = document.getElementById("EredmenySelect")
