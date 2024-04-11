@@ -451,7 +451,7 @@ function nevvaltoztat(){
     });
 }
 function feladatSorGen(img){
-    kivalasztottFeladatsorID = img.dataset.feladatID
+    kivalasztottFeladatsorID = img.dataset.feladatID;
     document.body.innerHTML = "<div id='oldal1'>"+
     "<div class='align-top row '>"+
             "<div class='col-6'>"+
@@ -516,8 +516,15 @@ function feladatSorGen(img){
     document.getElementById("feladatleiras1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).fleiras
     document.getElementById("cim1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).cim
     document.getElementById("feladatszoveg1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).fel
+    FeladatTagol();
 }
 
+function FeladatTagol(){
+    var div = document.getElementById("feladatleiras1");
+    var temp = div.innerText;
+    temp = temp.replace(/•/g, "<br>•"); 
+    div.innerHTML = temp;
+}
 function valaszFelkuldes(){
     let valaszLista =  document.getElementById("valaszok").getElementsByTagName("li");
     let lista = new Array();
