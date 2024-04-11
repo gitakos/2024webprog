@@ -62,7 +62,7 @@
                 <div class="selector">&nbsp;</div>
             </div>
             <div id="Profil">
-                <img src="Kepek/pfpicon.png" alt="ProfilIcon"type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#SideModal" onclick="SideModalAktiv()">
+                
             </div>  
         </div>
         <div id="Feladatsorok">
@@ -77,10 +77,11 @@
       <!-- SideModal content-->
       <div class="modal-content">
         <div class="modal-header">
+            <img src="Kepek/pfpicon.png" alt="ProfilIcon" id="SideBarPfp">
             <h3 id="SideModalDiakNev"></h3>
             <button type="button" class="SideModalClose" data-bs-toggle="modal" data-bs-target="#SideModal">X</button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" id="SidemodalBody">
           
             <div class="row">
               <div class="col-sm-12 form-group">
@@ -105,7 +106,7 @@
                 <input type="text" class="form-control" placeholder="Új Felhasználónév" id="felhasznalonevValtUj">
               </div>
               <div class="ValtoztatasGombInfo">
-                <button>Mentés</button>
+                <button onclick="FelhasznaloNevvaltasGomb()">Mentés</button>
                 <p id="felhasznalonevValtInfo"> info </p>
               </div>
               <div class="col-sm-12 form-group">
@@ -118,15 +119,12 @@
                 <input type="password" class="form-control" placeholder="Új Jelszó" id="jelszoValtUj">
               </div>
               <div class="col-sm-12 form-group">
-                <input type="password" class="form-control" placeholder="Új Jelszó Mégegyszer" id="jelszoValtUjMegegyszer">
+                <input type="password" class="form-control" placeholder="Új Jelszó Mégegyszer" id="jelszoValtUjRe">
               </div>
               <div class="ValtoztatasGombInfo">
-                <button>Mentés</button>
-                <p id="jelszoValtInfo"> Nem egyezik a faszomnak a mérete az átlaggal és ezért nagyon szomorú és depressziós vagyok </p>
-              </div>
-                
-                
-                
+                <button onclick="JelszovaltasGomb()">Mentés</button>
+                <p id="jelszoValtInfo">info</p>
+              </div>  
         </div>
           </div>
         <div class="modal-footer">

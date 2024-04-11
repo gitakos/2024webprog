@@ -27,13 +27,14 @@ const adatLekerdezes = (felh,hasheltJelszo,fajta,param) => { //És akkor nem kel
     });
 }
 if(!adminFeluletenVanE){
-    if(sessionStorage.getItem("login") == 'true'){
+    if(sessionStorage.getItem("Login") == 'true'){
         document.getElementById("BejelentkezesDiv").innerHTML = "";
-        document.getElementById("MainDiv").style.display = "block";
+        document.getElementById("MainDiv").classList = "MainDivS";
+        document.getElementById("Profil").innerHTML = '<img src="Kepek/pfpicon.png" alt="ProfilIcon"type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#SideModal" onclick="SideModalAktiv()"></img>';
         Szintvalasztas(true);
     }else{
         document.getElementById("BejelentkezesDiv").style.visibility = "visible";
-        document.getElementById("MainDiv").style.display = "none";
+        document.getElementById("MainDiv").classList = "MainDivH";
     }
     
 }
@@ -154,11 +155,14 @@ function login()
                 pw.style.transition = "ease-in-out .3s";
             }
             else{
+                document.getElementById("Profil").innerHTML = '<img src="Kepek/pfpicon.png" alt="ProfilIcon"type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#SideModal" onclick="SideModalAktiv()"></img>';
+                sessionStorage.setItem("Login",true);
                 adatLekerdezes(fn.value,hex,"useradatlekerdez",null).then((valasz) =>{
                     sessionStorage.setItem("AdminUser",valasz[0].jog);
                 });
                 sessionStorage.setItem("Felhasznalonev",fn.value);
-                sessionStorage.setItem("Jelszo",hash(hex));
+                sessionStorage.setItem("Jelszo",hex);
+                sessionStorage.setItem("Admingomb",false);
                 Main();
             }
         })});
@@ -172,8 +176,10 @@ function Main(){
 }
 
 function Szintvalasztas(kozep){
-    KozepSzintSelect = kozep;
-    FeladatsorKirakas();
+    if(sessionStorage.getItem("Login")=='true'){
+        KozepSzintSelect = kozep;
+        FeladatsorKirakas();
+    }
 }
 
 //feladatSor változók
@@ -242,10 +248,11 @@ function FeladatsorKirakas(){
 }
 
 function Logout(){
-    sessionStorage.setItem("login",false);
+    sessionStorage.setItem("Login",false);
     sessionStorage.removeItem("AdminUser");
     sessionStorage.removeItem("Felhasznalonev");
     sessionStorage.removeItem("Jelszo");
+    sessionStorage.removeItem("Admingomb");
     location.reload();
 }
 
@@ -569,10 +576,41 @@ function szovegtordel(){
 function SideModalAktiv(){
     let diaknev = document.getElementById("SideModalDiakNev");
     let fnev = sessionStorage.getItem("Felhasznalonev");
-    diaknev.innerHTML = sessionStorage.getItem("AdminUser")=="admin"? fnev+" (admin)":fnev;
+    if(sessionStorage.getItem("AdminUser")=="admin"){
+        diaknev.innerHTML = fnev+" (admin)";
+        if(sessionStorage.getItem("Admingomb")=='false'){
+            sessionStorage.setItem("Admingomb",true);
+            document.getElementById("SidemodalBody").innerHTML += '<div class="col-sm-12 form-group" id="AdminGomb"> <button>Admin Felület</button> </div>';
+        }
+    }else{
+        diaknev.innerHTML = fnev;
+    }
+
 }
 function EredmenyKimutat(){
     let selectBox = document.getElementById("EredmenySelect")
     selectBox.options[selectBox.selectedIndex].value
     console.log(selectBox.options[selectBox.selectedIndex].value);
+}
+
+function FelhasznaloNevvaltasGomb(){
+    let nevvaltasinfo = document.getElementById("felhasznalonevValtInfo");
+    let regiFn = document.getElementById("felhasznalonevValtJelenlegi");
+    let ujFn = document.getElementById("felhasznalonevValtUj");
+    //meg kell nézni van e olyan név amire váltani akarja
+    //meg kell nézni jól adta e meg a régi nevét
+    //meg kell nézni hogy megfelelő e az új
+    //meg kell erősíteni hogy le akarja váltani
+    //átírni adatbázisban, kiírni hogy sikeres
+}
+function JelszovaltasGomb(){
+    let jelszovaltasinfo = document.getElementById("jelszoValtInfo");
+    let regiPw = document.getElementById("jelszoValtJelenlegi");
+    let ujPw = document.getElementById("jelszoValtUj");
+    let ujPwre = document.getElementById("jelszoValtUjRe");
+    //meg kell nézni jól adta e meg a régi jelszót
+    //meg kell nézni hogy megfelelő e az új
+    //meg kell nézni hogy mindkétszer ugyan azt írta e be
+    //meg kell erősíteni hogy le akarja váltani
+    //átírni adatbázisban, kiírni hogy sikeres
 }
