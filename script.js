@@ -448,7 +448,7 @@ function nevvaltoztat(){
     });
 }
 function feladatSorGen(img){
-    kivalasztottFeladatsorID = img.dataset.feladatID
+    kivalasztottFeladatsorID = img.dataset.feladatID;
     document.body.innerHTML = "<div id='oldal1'>"+
     "<div class='align-top row '>"+
             "<div class='col-6'>"+
@@ -510,11 +510,19 @@ function feladatSorGen(img){
     "<button id='kuldes' onclick='valaszFelkuldes()'>LESSGOO</button>"
     DatumMegjelenit();
     valaszMezoGeneral();
+
     document.getElementById("feladatleiras1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).fleiras
     document.getElementById("cim1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).cim
     document.getElementById("feladatszoveg1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).fel
+    FeladatTagol();
 }
 
+function FeladatTagol(){
+    var div = document.getElementById("feladatleiras1");
+    var temp = div.innerText;
+    temp = temp.replace(/•/g, "<br>•"); 
+    div.innerHTML = temp;
+}
 function valaszFelkuldes(){
     let valaszLista =  document.getElementById("valaszok").getElementsByTagName("li");
     let lista = new Array();
@@ -547,4 +555,28 @@ function szovegtordel(){
 function SideModalAktiv(){
     let diaknev = document.getElementById("SideModalDiakNev");
     diaknev.innerHTML = "NÉV";
+}
+
+function BlobSzerzes(){
+    // Listen for changes in the file input
+    document.getElementById('uploadInput').addEventListener('change', function(event) {
+        // Get the uploaded file
+        var file = event.target.files[0];
+  
+        // Create a FileReader object
+        var reader = new FileReader();
+  
+        // When the file is loaded
+        reader.onload = function() {
+          // Create a blob from the loaded data
+          var blob = new Blob([reader.result], { type: file.type });
+  
+          // Now you can use the blob as needed, e.g., upload it to a server
+          // For demonstration, let's log the blob object
+          console.log(blob);
+        };
+  
+        // Read the uploaded file as data URL
+        reader.readAsArrayBuffer(file);
+      });
 }
