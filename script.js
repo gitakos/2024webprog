@@ -20,7 +20,7 @@ const adatLekerdezes = (felh,hasheltJelszo,fajta,param) => { //És akkor nem kel
     .then(function (response) {
         if (response.Error) {
             // alert(response.Error);
-            return response.Error;
+            return response;
         } else {
             return response;
         }
@@ -154,6 +154,11 @@ function login()
                 pw.style.transition = "ease-in-out .3s";
             }
             else{
+                adatLekerdezes(fn.value,hex,"useradatlekerdez",null).then((valasz) =>{
+                    sessionStorage.setItem("AdminUser",valasz[0].jog);
+                });
+                sessionStorage.setItem("Felhasznalonev",fn.value);
+                sessionStorage.setItem("Jelszo",hash(hex));
                 Main();
             }
         })});
@@ -544,7 +549,8 @@ function szovegtordel(){
 
 function SideModalAktiv(){
     let diaknev = document.getElementById("SideModalDiakNev");
-    diaknev.innerHTML = "NÉV";
+    let fnev = sessionStorage.getItem("Felhasznalonev");
+    diaknev.innerHTML = sessionStorage.getItem("AdminUser")=="admin"? fnev+"(admin)":fnev;
 }
 function EredmenyKimutat(){
     let selectBox = document.getElementById("EredmenySelect")

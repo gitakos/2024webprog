@@ -73,7 +73,7 @@ app.post("/useradatlekerdez", bodyParser.json(), function(req,res){
     const felh = req.body.felh;
     const hasheltJelszo = req.body.hasheltJelszo;
     console.log(req.body);
-    connection.query("select f.nev as nev, f.email as email, f.jelszo as jelszo, f.jog as jog, f.letrehozas as letrehozas f. from felhasznalo f where f.nev = '"+felh+"' and f.jelszo = '"+hasheltJelszo+"'", function(err, result,fields){
+    connection.query("select f.nev as nev, f.email as email, f.jelszo as jelszo, f.jog as jog, f.letrehozas as letrehozas from felhasznalo f where f.nev = '"+felh+"' and f.jelszo = '"+hasheltJelszo+"'", function(err, result,fields){
         if(!err){
             console.log(result);
             res.send(result);
