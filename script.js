@@ -20,7 +20,7 @@ const adatLekerdezes = (felh,hasheltJelszo,fajta,param) => { //És akkor nem kel
     .then(function (response) {
         if (response.Error) {
             // alert(response.Error);
-            return response.Error;
+            return response;
         } else {
             return response;
         }
@@ -154,16 +154,18 @@ function login()
                 pw.style.transition = "ease-in-out .3s";
             }
             else{
-                Main();
+                Main(fn.value,hex);
             }
         })});
 }
 
-function Main(){
+function Main(felh,jelszo){
     console.log("Sikeresen bejelentkeztél!");
     document.getElementById("BejelentkezesDiv").innerHTML = "";
     document.getElementById("MainDiv").style.display = "block";
     sessionStorage.setItem("login",true);
+    sessionStorage.setItem("fn",felh);
+    sessionStorage.setItem("pw",jelszo);
     Szintvalasztas(true);
 }
 
@@ -517,15 +519,25 @@ function valaszFelkuldes(){
     let valaszLista =  document.getElementById("valaszok").getElementsByTagName("li");
     let lista = new Array();
     for(let i = 0;i<valaszLista.length;i++){
-        lista.push(valaszLista[i].getElementsByTagName("input")[0].value)
+        if(valaszLista[i].getElementsByTagName("input")[0].value == undefined){
+            lista.push("%URES%");
+        }
+        else
+        {
+            lista.push(valaszLista[i].getElementsByTagName("input")[0].value)
+        }
     }
-    adatLekerdezes(null,null,"feladatLeadas",{valaszok:lista,feladatID:kivalasztottFeladatsorID}).then((valasz)=>{
+    let fn = sessionStorage.setItem("fn",felh).value;
+    let pw = sessionStorage.setItem("pw",jelszo).value;
+    adatLekerdezes(fn,pw,"feladatLeadas",{valaszok:lista,feladatID:kivalasztottFeladatsorID}).then((valasz)=>{
         if(valasz.Error){
-            alert("Hiba lépett fel a feladat leadása közben")
+            alert("Hiba lépett fel a feladat leadása közben");
+            console.log(valasz.Error);
         }
         else
         {
             alert("Feladat sikeresen leadva!");
+            console.log(valasz);
         }
     });
 }

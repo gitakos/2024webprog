@@ -338,34 +338,38 @@ app.post("/feladatLeadas", bodyParser.json(), function(req,res){
     const userValaszok = req.body.param.valaszok
     const feladatID = req.body.param.feladatID
     console.log(req.body);
-    let lekerdezoAdatai = felhasznaloValidator(felh,hasheltJelszo);
-    if(felhasznaloValidator!=undefined)
-    {
-        feladatValaszLekerd(feladatID).then((feladatValaszok)=>{
-            if(feladatValaszok.Error){
-                res.send({"Error":"Hiba a feladat válaszok lekérése közben!"});
-            }
-            else
-            {
-                console.log(feladatValaszok);
-                let pontok = feladatKijav(userValaszok,feladatValaszok[0].valaszok.split(';'));
-                valaszLement(lekerdezoAdatai.id,pontok,feladatID,userValaszok.join(";")).then((valasz)=>{
-                    if(valasz==undefined){
-                        res.send({"Error":"Hiba a válaszok lementése közben!"});
-                    }
-                    else
-                    {
-                        console.log("cucc");
-                        res.send({"Valasz":"kijavított feladat"});
-                    }
-                });
-            }
-        })
-    }
-    else
-    {
-        res.send({"Error":"Nem megfelelő adatok!"});
-    }
+    felhasznaloValidator(felh,hasheltJelszo).then((lekerdezoAdatai)=>{
+        console.log(lekerdezoAdatai);
+        if(lekerdezoAdatai!=undefined)
+        {
+            feladatValaszLekerd(feladatID).then((feladatValaszok)=>{
+                if(feladatValaszok.Error){
+                    res.send({"Error":"Hiba a feladat válaszok lekérése közben!"});
+                }
+                else
+                {
+                    console.log(feladatValaszok);
+                    let feladatValaszokLista = feladatValaszok[0].valaszok.split(';')
+                    let pontok = feladatKijav(userValaszok,feladatValaszok[0].valaszok.split(';'));
+                    valaszLement(lekerdezoAdatai.id,pontok,feladatID,userValaszok.join(";")).then((valasz)=>{
+                        if(valasz==undefined){
+                            console.log("Ez fut le")
+                            res.send({"Error":"Hiba a válaszok lementése közben!"});
+                        }
+                        else
+                        {
+                            console.log("cucc");
+                            res.send({"Valasz":"kijavított feladat","pontok":pontok,"maxpont":feladatValaszokLista.length});
+                        }
+                    });
+                }
+            })
+        }
+        else
+        {
+            res.send({"Error":"Nem megfelelő adatok!"});
+        }
+    });
 });
 
 function feladatValaszLekerd(feladatID){
@@ -405,10 +409,10 @@ function valaszLement(felhasznaloID,pontok,feladatsorID,valaszok){
     return new Promise((resolve) => {
         var connection = getConnection();
         connection.connect();
-        connection.query("insert into eredmenyek values(null,"+felhasznaloID+","+pontok+",'"+Date.now+"',"+feladatsorID+",'"+valaszok+"')", function(err, result,fields){
+        connection.query("insert into eredmenyek values(null,"+felhasznaloID+","+pontok+",null,"+feladatsorID+",'"+valaszok+"')", function(err, result,fields){
+            console.log("insert into eredmenyek values(null,"+felhasznaloID+","+pontok+",null,"+feladatsorID+",'"+valaszok+"')")
             if(!err){
                 connection.end;
-                console.log("insert into eredmenyek values(null,"+felhasznaloID+","+pontok+",'"+Date.now+"',"+feladatsorID+",'"+valaszok+"')")
                 resolve(result);
             }else{
                 connection.end;
