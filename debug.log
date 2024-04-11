@@ -1,0 +1,7 @@
+[0409/114646.358:ERROR:registration_protocol_win.cc(102)] CreateFile: A rendszer nem találja a megadott fájlt. (0x2)
+[0409/114646.385:ERROR:crashpad_client_win.cc(808)] not connected
+[0409/114646.417:ERROR:registration_protocol_win.cc(102)] CreateFile: A rendszer nem találja a megadott fájlt. (0x2)
+[0409/114646.696:ERROR:registration_protocol_win.cc(102)] CreateFile: A rendszer nem találja a megadott fájlt. (0x2)
+[0409/114646.780:ERROR:crashpad_client_win.cc(808)] not connected
+[0409/114646.813:ERROR:registration_protocol_win.cc(102)] CreateFile: A rendszer nem találja a megadott fájlt. (0x2)
+[0409/114646.892:ERROR:crashpad_client_win.cc(808)] not connected

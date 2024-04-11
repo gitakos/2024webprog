@@ -314,9 +314,7 @@ function DatumMegjelenit()
     }
 }
 
-let hanyvalasz = 15; //hány válaszlehetőség van feladatsoronként a nyelvhelyességre
-
-function valaszMezoGeneral(){
+function valaszMezoGeneral(hanyvalasz){
     for (let i = 0; i < hanyvalasz; i++) {
         let cucc = document.getElementById("valaszok");
         cucc.innerHTML += "<li><input type='text' class='valaszmezo' name='Valasz' id="+i+"></li>";
@@ -509,8 +507,7 @@ function feladatSorGen(img){
     "</div>"+
     "<button id='kuldes' onclick='valaszFelkuldes()'>LESSGOO</button>"
     DatumMegjelenit();
-    valaszMezoGeneral();
-
+    valaszMezoGeneral(feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).valaszDB);
     document.getElementById("feladatleiras1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).fleiras
     document.getElementById("cim1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).cim
     document.getElementById("feladatszoveg1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).fel
@@ -556,27 +553,8 @@ function SideModalAktiv(){
     let diaknev = document.getElementById("SideModalDiakNev");
     diaknev.innerHTML = "NÉV";
 }
-
-function BlobSzerzes(){
-    // Listen for changes in the file input
-    document.getElementById('uploadInput').addEventListener('change', function(event) {
-        // Get the uploaded file
-        var file = event.target.files[0];
-  
-        // Create a FileReader object
-        var reader = new FileReader();
-  
-        // When the file is loaded
-        reader.onload = function() {
-          // Create a blob from the loaded data
-          var blob = new Blob([reader.result], { type: file.type });
-  
-          // Now you can use the blob as needed, e.g., upload it to a server
-          // For demonstration, let's log the blob object
-          console.log(blob);
-        };
-  
-        // Read the uploaded file as data URL
-        reader.readAsArrayBuffer(file);
-      });
+function EredmenyKimutat(){
+    let selectBox = document.getElementById("EredmenySelect")
+    selectBox.options[selectBox.selectedIndex].value
+    console.log(selectBox.options[selectBox.selectedIndex].value);
 }
