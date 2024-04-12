@@ -546,8 +546,8 @@ function valaszFelkuldes(){
             lista.push(valaszLista[i].getElementsByTagName("input")[0].value)
         }
     }
-    let fn = sessionStorage.setItem("fn",felh).value;
-    let pw = sessionStorage.setItem("pw",jelszo).value;
+    let fn = sessionStorage.getItem("Felhasznalonev");
+    let pw = sessionStorage.getItem("Jelszo");
     adatLekerdezes(fn,pw,"feladatLeadas",{valaszok:lista,feladatID:kivalasztottFeladatsorID}).then((valasz)=>{
         if(valasz.Error){
             alert("Hiba lépett fel a feladat leadása közben");

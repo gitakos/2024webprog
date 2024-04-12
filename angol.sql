@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2024. Ápr 10. 07:35
+-- Létrehozás ideje: 2024. Ápr 12. 09:23
 -- Kiszolgáló verziója: 10.4.20-MariaDB
 -- PHP verzió: 8.0.9
 
@@ -31,7 +31,7 @@ CREATE TABLE `eredmenyek` (
   `id` int(255) NOT NULL,
   `felhasznaloid` int(255) NOT NULL,
   `pontszam` int(255) NOT NULL,
-  `datum` date NOT NULL,
+  `datum` date DEFAULT current_timestamp(),
   `feladatsorid` int(255) NOT NULL,
   `megadott_valaszok` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`megadott_valaszok`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -80,7 +80,7 @@ CREATE TABLE `felhasznalo` (
 --
 
 INSERT INTO `felhasznalo` (`id`, `nev`, `email`, `jelszo`, `jog`, `letrehozas`) VALUES
-(1, 'jozsi', 'jozsi@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'user', '2024-03-05'),
+(1, 'jozsi', 'jozsi@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'admin', '2024-03-05'),
 (2, 'haha123', 'email@email.email', 'd8172b5b9f06f9173aff5d57e825c60d24aa06c695e86a0e17fedc48ff420807', 'user', '2024-04-08');
 
 --

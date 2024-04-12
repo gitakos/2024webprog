@@ -317,7 +317,8 @@ function felhasznaloValidator(felh,hasheltJelszo){
     return new Promise((resolve) => {
         var connection = getConnection();
         connection.connect();
-        connection.query("select f.id as id, f.nev as nev, f.email as email, f.jog as jog f. from felhasznalo f where f.nev = '"+felh+"' and f.jelszo = '"+hasheltJelszo+"'", function(err, result,fields){
+        connection.query("select f.id as id, f.nev as nev, f.email as email, f.jog as jog from felhasznalo f where f.nev = '"+felh+"' and f.jelszo = '"+hasheltJelszo+"'", function(err, result,fields){
+            console.log(result+"!!!!!!!!!!!!!!!!");
             if(!err){
                 connection.end;
                 resolve(result);
@@ -351,7 +352,7 @@ app.post("/feladatLeadas", bodyParser.json(), function(req,res){
                     console.log(feladatValaszok);
                     let feladatValaszokLista = feladatValaszok[0].valaszok.split(';')
                     let pontok = feladatKijav(userValaszok,feladatValaszok[0].valaszok.split(';'));
-                    valaszLement(lekerdezoAdatai.id,pontok,feladatID,userValaszok.join(";")).then((valasz)=>{
+                    valaszLement(lekerdezoAdatai[0].id,pontok,feladatID,userValaszok.join(";")).then((valasz)=>{
                         if(valasz==undefined){
                             console.log("Ez fut le")
                             res.send({"Error":"Hiba a válaszok lementése közben!"});
@@ -377,6 +378,7 @@ function feladatValaszLekerd(feladatID){
         var connection = getConnection();
         connection.connect();
         connection.query("select f.valaszok as valaszok from feladatsor f where f.id = "+feladatID, function(err, result,fields){
+            console.log(err);
             if(!err){
                 connection.end;
                 resolve(result);
