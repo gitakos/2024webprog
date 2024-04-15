@@ -312,6 +312,35 @@ app.post("/feladatsorListaLekerdez", bodyParser.json(), function(req,res){
     connection.end();
 });
 
+app.post("/megnev", bodyParser.json(), function(req,res){
+    var connection = getConnection();
+    connection.connect();
+    const felh = req.body.felh;
+    const hasheltJelszo = req.body.hasheltJelszo;
+    const mitakarcsinalni = req.body.param.hova;
+    const ujmegnev = req.body.param.ujmegnev;
+    console.log(req.body);
+    if(mitakarcsinalni == "megnevValt"){
+        connection.query("update felhasznalo set megnev = "+ujmegnev+"  where f.nev = "+felh, function(err, result,fields){
+            if(!err){ 
+                res.send(result);
+            }else{
+                res.send({"Error": 'Hiba a megjelenített név frissítése során!'});
+            }
+        });
+    }
+    else if(mitakarcsinalni == "megnevLekerd"){
+        connection.query("select f.megnev as megnev from felhasznalo f where f.nev = "+felh, function(err, result,fields){
+            if(!err){ 
+                res.send(result);
+            }else{
+                res.send({"Error": 'Hiba a megjelenített név lekérdezése során!'});
+            }
+        });
+    }
+    connection.end();
+});
+
 function felhasznaloValidator(felh,hasheltJelszo){
     //megnézi hogy van e ilyen
     return new Promise((resolve) => {
