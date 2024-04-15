@@ -14,7 +14,7 @@ body{
     display: flex ;
     align-items: center;
     min-height: 20rem;
-    max-height: 40rem;
+    max-height: 50rem;
     min-width: 10rem;
     max-width: 30rem;
     margin-top: 2rem !important;
@@ -158,6 +158,12 @@ label{
     width: 100%;
     visibility: visible;
 }
+.MainDivS{
+    display: block;
+}
+.MainDivH{
+    display: none;
+}
 #Navsor{
     width: 100%;
     height: 10%;
@@ -242,8 +248,8 @@ input[type="radio"] {
         left: 15.5vw;
     }
     .modal-content{
-        border-top-left-radius: 2rem !important;
-        border-bottom-left-radius: 2rem !important;
+        border-top-left-radius: 0rem !important;
+        border-bottom-left-radius: 4rem !important;
     }
 }
 
@@ -300,8 +306,11 @@ input[type="radio"] {
         top: 4.75vh;
     }
     #login,#regisztracio{
-        box-shadow: 0 0 10px .5px black inset, 0 0 2px .5px black;
+        box-shadow: 0 0 6px .5px black inset, 0 0 20px 5px black;
         transition: ease-in-out .5s;
+        border-radius: 0;
+        margin-bottom: 1rem;
+        border: none;
     }
     .FeladatImgDiv img{
         max-width: 70% !important;
@@ -486,7 +495,7 @@ li{
     transition: ease-in-out .3s;
 }
 #Logout{
-    font-size: small;
+    font-size: medium;
     text-align: center;
 }
 #Logout:hover{
@@ -626,4 +635,50 @@ li{
 .modal-footer{
     margin: auto;
     font-size: medium;
+}
+.modal-body div{
+    margin: 1%;
+}
+.ValtoztatasGombInfo{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+.ValtoztatasGombInfo p{
+    margin: 0;
+    text-align: center;
+}
+.ValtoztatasGombInfo button, #AdminGomb button{
+    transition: ease-in-out .3s;
+    border-radius: .5rem;
+    border: solid black 2px;
+    background-color: rgba(128, 128, 128, 0.3);
+    margin: 1%;
+    width: 12vh;
+    height: 5vh;
+}
+.ValtoztatasGombInfo button:hover, #AdminGomb button:hover{
+    transition: ease-in-out .3s;
+    border-radius: .75rem;
+    border: solid black 2px;
+    box-shadow: 1px 1px 2px black;
+    background-color: rgba(128, 128, 128, 0.2);
+}
+.SideBarh5{
+    margin: 0;
+    margin-top: .75rem;
+    font-size: large;
+}
+#SideBarPfp{
+    width: 5vh;
+}
+#AdminGomb{
+    text-align: center;
+    margin-top: 10vh;
+}
+#AdminGomb button{
+    width: 50%;
+    padding: 1vh;
 }

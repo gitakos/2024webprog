@@ -73,7 +73,7 @@ app.post("/useradatlekerdez", bodyParser.json(), function(req,res){
     const felh = req.body.felh;
     const hasheltJelszo = req.body.hasheltJelszo;
     console.log(req.body);
-    connection.query("select f.nev as nev, f.email as email, f.jelszo as jelszo, f.jog as jog, f.letrehozas as letrehozas f. from felhasznalo f where f.nev = '"+felh+"' and f.jelszo = '"+hasheltJelszo+"'", function(err, result,fields){
+    connection.query("select f.nev as nev, f.email as email, f.jelszo as jelszo, f.jog as jog, f.letrehozas as letrehozas from felhasznalo f where f.nev = '"+felh+"' and f.jelszo = '"+hasheltJelszo+"'", function(err, result,fields){
         if(!err){
             console.log(result);
             res.send(result);
@@ -312,12 +312,42 @@ app.post("/feladatsorListaLekerdez", bodyParser.json(), function(req,res){
     connection.end();
 });
 
+app.post("/megnev", bodyParser.json(), function(req,res){
+    var connection = getConnection();
+    connection.connect();
+    const felh = req.body.felh;
+    const hasheltJelszo = req.body.hasheltJelszo;
+    const mitakarcsinalni = req.body.param.hova;
+    const ujmegnev = req.body.param.ujmegnev;
+    console.log(req.body);
+    if(mitakarcsinalni == "megnevValt"){
+        connection.query("update felhasznalo set megnev = "+ujmegnev+"  where f.nev = "+felh, function(err, result,fields){
+            if(!err){ 
+                res.send(result);
+            }else{
+                res.send({"Error": 'Hiba a megjelenített név frissítése során!'});
+            }
+        });
+    }
+    else if(mitakarcsinalni == "megnevLekerd"){
+        connection.query("select f.megnev as megnev from felhasznalo f where f.nev = "+felh, function(err, result,fields){
+            if(!err){ 
+                res.send(result);
+            }else{
+                res.send({"Error": 'Hiba a megjelenített név lekérdezése során!'});
+            }
+        });
+    }
+    connection.end();
+});
+
 function felhasznaloValidator(felh,hasheltJelszo){
     //megnézi hogy van e ilyen
     return new Promise((resolve) => {
         var connection = getConnection();
         connection.connect();
-        connection.query("select f.id as id, f.nev as nev, f.email as email, f.jog as jog f. from felhasznalo f where f.nev = '"+felh+"' and f.jelszo = '"+hasheltJelszo+"'", function(err, result,fields){
+        connection.query("select f.id as id, f.nev as nev, f.email as email, f.jog as jog from felhasznalo f where f.nev = '"+felh+"' and f.jelszo = '"+hasheltJelszo+"'", function(err, result,fields){
+            console.log(result+"!!!!!!!!!!!!!!!!");
             if(!err){
                 connection.end;
                 resolve(result);
@@ -338,34 +368,38 @@ app.post("/feladatLeadas", bodyParser.json(), function(req,res){
     const userValaszok = req.body.param.valaszok
     const feladatID = req.body.param.feladatID
     console.log(req.body);
-    let lekerdezoAdatai = felhasznaloValidator(felh,hasheltJelszo);
-    if(felhasznaloValidator!=undefined)
-    {
-        feladatValaszLekerd(feladatID).then((feladatValaszok)=>{
-            if(feladatValaszok.Error){
-                res.send({"Error":"Hiba a feladat válaszok lekérése közben!"});
-            }
-            else
-            {
-                console.log(feladatValaszok);
-                let pontok = feladatKijav(userValaszok,feladatValaszok[0].valaszok.split(';'));
-                valaszLement(lekerdezoAdatai.id,pontok,feladatID,userValaszok.join(";")).then((valasz)=>{
-                    if(valasz==undefined){
-                        res.send({"Error":"Hiba a válaszok lementése közben!"});
-                    }
-                    else
-                    {
-                        console.log("cucc");
-                        res.send({"Valasz":"kijavított feladat"});
-                    }
-                });
-            }
-        })
-    }
-    else
-    {
-        res.send({"Error":"Nem megfelelő adatok!"});
-    }
+    felhasznaloValidator(felh,hasheltJelszo).then((lekerdezoAdatai)=>{
+        console.log(lekerdezoAdatai);
+        if(lekerdezoAdatai!=undefined)
+        {
+            feladatValaszLekerd(feladatID).then((feladatValaszok)=>{
+                if(feladatValaszok.Error){
+                    res.send({"Error":"Hiba a feladat válaszok lekérése közben!"});
+                }
+                else
+                {
+                    console.log(feladatValaszok);
+                    let feladatValaszokLista = feladatValaszok[0].valaszok.split(';')
+                    let pontok = feladatKijav(userValaszok,feladatValaszok[0].valaszok.split(';'));
+                    valaszLement(lekerdezoAdatai[0].id,pontok,feladatID,userValaszok.join(";")).then((valasz)=>{
+                        if(valasz==undefined){
+                            console.log("Ez fut le")
+                            res.send({"Error":"Hiba a válaszok lementése közben!"});
+                        }
+                        else
+                        {
+                            console.log("cucc");
+                            res.send({"Valasz":"kijavított feladat","pontok":pontok,"maxpont":feladatValaszokLista.length});
+                        }
+                    });
+                }
+            })
+        }
+        else
+        {
+            res.send({"Error":"Nem megfelelő adatok!"});
+        }
+    });
 });
 
 function feladatValaszLekerd(feladatID){
@@ -373,6 +407,7 @@ function feladatValaszLekerd(feladatID){
         var connection = getConnection();
         connection.connect();
         connection.query("select f.valaszok as valaszok from feladatsor f where f.id = "+feladatID, function(err, result,fields){
+            console.log(err);
             if(!err){
                 connection.end;
                 resolve(result);
@@ -405,10 +440,10 @@ function valaszLement(felhasznaloID,pontok,feladatsorID,valaszok){
     return new Promise((resolve) => {
         var connection = getConnection();
         connection.connect();
-        connection.query("insert into eredmenyek values(null,"+felhasznaloID+","+pontok+",'"+Date.now+"',"+feladatsorID+",'"+valaszok+"')", function(err, result,fields){
+        connection.query("insert into eredmenyek values(null,"+felhasznaloID+","+pontok+",null,"+feladatsorID+",'"+valaszok+"')", function(err, result,fields){
+            console.log("insert into eredmenyek values(null,"+felhasznaloID+","+pontok+",null,"+feladatsorID+",'"+valaszok+"')")
             if(!err){
                 connection.end;
-                console.log("insert into eredmenyek values(null,"+felhasznaloID+","+pontok+",'"+Date.now+"',"+feladatsorID+",'"+valaszok+"')")
                 resolve(result);
             }else{
                 connection.end;

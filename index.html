@@ -62,7 +62,7 @@
                 <div class="selector">&nbsp;</div>
             </div>
             <div id="Profil">
-                <img src="Kepek/pfpicon.png" alt="ProfilIcon"type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#SideModal" onclick="SideModalAktiv()">
+                
             </div>  
         </div>
         <div id="Feladatsorok">
@@ -77,12 +77,16 @@
       <!-- SideModal content-->
       <div class="modal-content">
         <div class="modal-header">
+            <img src="Kepek/pfpicon.png" alt="ProfilIcon" id="SideBarPfp">
             <h3 id="SideModalDiakNev"></h3>
             <button type="button" class="SideModalClose" data-bs-toggle="modal" data-bs-target="#SideModal">X</button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" id="SidemodalBody">
           
             <div class="row">
+              <div class="col-sm-12 form-group">
+                <h5 class="SideBarh5">Eredmények megnézése:</h5>
+              </div>
               <div class="col-sm-12 form-group">
                 <select onchange="EredmenyKimutat()" class="form-control" style="color:#999" id="EredmenySelect">
                   <option>Eredmények</option>
@@ -93,11 +97,34 @@
                 </select>
               </div>
               <div class="col-sm-12 form-group">
-                <input type="text" class="form-control" placeholder="Last Name" name="Last Name">
+                <h5 class="SideBarh5">Felhasználónév változtatás:</h5>
               </div>
-                
-                
-                
+              <div class="col-sm-12 form-group">
+                <input type="text" class="form-control" placeholder="Jelenlegi Felhasználónév" id="felhasznalonevValtJelenlegi">
+              </div>
+              <div class="col-sm-12 form-group">
+                <input type="text" class="form-control" placeholder="Új Felhasználónév" id="felhasznalonevValtUj">
+              </div>
+              <div class="ValtoztatasGombInfo">
+                <button onclick="FelhasznaloNevvaltasGomb()">Mentés</button>
+                <p id="felhasznalonevValtInfo"> info </p>
+              </div>
+              <div class="col-sm-12 form-group">
+                <h5 class="SideBarh5">Jelszó változtatás:</h5>
+              </div>
+              <div class="col-sm-12 form-group">
+                <input type="password" class="form-control" placeholder="Jelenlegi Jelszó" id="jelszoValtJelenlegi">
+              </div>
+              <div class="col-sm-12 form-group">
+                <input type="password" class="form-control" placeholder="Új Jelszó" id="jelszoValtUj">
+              </div>
+              <div class="col-sm-12 form-group">
+                <input type="password" class="form-control" placeholder="Új Jelszó Mégegyszer" id="jelszoValtUjRe">
+              </div>
+              <div class="ValtoztatasGombInfo">
+                <button onclick="JelszovaltasGomb()">Mentés</button>
+                <p id="jelszoValtInfo">info</p>
+              </div>  
         </div>
           </div>
         <div class="modal-footer">
