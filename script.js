@@ -131,6 +131,7 @@ function regisztralasfunction(regfn,regemail,regpw){
             console.log("Válasz megérkezett!:")
             console.log(response);
             if(response.Valasz!=undefined){
+                
                 console.log("Sikeresen regisztráltál!");
                 Regful(document.getElementById("RegBlockVisszaGomb"),false);
                 alert("Sikeres Regisztráció!");
@@ -159,6 +160,7 @@ function login()
                 sessionStorage.setItem("Login",true);
                 adatLekerdezes(fn.value,hex,"useradatlekerdez",null).then((valasz) =>{
                     sessionStorage.setItem("AdminUser",valasz[0].jog);
+                    sessionStorage.setItem("Megnev",valasz[0].megnev);
                 });
                 sessionStorage.setItem("Felhasznalonev",fn.value);
                 sessionStorage.setItem("Jelszo",hex);
@@ -575,9 +577,9 @@ function szovegtordel(){
 
 function SideModalAktiv(){
     let diaknev = document.getElementById("SideModalDiakNev");
-    let fnev = sessionStorage.getItem("Felhasznalonev");
+    let mnev = sessionStorage.getItem("Megnev");
     if(sessionStorage.getItem("AdminUser")=="admin"){
-        diaknev.innerHTML = fnev+" (admin)";
+        diaknev.innerHTML = mnev+" (admin)";
         if(sessionStorage.getItem("Admingomb")=='false'){
             sessionStorage.setItem("Admingomb",true);
             document.getElementById("SidemodalBody").innerHTML += '<div class="col-sm-12 form-group" id="AdminGomb"> <button>Admin Felület</button> </div>';
@@ -593,12 +595,22 @@ function EredmenyKimutat(){
     console.log(selectBox.options[selectBox.selectedIndex].value);
 }
 
-function FelhasznaloNevvaltasGomb(){
+function MegNevvaltasGomb(){
     let nevvaltasinfo = document.getElementById("felhasznalonevValtInfo");
-    let regiFn = document.getElementById("felhasznalonevValtJelenlegi");
-    let ujFn = document.getElementById("felhasznalonevValtUj");
+    let regiNev = document.getElementById("felhasznalonevValtJelenlegi").value;
+    let ujNev = document.getElementById("felhasznalonevValtUj").value;
+    const regxnev = /^[A-Za-z0-9áéíóöőúüűÁÉÍÓÖŐÚÜŰ]{1,16}$/;
+    if(regiNev == sessionStorage.getItem("Megnev")){
+        if(regxnev.test(ujnev)){
+            adatLekerdezes(sessionStorage.getItem("Felhasznalonev"),sessionStorage.getItem("Jelszo"),"megnev",{hova:"megnevValt",ujmegnev:ujNev});
+        }else{
+            nevvaltasinfo.innerHTML = "A név túl hosszú, vagy speciális karaktert tartalmaz!";    
+        }
+    }else{
+        nevvaltasinfo.innerHTML = "Rosszul adta meg a jelenlegi nevét!";
+    }
     //meg kell nézni van e olyan név amire váltani akarja
-    //meg kell nézni jól adta e meg a régi nevét
+    //meg kell nézni jól adta e meg a régi nevét 
     //meg kell nézni hogy megfelelő e az új
     //meg kell erősíteni hogy le akarja váltani
     //átírni adatbázisban, kiírni hogy sikeres

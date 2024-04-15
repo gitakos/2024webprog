@@ -97,16 +97,18 @@
                 </select>
               </div>
               <div class="col-sm-12 form-group">
-                <h5 class="SideBarh5">Felhasználónév változtatás:</h5>
+                <h5 class="SideBarh5">Megjelenő név változtatás: <div class="Tooltip">?
+                  <span class="TooltipText">Ez csak a megjelenítési neved, a belépéshez szükséges felhasználóneved nem tudod megváltoztatni!</span>
+                </div></h5>
               </div>
               <div class="col-sm-12 form-group">
-                <input type="text" class="form-control" placeholder="Jelenlegi Felhasználónév" id="felhasznalonevValtJelenlegi">
+                <input type="text" class="form-control" placeholder="Jelenlegi megjelenő név" id="felhasznalonevValtJelenlegi">
               </div>
               <div class="col-sm-12 form-group">
-                <input type="text" class="form-control" placeholder="Új Felhasználónév" id="felhasznalonevValtUj">
+                <input type="text" class="form-control" placeholder="Új megjenő név" id="felhasznalonevValtUj">
               </div>
               <div class="ValtoztatasGombInfo">
-                <button onclick="FelhasznaloNevvaltasGomb()">Mentés</button>
+                <button onclick="MegNevvaltasGomb()">Mentés</button>
                 <p id="felhasznalonevValtInfo"> info </p>
               </div>
               <div class="col-sm-12 form-group">
