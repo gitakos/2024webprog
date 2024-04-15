@@ -17,7 +17,7 @@ var getConnection = ()=>{
     })
 };
 
-app.get('/', function(req, res){
+/*app.get('/', function(req, res){
     const connection = getConnection();
     let joe = true;
     connection.connect((err)=>{
@@ -32,9 +32,9 @@ app.get('/', function(req, res){
         });              
     }
     connection.end();        
-});
+});*/
 
-app.post("/lekerdezes", bodyParser.json(), function(req,res){
+/*app.post("/lekerdezes", bodyParser.json(), function(req,res){
     var connection = getConnection();
     connection.connect();
     const lekerdezes = req.body.lekerdezes;
@@ -47,7 +47,7 @@ app.post("/lekerdezes", bodyParser.json(), function(req,res){
         }
     })
     connection.end();
-});
+});*/
 
 app.post("/bejelentkezes", bodyParser.json(), function(req,res){
     var connection = getConnection();
@@ -78,7 +78,7 @@ app.post("/useradatlekerdez", bodyParser.json(), function(req,res){
             console.log(result);
             res.send(result);
         }else{
-            res.send({"Error": 'Hiba a bejelentkezés során!'});
+            res.send({"Error": 'Hiba a felhasználó adatai lekérdezése során!'});
         }
     })
     connection.end();
@@ -91,15 +91,29 @@ app.post("/felhasznaloklekerdez", bodyParser.json(), function(req,res){
     const hasheltJelszo = req.body.hasheltJelszo;
     //Ezek maradhatnak, majd lekéne ellenőrizni hogy tényleg egy admin kéri az adatokat, vagy nem! (ez vonatkozik az összes többi admin felületi lekérdezésre)
     console.log(req.body);
-    connection.query("select f.nev as nev from felhasznalo f" , function(err, result,fields){
-        if(!err){
-            //console.log(result+"Ez a result!!");
-            res.send(result);
-        }else{
-            res.send({"Error": 'Hiba a lekérdezés során!'});
+    felhasznaloValidator(felh,hasheltJelszo).then((lekerdezoAdatai)=>{
+        console.log(lekerdezoAdatai);
+        if(lekerdezoAdatai!=undefined)
+        {
+            if(lekerdezoAdatai[0].jog=="admin"){
+                connection.query("select f.nev as nev from felhasznalo f" , function(err, result,fields){
+                    if(!err){
+                        //console.log(result+"Ez a result!!");
+                        res.send(result);
+                    }else{
+                        res.send({"Error": 'Hiba a lekérdezés során!'});
+                    }
+                });
+            }
+            else{
+                res.send({"Error": 'Nincs jogosultságod ehhez a művelethez!'});
+            }
         }
-    })
-    connection.end();
+        else{
+            res.send({"Error": 'Nem megfelelő adatok!'});
+        }
+        connection.end();
+    });
 });
 
 app.post("/felhasznalotorol", bodyParser.json(), function(req,res){
@@ -109,16 +123,30 @@ app.post("/felhasznalotorol", bodyParser.json(), function(req,res){
     const hasheltJelszo = req.body.hasheltJelszo;
     const kivalasztottfelhasznalonev = req.body.param;
     console.log(req.body);
-    console.log("delete from felhasznalo where nev = '"+kivalasztottfelhasznalonev+"'");
-    connection.query("delete from felhasznalo where nev = '"+kivalasztottfelhasznalonev+"'" , function(err, result,fields){
-        if(!err){
-            console.log(result);
-            res.send(result);
-        }else{
-            res.send({"Error": 'Hiba a lekérdezés során!'});
+
+    felhasznaloValidator(felh,hasheltJelszo).then((lekerdezoAdatai)=>{
+        console.log(lekerdezoAdatai);
+        if(lekerdezoAdatai!=undefined)
+        {
+            if(lekerdezoAdatai[0].jog=="admin"){
+                connection.query("delete from felhasznalo where nev = '"+kivalasztottfelhasznalonev+"'" , function(err, result,fields){
+                    if(!err){
+                        console.log(result);
+                        res.send(result);
+                    }else{
+                        res.send({"Error": 'Hiba a törlés során!'});
+                    }
+                });
+            }
+            else{
+                res.send({"Error": 'Nincs jogosultságod ehhez a művelethez!'});
+            }
         }
-    })
-    connection.end();
+        else{
+            res.send({"Error": 'Nem megfelelő adatok!'});
+        }
+        connection.end();
+    });
 });
 
 app.post("/jelszovaltoztatas", bodyParser.json(), function(req,res){
@@ -129,15 +157,30 @@ app.post("/jelszovaltoztatas", bodyParser.json(), function(req,res){
     const kivalasztottfelhasznalonev = req.body.param.felhasznalo;
     const ujjelszohash = req.body.param.jelszo;
     console.log(req.body);
-    connection.query("UPDATE felhasznalo f SET f.jelszo = '"+ujjelszohash+"' WHERE f.nev = '"+kivalasztottfelhasznalonev+"'" , function(err, result,fields){
-        if(!err){
-            console.log(result);
-            res.send(result);
-        }else{
-            res.send({"Error": 'Hiba a jelszó változtatás során!'});
+
+    felhasznaloValidator(felh,hasheltJelszo).then((lekerdezoAdatai)=>{
+        console.log(lekerdezoAdatai);
+        if(lekerdezoAdatai!=undefined)
+        {
+            if(lekerdezoAdatai[0].jog=="admin"){
+                connection.query("UPDATE felhasznalo f SET f.jelszo = '"+ujjelszohash+"' WHERE f.nev = '"+kivalasztottfelhasznalonev+"'" , function(err, result,fields){
+                    if(!err){
+                        console.log(result);
+                        res.send(result);
+                    }else{
+                        res.send({"Error": 'Hiba a jelszó változtatása során!'});
+                    }
+                });
+            }
+            else{
+                res.send({"Error": 'Nincs jogosultságod ehhez a művelethez!'});
+            }
         }
-    })
-    connection.end();
+        else{
+            res.send({"Error": 'Nem megfelelő adatok!'});
+        }
+        connection.end();
+    });
 });
 
 app.post("/emailvaltoztatas", bodyParser.json(), function(req,res){
@@ -440,8 +483,8 @@ function valaszLement(felhasznaloID,pontok,feladatsorID,valaszok){
     return new Promise((resolve) => {
         var connection = getConnection();
         connection.connect();
-        connection.query("insert into eredmenyek values(null,"+felhasznaloID+","+pontok+",null,"+feladatsorID+",'"+valaszok+"')", function(err, result,fields){
-            console.log("insert into eredmenyek values(null,"+felhasznaloID+","+pontok+",null,"+feladatsorID+",'"+valaszok+"')")
+        connection.query("insert into eredmenyek values(null,"+felhasznaloID+","+pontok+",DEFAULT,"+feladatsorID+",'"+valaszok+"')", function(err, result,fields){
+            console.log("insert into eredmenyek values(null,"+felhasznaloID+","+pontok+",DEFAULT,"+feladatsorID+",'"+valaszok+"')")
             if(!err){
                 connection.end;
                 resolve(result);

@@ -582,7 +582,7 @@ function SideModalAktiv(){
         diaknev.innerHTML = mnev+" (admin)";
         if(sessionStorage.getItem("Admingomb")=='false'){
             sessionStorage.setItem("Admingomb",true);
-            document.getElementById("SidemodalBody").innerHTML += '<div class="col-sm-12 form-group" id="AdminGomb"> <button>Admin Felület</button> </div>';
+            document.getElementById("SidemodalBody").innerHTML += '<div class="col-sm-12 form-group" id="AdminGomb"> <button><a target="_blank" href="admin.html">Admin Felület</a></button> </div>';
         }
     }else{
         diaknev.innerHTML = fnev;
@@ -626,3 +626,28 @@ function JelszovaltasGomb(){
     //meg kell erősíteni hogy le akarja váltani
     //átírni adatbázisban, kiírni hogy sikeres
 }
+
+var sessionStorage_transfer = function(event) {
+    console.log("Ide bekéne");
+    if(!event) { event = window.event; } // ie suq
+    if (event.key == 'getSessionStorage') {
+      // another tab asked for the sessionStorage -> send it
+      localStorage.setItem('sessionStorage', JSON.stringify(sessionStorage));
+      // the other tab should now have it, so we're done with it.
+      localStorage.removeItem('sessionStorage'); // <- could do short timeout as well.
+    } else if (event.key == 'sessionStorage') {
+      // another tab sent data <- get it
+      var data = JSON.parse(event.newValue);
+      for (var key in data) {
+        console.log(key+" adata át mentve!");
+        sessionStorage.setItem(key, data[key]);
+      }
+    }
+  };
+  
+  // listen for changes to localStorage
+  if(window.addEventListener) {
+    window.addEventListener("storage", sessionStorage_transfer, false);
+  } else {
+    window.attachEvent("onstorage", sessionStorage_transfer);
+  };

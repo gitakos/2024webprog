@@ -70,6 +70,14 @@
             }
           }
         }
+
+
+         // Ask other tabs for session storage (this is ONLY to trigger event)
+         if (true) {
+                localStorage.setItem('getSessionStorage', 'foobar');
+                localStorage.removeItem('getSessionStorage', 'foobar');
+            };
+        //Lekéri az adatot a másik oldalaktól
         </script>
 </body>
 </html>
