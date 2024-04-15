@@ -217,7 +217,7 @@ function FeladatsorKirakas(){
             FeladatsorDiv.classList.add("FeladatsorDiv");
     
             let FeladatsorEv = document.createElement("h2");
-            FeladatsorEv.innerHTML = feladatok[i].ev+" Év";
+            FeladatsorEv.innerHTML = feladatok[i].ev;
             let FeladatsorEvDiv = document.createElement("div");
             FeladatsorEvDiv.classList.add("FeladatsorEvDiv");
             FeladatsorEvDiv.appendChild(FeladatsorEv);
@@ -233,7 +233,7 @@ function FeladatsorKirakas(){
             FeladatImgDiv.appendChild(FeladatImg);
     
             let FeladatsorHonap = document.createElement("h3");
-            FeladatsorHonap.innerHTML = feladatok[i].honap+" Hónap";
+            FeladatsorHonap.innerHTML = feladatok[i].honap;
             let FeladatsorHonapDiv = document.createElement("div");
             FeladatsorHonapDiv.classList.add("FeladatsorHonapDiv");
             FeladatsorHonapDiv.appendChild(FeladatsorHonap);
@@ -596,25 +596,49 @@ function EredmenyKimutat(){
 }
 
 function MegNevvaltasGomb(){
+    let mentesgomb = document.getElementById("nevValtGomb");
+    let nevValtConfirm = document.getElementById("nevValtConf");
     let nevvaltasinfo = document.getElementById("felhasznalonevValtInfo");
+    nevvaltasinfo.innerHTML = "";
     let regiNev = document.getElementById("felhasznalonevValtJelenlegi").value;
     let ujNev = document.getElementById("felhasznalonevValtUj").value;
     const regxnev = /^[A-Za-z0-9áéíóöőúüűÁÉÍÓÖŐÚÜŰ]{1,16}$/;
     if(regiNev == sessionStorage.getItem("Megnev")){
-        if(regxnev.test(ujnev)){
-            adatLekerdezes(sessionStorage.getItem("Felhasznalonev"),sessionStorage.getItem("Jelszo"),"megnev",{hova:"megnevValt",ujmegnev:ujNev});
+        if(regxnev.test(ujNev)){
+            mentesgomb.style.backgroundColor = "#71ff4dc7";
+            mentesgomb.setAttribute("onclick","MegNevValtConf()");
+            let megsegomb = document.createElement("button");
+            megsegomb.id = "nevmegsetemp";
+            megsegomb.textContent = "Mégsem";
+            megsegomb.setAttribute("onclick","MegNevvaltreset()");
+            megsegomb.style.backgroundColor = "#ff4d4dc7";
+            megsegomb.style.transition = "ease-in-out .3s";
+            nevValtConfirm.appendChild(megsegomb);
         }else{
             nevvaltasinfo.innerHTML = "A név túl hosszú, vagy speciális karaktert tartalmaz!";    
         }
     }else{
         nevvaltasinfo.innerHTML = "Rosszul adta meg a jelenlegi nevét!";
     }
-    //meg kell nézni van e olyan név amire váltani akarja
-    //meg kell nézni jól adta e meg a régi nevét 
-    //meg kell nézni hogy megfelelő e az új
-    //meg kell erősíteni hogy le akarja váltani
-    //átírni adatbázisban, kiírni hogy sikeres
 }
+function MegNevvaltreset(){
+    let mentesgomb = document.getElementById("nevValtGomb");
+    mentesgomb.style.backgroundColor = "rgba(128, 128, 128, 0.3)";
+    document.getElementById("nevmegsetemp").remove();
+    mentesgomb.setAttribute("onclick","MegNevvaltasGomb(this)");
+    document.getElementById("felhasznalonevValtJelenlegi").value = '';
+    document.getElementById("felhasznalonevValtUj").value = '';
+}
+function MegNevValtConf(){
+    let ujNev = document.getElementById("felhasznalonevValtUj").value;
+    let nevvaltasinfo = document.getElementById("felhasznalonevValtInfo");
+    adatLekerdezes(sessionStorage.getItem("Felhasznalonev"),sessionStorage.getItem("Jelszo"),"megnev",{hova:"megnevValt",ujmegnev:ujNev});
+    sessionStorage.setItem("Megnev",ujNev);
+    nevvaltasinfo.innerHTML = "A név sikeresen módosult!"; 
+    MegNevvaltreset();
+    SideModalAktiv();
+}
+
 function JelszovaltasGomb(){
     let jelszovaltasinfo = document.getElementById("jelszoValtInfo");
     let regiPw = document.getElementById("jelszoValtJelenlegi");

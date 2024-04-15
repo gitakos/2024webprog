@@ -108,8 +108,10 @@
                 <input type="text" class="form-control" placeholder="Új megjenő név" id="felhasznalonevValtUj">
               </div>
               <div class="ValtoztatasGombInfo">
-                <button onclick="MegNevvaltasGomb()">Mentés</button>
-                <p id="felhasznalonevValtInfo"> info </p>
+                <div id="nevValtConf">
+                  <button onclick="MegNevvaltasGomb(this)" id="nevValtGomb">Mentés</button>
+                </div>
+                <p id="felhasznalonevValtInfo"></p>
               </div>
               <div class="col-sm-12 form-group">
                 <h5 class="SideBarh5">Jelszó változtatás:</h5>
@@ -123,7 +125,7 @@
               <div class="col-sm-12 form-group">
                 <input type="password" class="form-control" placeholder="Új Jelszó Mégegyszer" id="jelszoValtUjRe">
               </div>
-              <div class="ValtoztatasGombInfo">
+              <div class="ValtoztatasGombInfo" id="jelszoValt">
                 <button onclick="JelszovaltasGomb()">Mentés</button>
                 <p id="jelszoValtInfo">info</p>
               </div>  
