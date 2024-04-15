@@ -557,8 +557,8 @@ function valaszFelkuldes(){
         }
         else
         {
-            alert("Feladat sikeresen leadva!");
             console.log(valasz);
+            alert("Feladat sikeresen leadva!"+"\n"+valasz.maxpont+"/"+valasz.pontok+" "+valasz.pontok/valasz.maxpont * 100 +"%");
         }
     });
 }
