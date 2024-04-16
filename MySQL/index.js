@@ -93,7 +93,7 @@ app.post("/felhasznaloklekerdez", bodyParser.json(), function(req,res){
     console.log(req.body);
     felhasznaloValidator(felh,hasheltJelszo).then((lekerdezoAdatai)=>{
         console.log(lekerdezoAdatai);
-        if(lekerdezoAdatai!=undefined)
+        if(lekerdezoAdatai.length>0)
         {
             if(lekerdezoAdatai[0].jog=="admin"){
                 connection.query("select f.nev as nev from felhasznalo f" , function(err, result,fields){
@@ -227,6 +227,34 @@ app.post("/emailvaltoztatas", bodyParser.json(), function(req,res){
         }
     })
     connection.end();
+});
+
+app.post("/useremailvalt", bodyParser.json(), function(req,res){
+    var connection = getConnection();
+    connection.connect();
+    const felh = req.body.felh;
+    const hasheltJelszo = req.body.hasheltJelszo;
+    const ujemail = req.body.param.email;
+    console.log(req.body);
+
+    felhasznaloValidator(felh,hasheltJelszo).then((lekerdezoAdatai)=>{
+        console.log(lekerdezoAdatai);
+        if(lekerdezoAdatai!=undefined)
+        {
+            connection.query("UPDATE felhasznalo f SET f.email = '"+ujemail+"' WHERE f.nev = '"+felh+"'" , function(err, result,fields){
+                if(!err){
+                    console.log(result);
+                    res.send(result);
+                }else{
+                    res.send({"Error": 'Hiba a jelszó változtatása során!'});
+                }
+            });
+        }
+        else{
+            res.send({"Error": 'Nem megfelelő adatok!'});
+        }
+        connection.end();
+    });
 });
 
 app.post("/fnnevvaltoztatas", bodyParser.json(), function(req,res){

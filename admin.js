@@ -26,6 +26,7 @@ const adatLekerdezes = (felh,hasheltJelszo,fajta,param) => { //És akkor nem kel
         }
     });
 }
+var lefutott = false;
 var sessionStorage_transfer = function(event) {
     if(!event) { event = window.event; } // ie suq
     if (event.key == 'getSessionStorage') {
@@ -44,10 +45,17 @@ var sessionStorage_transfer = function(event) {
             sessionStorage.setItem(key, data[key]);
         }
       }
+      if(!lefutott){
+        NevekLekerdezAdminListaba();
+        lefutott = true;
+      }
     }
+};
+
+if(sessionStorage.getItem("Login")=='true'){
     NevekLekerdezAdminListaba();
-  };
-  
+}
+
   // listen for changes to localStorage
   if(window.addEventListener) {
     window.addEventListener("storage", sessionStorage_transfer, false);
@@ -113,12 +121,13 @@ function NevekLekerdezAdminListaba(){//admin felület
             alert(felhasznalok.Error);
             return;
         }
+        console.log(felhasznalok)
         felhasznalok.forEach(element => {
             felhLista.push(element.nev);
         });
         let cucc = document.getElementById("myMenu");
         cucc.innerHTML = "";
-        for (let i = 0; i < felhLista.length&&i<hanynev; i++) {
+        for (let i = 0; i < felhLista.length; i++) {
             cucc.innerHTML += "<li><a onclick='felhKivalaszt(this)'>"+felhLista[i]+"</a></li>";
         }
     });

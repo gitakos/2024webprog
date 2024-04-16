@@ -477,7 +477,7 @@ function SideModalAktiv(){
             document.getElementById("SidemodalBody").innerHTML += '<div class="col-sm-12 form-group" id="AdminGomb"> <button><a target="_blank" href="admin.html">Admin Felület</a></button> </div>';
         }
     }else{
-        diaknev.innerHTML = fnev;
+        diaknev.innerHTML = mnev;
     }
 
 }
@@ -517,7 +517,7 @@ function MegNevvaltreset(){
     let mentesgomb = document.getElementById("nevValtGomb");
     mentesgomb.style.backgroundColor = "rgba(128, 128, 128, 0.3)";
     document.getElementById("nevmegsetemp").remove();
-    mentesgomb.setAttribute("onclick","MegNevvaltasGomb(this)");
+    mentesgomb.setAttribute("onclick","MegNevvaltasGomb()");
     document.getElementById("felhasznalonevValtJelenlegi").value = '';
     document.getElementById("felhasznalonevValtUj").value = '';
 }
@@ -572,7 +572,7 @@ function Jelszovaltreset(){
     let mentesgomb = document.getElementById("jelszoValtGomb");
     mentesgomb.style.backgroundColor = "rgba(128, 128, 128, 0.3)";
     document.getElementById("jelszomegsetemp").remove();
-    mentesgomb.setAttribute("onclick","JelszovaltasGomb(this)");
+    mentesgomb.setAttribute("onclick","JelszovaltasGomb()");
     document.getElementById("jelszoValtJelenlegi").value = '';
     document.getElementById("jelszoValtUj").value = '';
     document.getElementById("jelszoValtUjRe").value = '';
@@ -581,20 +581,67 @@ function JelszoValtConf(){
     let ujJelszo = document.getElementById("jelszoValtUj").value;
     let jelszovaltasinfo = document.getElementById("jelszoValtInfo");
     hash(ujJelszo).then((hex)=>{
-        adatLekerdezes(sessionStorage.getItem("Felhasznalonev"),sessionStorage.getItem("Jelszo"),"userjelszovalt",hex).then((result)=>{
+        adatLekerdezes(sessionStorage.getItem("Felhasznalonev"),sessionStorage.getItem("Jelszo"),"userjelszovalt",{jelszo:hex}).then((result)=>{
             if(!result.Error){
                 sessionStorage.setItem("Jelszo",hex);
             }
         }
     )});
-    jelszovaltasinfo.innerHTML = "A jelszű sikeresen módosult!"; 
+    jelszovaltasinfo.innerHTML = "A jelszó sikeresen módosult!"; 
     Jelszovaltreset();
 }
 
 function EmailvaltasGomb(){
-
+    let mentesgomb = document.getElementById("emailValtGomb");
+    let emailvaltasinfo = document.getElementById("emailValtInfo");
+    let emailValtConfirm = document.getElementById("emailValtConf");
+    emailvaltasinfo.innerHTML = "";
+    let ujEmail = document.getElementById("EmailValtUj").value;
+    let emailvaltPw = document.getElementById("EmailValtJelszo").value;
+    const regxeamil = /^[a-zA-Z0-9áéíóöőúüűÁÉÍÓÖŐÚÜŰ._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+    if(ujEmail != "" && emailvaltPw != ""){
+        if(regxeamil.test(ujEmail)){
+            hash(emailvaltPw).then((hex)=>{
+                if(hex==sessionStorage.getItem("Jelszo")){
+                    adatLekerdezes(sessionStorage.getItem("Felhasznalonev"),sessionStorage.getItem("Jelszo"),"emailELL",ujEmail).then((result)=>{
+                        if(!result.Valasz){
+                            mentesgomb.style.backgroundColor = "#71ff4dc7";
+                            mentesgomb.setAttribute("onclick","EmailValtConf()");
+                            let megsegomb = document.createElement("button");
+                            megsegomb.id = "emailmegsetemp";
+                            megsegomb.textContent = "Mégsem";
+                            megsegomb.setAttribute("onclick","Emailvaltreset()");
+                            megsegomb.style.backgroundColor = "#ff4d4dc7";
+                            megsegomb.style.transition = "ease-in-out .3s";
+                            emailValtConfirm.appendChild(megsegomb);
+                        }else{
+                            emailvaltasinfo.innerHTML = "Ez az emailcím már használatban van!";                   
+                        }
+                    });
+                }else{
+                    emailvaltasinfo.innerHTML = "Nem jó jelszó!";        
+                }
+            });
+        }else{
+            emailvaltasinfo.innerHTML = "Az új emailcím nem megfelelő!";
+        }
+    }
 }
-
+function Emailvaltreset(){
+    let mentesgomb = document.getElementById("emailValtGomb");
+    mentesgomb.style.backgroundColor = "rgba(128, 128, 128, 0.3)";
+    document.getElementById("emailmegsetemp").remove();
+    mentesgomb.setAttribute("onclick","EmailvaltasGomb()");
+    document.getElementById("EmailValtUj").value = '';
+    document.getElementById("EmailValtJelszo").value = '';
+}
+function EmailValtConf(){
+    let ujEmail = document.getElementById("EmailValtUj").value;
+    let emailvaltasinfo = document.getElementById("emailValtInfo");
+    adatLekerdezes(sessionStorage.getItem("Felhasznalonev"),sessionStorage.getItem("Jelszo"),"useremailvalt",{email:ujEmail});
+    emailvaltasinfo.innerHTML = "Az emailcím sikeresen módosult!"; 
+    Emailvaltreset();
+}
 
 var sessionStorage_transfer = function(event) {
     console.log("Ide bekéne");
