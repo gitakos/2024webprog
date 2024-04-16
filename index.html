@@ -96,6 +96,8 @@
                   <option>4</option>
                 </select>
               </div>
+
+
               <div class="col-sm-12 form-group">
                 <h5 class="SideBarh5">Megjelenő név változtatás: <div class="Tooltip">?
                   <span class="TooltipText">Ez csak a megjelenítési neved, a belépéshez szükséges felhasználóneved nem tudod megváltoztatni!</span>
@@ -109,10 +111,12 @@
               </div>
               <div class="ValtoztatasGombInfo">
                 <div id="nevValtConf">
-                  <button onclick="MegNevvaltasGomb(this)" id="nevValtGomb">Mentés</button>
+                  <button onclick="MegNevvaltasGomb()" id="nevValtGomb">Mentés</button>
                 </div>
                 <p id="felhasznalonevValtInfo"></p>
               </div>
+
+
               <div class="col-sm-12 form-group">
                 <h5 class="SideBarh5">Jelszó változtatás:</h5>
               </div>
@@ -126,11 +130,31 @@
                 <input type="password" class="form-control" placeholder="Új Jelszó Mégegyszer" id="jelszoValtUjRe">
               </div>
               <div class="ValtoztatasGombInfo" id="jelszoValt">
-                <button onclick="JelszovaltasGomb()">Mentés</button>
-                <p id="jelszoValtInfo">info</p>
+                <div id="jelszoValtConf">
+                  <button onclick="JelszovaltasGomb()" id="jelszoValtGomb">Mentés</button>
+                </div>
+                <p id="jelszoValtInfo"></p>
               </div>  
-        </div>
+              
+
+              <div class="col-sm-12 form-group">
+                <h5 class="SideBarh5">Emailcím változtatás: </h5>
+              </div>
+              <div class="col-sm-12 form-group">
+                <input type="text" class="form-control" placeholder="Új email" id="EmailValtUj">
+              </div>
+              <div class="col-sm-12 form-group">
+                <input type="password" class="form-control" placeholder="Jelszó" id="EmailValtJelszo">
+              </div>
+              <div class="ValtoztatasGombInfo">
+                <div id="emailValtConf">
+                  <button onclick="EmailvaltasGomb()" id="emailValtGomb">Mentés</button>
+                </div>
+                <p id="emailValtInfo"></p>
+              </div>
+
           </div>
+        </div>
         <div class="modal-footer">
           <p id="Logout" onclick="Logout()">Kijelentkezés</p>
         </div>

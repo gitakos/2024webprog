@@ -1,4 +1,5 @@
 var KozepSzintSelect = true;
+var Admingomb = false;
 let adminFeluletenVanE = document.title=="Admin Felület";
 
 const adatLekerdezes = (felh,hasheltJelszo,fajta,param) => { //És akkor nem kell kilenc millió post kérést írni
@@ -164,7 +165,7 @@ function login()
                 });
                 sessionStorage.setItem("Felhasznalonev",fn.value);
                 sessionStorage.setItem("Jelszo",hex);
-                sessionStorage.setItem("Admingomb",false);
+                Admingomb = false;
                 Main();
             }
         })});
@@ -254,7 +255,7 @@ function Logout(){
     sessionStorage.removeItem("AdminUser");
     sessionStorage.removeItem("Felhasznalonev");
     sessionStorage.removeItem("Jelszo");
-    sessionStorage.removeItem("Admingomb");
+    Admingomb = false;
     location.reload();
 }
 
@@ -471,8 +472,8 @@ function SideModalAktiv(){
     let mnev = sessionStorage.getItem("Megnev");
     if(sessionStorage.getItem("AdminUser")=="admin"){
         diaknev.innerHTML = mnev+" (admin)";
-        if(sessionStorage.getItem("Admingomb")=='false'){
-            sessionStorage.setItem("Admingomb",true);
+        if(!Admingomb){
+            Admingomb = true;
             document.getElementById("SidemodalBody").innerHTML += '<div class="col-sm-12 form-group" id="AdminGomb"> <button><a target="_blank" href="admin.html">Admin Felület</a></button> </div>';
         }
     }else{
@@ -494,7 +495,7 @@ function MegNevvaltasGomb(){
     let regiNev = document.getElementById("felhasznalonevValtJelenlegi").value;
     let ujNev = document.getElementById("felhasznalonevValtUj").value;
     const regxnev = /^[A-Za-z0-9áéíóöőúüűÁÉÍÓÖŐÚÜŰ]{1,16}$/;
-    if(regiNev == sessionStorage.getItem("Megnev")){
+    if(regiNev == sessionStorage.getItem("Megnev") && regiNev != "" && ujNev != ""){
         if(regxnev.test(ujNev)){
             mentesgomb.style.backgroundColor = "#71ff4dc7";
             mentesgomb.setAttribute("onclick","MegNevValtConf()");
@@ -531,16 +532,69 @@ function MegNevValtConf(){
 }
 
 function JelszovaltasGomb(){
+    let mentesgomb = document.getElementById("jelszoValtGomb");
     let jelszovaltasinfo = document.getElementById("jelszoValtInfo");
-    let regiPw = document.getElementById("jelszoValtJelenlegi");
-    let ujPw = document.getElementById("jelszoValtUj");
-    let ujPwre = document.getElementById("jelszoValtUjRe");
-    //meg kell nézni jól adta e meg a régi jelszót
-    //meg kell nézni hogy megfelelő e az új
-    //meg kell nézni hogy mindkétszer ugyan azt írta e be
-    //meg kell erősíteni hogy le akarja váltani
-    //átírni adatbázisban, kiírni hogy sikeres
+    let jelszoValtConfirm = document.getElementById("jelszoValtConf");
+    jelszovaltasinfo.innerHTML = "";
+    let regiPw = document.getElementById("jelszoValtJelenlegi").value;
+    let ujPw = document.getElementById("jelszoValtUj").value;
+    let ujPwre = document.getElementById("jelszoValtUjRe").value;
+    const regxpw = /^(?=.*[0-9])(?=.*[A-ZÁÉÍÓÖŐÚÜŰ])[a-zA-Z0-9!@#$%^&*._-áéíóöőúüűÁÉÍÓÖŐÚÜŰ]{6,16}$/;
+    if(regiPw != "" && ujPw != "" && ujPwre != ""){
+        hash(regiPw).then((hex)=>{
+            if(hex == sessionStorage.getItem("Jelszo")){
+                if(regxpw.test(ujPw)){
+                    if(ujPw == ujPwre){
+                        mentesgomb.style.backgroundColor = "#71ff4dc7";
+                        mentesgomb.setAttribute("onclick","JelszoValtConf()");
+                        let megsegomb = document.createElement("button");
+                        megsegomb.id = "jelszomegsetemp";
+                        megsegomb.textContent = "Mégsem";
+                        megsegomb.setAttribute("onclick","Jelszovaltreset()");
+                        megsegomb.style.backgroundColor = "#ff4d4dc7";
+                        megsegomb.style.transition = "ease-in-out .3s";
+                        jelszoValtConfirm.appendChild(megsegomb);
+                    }else{
+                        jelszovaltasinfo.innerHTML = "A két jelszó nem egyezik!";  
+                    }
+                }else{
+                    jelszovaltasinfo.innerHTML = "Az új jelszó túl gyenge!";    
+                }
+            }else{
+                jelszovaltasinfo.innerHTML = "A jelenlegi jelszó nem megfelelő!";
+            }
+        });
+    }
 }
+
+
+function Jelszovaltreset(){
+    let mentesgomb = document.getElementById("jelszoValtGomb");
+    mentesgomb.style.backgroundColor = "rgba(128, 128, 128, 0.3)";
+    document.getElementById("jelszomegsetemp").remove();
+    mentesgomb.setAttribute("onclick","JelszovaltasGomb(this)");
+    document.getElementById("jelszoValtJelenlegi").value = '';
+    document.getElementById("jelszoValtUj").value = '';
+    document.getElementById("jelszoValtUjRe").value = '';
+}
+function JelszoValtConf(){
+    let ujJelszo = document.getElementById("jelszoValtUj").value;
+    let jelszovaltasinfo = document.getElementById("jelszoValtInfo");
+    hash(ujJelszo).then((hex)=>{
+        adatLekerdezes(sessionStorage.getItem("Felhasznalonev"),sessionStorage.getItem("Jelszo"),"userjelszovalt",hex).then((result)=>{
+            if(!result.Error){
+                sessionStorage.setItem("Jelszo",hex);
+            }
+        }
+    )});
+    jelszovaltasinfo.innerHTML = "A jelszű sikeresen módosult!"; 
+    Jelszovaltreset();
+}
+
+function EmailvaltasGomb(){
+
+}
+
 
 var sessionStorage_transfer = function(event) {
     console.log("Ide bekéne");

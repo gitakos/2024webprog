@@ -183,6 +183,34 @@ app.post("/jelszovaltoztatas", bodyParser.json(), function(req,res){
     });
 });
 
+app.post("/userjelszovalt", bodyParser.json(), function(req,res){
+    var connection = getConnection();
+    connection.connect();
+    const felh = req.body.felh;
+    const hasheltJelszo = req.body.hasheltJelszo;
+    const ujjelszohash = req.body.param.jelszo;
+    console.log(req.body);
+
+    felhasznaloValidator(felh,hasheltJelszo).then((lekerdezoAdatai)=>{
+        console.log(lekerdezoAdatai);
+        if(lekerdezoAdatai!=undefined)
+        {
+            connection.query("UPDATE felhasznalo f SET f.jelszo = '"+ujjelszohash+"' WHERE f.nev = '"+felh+"'" , function(err, result,fields){
+                if(!err){
+                    console.log(result);
+                    res.send(result);
+                }else{
+                    res.send({"Error": 'Hiba a jelszó változtatása során!'});
+                }
+            });
+        }
+        else{
+            res.send({"Error": 'Nem megfelelő adatok!'});
+        }
+        connection.end();
+    });
+});
+
 app.post("/emailvaltoztatas", bodyParser.json(), function(req,res){
     var connection = getConnection();
     connection.connect();
