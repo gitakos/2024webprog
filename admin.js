@@ -1,14 +1,41 @@
 //LKNFDKJÁVFKNLVFKNL HOOOOOOG RIIIIDDDDEEERRRR
 
+
+const adatLekerdezes = (felh,hasheltJelszo,fajta,param) => { //És akkor nem kell kilenc millió post kérést írni
+    const data = { felh: felh,hasheltJelszo: hasheltJelszo ,param: param};
+    return fetch("http://127.0.0.1:3000/"+fajta, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(function (response) {
+        if (!response.ok) {
+            // alert("Nem jó válasz érekezett az adatbázisból");
+            return Promise.reject("Nem jó válasz érekezett az adatbázisból");
+        }
+        return response.json();
+    })
+    .then(function (response) {
+        if (response.Error) {
+            // alert(response.Error);
+            return response;
+        } else {
+            return response;
+        }
+    });
+}
 var sessionStorage_transfer = function(event) {
-    console.log("Ide bekéne");
     if(!event) { event = window.event; } // ie suq
     if (event.key == 'getSessionStorage') {
+        console.log("Adatot kérnek szóval oda adom")
       // another tab asked for the sessionStorage -> send it
       localStorage.setItem('sessionStorage', JSON.stringify(sessionStorage));
       // the other tab should now have it, so we're done with it.
       localStorage.removeItem('sessionStorage'); // <- could do short timeout as well.
     } else if (event.key == 'sessionStorage') {
+        console.log("Adatot küldenek felém szóval megkapom :3")
       // another tab sent data <- get it
       var data = JSON.parse(event.newValue);
       for (var key in data) {
@@ -18,10 +45,7 @@ var sessionStorage_transfer = function(event) {
         }
       }
     }
-
-    if(adminFeluletenVanE){
-        NevekLekerdezAdminListaba();
-    }
+    NevekLekerdezAdminListaba();
   };
   
   // listen for changes to localStorage
@@ -166,3 +190,11 @@ async function hash(string) {
       .join('');
     return hashHex;
 }
+
+
+// Ask other tabs for session storage (this is ONLY to trigger event)
+if (sessionStorage.getItem("Login")==undefined) {
+    console.log("Elkérem az a datokat UwU")
+    localStorage.setItem('getSessionStorage', 'foobar');
+    localStorage.removeItem('getSessionStorage', 'foobar');
+};
