@@ -342,79 +342,7 @@ function TablaSorAdd(nev,datum,feladatsor,maxpont,elertpont,szazalek){
     var table = document.getElementById("tablazat");
     table.innerHTML += "<tr><td>"+nev+"</td><td>"+datum+"</td><td>"+feladatsor+"</td><td>"+maxpont+"</td><td>"+elertpont+"</td><td>"+szazalek+"</td></tr>";
 }
-//TablaSorAdd();
-let hanynev = 10;
-let felhLista = new Array();
-let felhKivalasztott = null;
-function NevekLekerdezAdminListaba(){
-    //Ide kell bepakolni a neveket az adatbázisból akik nem adminok
-    adatLekerdezes(null,null,"felhasznaloklekerdez").then((felhasznalok)=>{
-        felhasznalok.forEach(element => {
-            felhLista.push(element.nev);
-        });
-    
-        for (let i = 0; i < felhLista.length&&i<hanynev; i++) {
-            let cucc = document.getElementById("myMenu");
-            cucc.innerHTML += "<li><a onclick='felhKivalaszt(this)'>"+felhLista[i]+"</a></li>";
-        }
-    });
-}
-if(adminFeluletenVanE){
-    NevekLekerdezAdminListaba();
-}
 
-function felhKivalaszt(elem){
-    //console.log(elem.);
-    felhKivalasztott = elem.innerHTML;
-    let kivalasztottElemek = document.getElementsByClassName("kivalasztottElem");
-    if(kivalasztottElemek.length>0){
-        kivalasztottElemek[0].classList.remove("kivalasztottElem");
-    }
-    elem.classList.add("kivalasztottElem");
-    document.getElementById("kiválasztottnev").innerHTML = felhKivalasztott;
-}
-//NevekLekerdezAdminListaba();
-function Torles(){
-    //itt kerül meghívásra a törlésés lekérdezés az index.js-ből
-    adatLekerdezes(null,null,"felhasznalotorol",felhKivalasztott).then((eredmeny)=>{
-        if(eredmeny.Error){
-            alert("Felhasználó nem lett törölve!");
-        }
-        else
-        {
-            alert("A felhasználó sikeresen törölve lett!");
-            felhKivalasztott = null;
-            document.getElementById("kiválasztottnev").innerHTML = "Nincs kiválasztott fiók!";
-            document.getElementsByClassName("kivalasztottElem")[0].remove();
-        }
-    });
-}
-
-function JelszoValt(){
-    console.log("Jelszo változtat");
-    let mezo1 = document.getElementById("ujjelszo").value;
-    let mezo2 = document.getElementById("ujjelszoRe").value;
-
-    if(mezo1 == mezo2  && ErosJelszo(mezo1))
-    {
-        console.log("Jó a jelszó");
-        hash(mezo1).then((hasheltJelsz)=>{
-            adatLekerdezes(null,null,"jelszovaltoztatas",{"felhasznalo":felhKivalasztott,"jelszo":hasheltJelsz}).then((eredmeny)=>{
-                if(eredmeny.Error){
-                    alert("Hiba! Jelszó nem lett megváltoztatva");
-                }
-                else
-                {
-                    alert("Jelszó sikeresen megváltoztatva!");
-                }
-            });
-        });
-        
-    }
-    else{
-        console.log("Hiba");
-    }
-}
 function ErosJelszo(jelszo){
     const regxpw = /[a-zA-Z0-9]{6,16}/;
     if(regxpw.test(jelszo)){
@@ -424,44 +352,7 @@ function ErosJelszo(jelszo){
         return false;
     }
 }
-function PromoteToAdmin(){
-    //itt kell a kiválasztott felhasználót adminná tenni
-    adatLekerdezes(null,null,"adminnatetel",felhKivalasztott).then((eredmeny)=>{
-        if(eredmeny.Error){
-            alert("Hiba! Felhasználó nem lett admin");
-        }
-        else
-        {
-            alert("Sikeresen adminá vált a fiók!");
-        }
-    });
-}
 
-function emailvaltoztat(){
-    var uje = document.getElementById("valami").value;
-    adatLekerdezes(null,null,"emailvaltoztatas",{"kivalasztottFelh":felhKivalasztott,"ujemail":uje}).then((eredmeny)=>{
-        if(eredmeny.Error){
-            alert("Hiba! Az email változtatás sikertelen.😊");
-        }
-        else
-        {
-            alert("Sikeres email cím változtatás.🤞👏💋");
-        }
-    });
-}
-
-function nevvaltoztat(){
-    var ujnev = document.getElementById("valami").value;
-    adatLekerdezes(null,null,"fnnevvaltoztatas",{"kivalasztottFelh":felhKivalasztott,"ujnev":ujnev}).then((eredmeny)=>{
-        if(eredmeny.Error){
-            alert("Hiba! A felhasználónév változtatás sikertelen.😊");
-        }
-        else
-        {
-            alert("Sikeres felhasználónév változtatás.🤞👏💋");
-        }
-    });
-}
 function feladatSorGen(img){
     kivalasztottFeladatsorID = img.dataset.feladatID;
     document.body.innerHTML = "<div id='oldal1'>"+
@@ -717,8 +608,10 @@ var sessionStorage_transfer = function(event) {
       // another tab sent data <- get it
       var data = JSON.parse(event.newValue);
       for (var key in data) {
-        console.log(key+" adata át mentve!");
-        sessionStorage.setItem(key, data[key]);
+        if(key!="IsThisFirstTime_Log_From_LiveServer"){
+            console.log(key+" adata át mentve!");
+            sessionStorage.setItem(key, data[key]);
+        }
       }
     }
   };
