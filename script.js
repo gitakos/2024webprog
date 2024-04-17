@@ -474,7 +474,7 @@ function SideModalAktiv(){
         diaknev.innerHTML = mnev+" (admin)";
         if(!Admingomb){
             Admingomb = true;
-            document.getElementById("SidemodalBody").innerHTML += '<div class="col-sm-12 form-group" id="AdminGomb"> <button><a target="_blank" href="admin.html">Admin Felület</a></button> </div>';
+            document.getElementById("SidemodalBody").innerHTML += '<div class="col-sm-12 form-group" id="AdminGomb"> <button><a href="admin.html">Admin Felület</a></button> </div>';
         }
     }else{
         diaknev.innerHTML = mnev;

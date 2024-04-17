@@ -420,7 +420,7 @@ app.post("/megnev", bodyParser.json(), function(req,res){
     const ujmegnev = req.body.param.ujmegnev;
     console.log(req.body);
     if(mitakarcsinalni == "megnevValt"){
-        connection.query("update felhasznalo set megnev = "+ujmegnev+"  where f.nev = "+felh, function(err, result,fields){
+        connection.query("update felhasznalo set megnev = '"+ujmegnev+"'  where nev = '"+felh+"'", function(err, result,fields){
             if(!err){ 
                 res.send(result);
             }else{
