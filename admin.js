@@ -73,7 +73,7 @@ if(sessionStorage.getItem("Login")=='true'){
         }
         else
         {
-            alert("Sikeresen adminá vált a fiók!");
+            alert(eredmeny.Valasz);
         }
     });
 }
