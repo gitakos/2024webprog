@@ -144,8 +144,10 @@ function felhKivalaszt(elem){
     document.getElementById("kiválasztottnev").innerHTML = felhKivalasztott;
 }
 //NevekLekerdezAdminListaba();
+
 function Torles(){//admin felület
     //itt kerül meghívásra a törlésés lekérdezés az index.js-ből
+    console.log("TÖRÖLVE!!!");
     let fn = sessionStorage.getItem("Felhasznalonev");
     let pw = sessionStorage.getItem("Jelszo");
     adatLekerdezes(fn,pw,"felhasznalotorol",felhKivalasztott).then((eredmeny)=>{

@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="admin.js" defer></script>
     <title>Admin Felület</title>
 </head>
@@ -18,16 +19,16 @@
             <h1>Fájl feltölt itt</h1>
             <input type="file" name="inputfile" id="inputfile">
             <br>
-            
-            <div>
+            <form class="adminUserForm">
                 <h2>Kiválasztott Diák:</h2><p id="kiválasztottnev">--ide kerül majd a név akire rá nyom--</p>
-                <button onclick="Torles()" id="torlesgomb">Törlés</button><br>
-
-                <input type="text" id="ujjelszo"placeholder="Adja meg az új jelszót a diáknak!"></input><br>
-                <input type="text" id="ujjelszoRe" placeholder="Jelszó újra"></input><br>
-                <button onclick="JelszoValt()">Jelszó mentése</button><br>
+                <h2>Opciók:</h2>
+                <button id="torlesgomb" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Törlés</button>
+                <label class="formLabel" for="ujjelszo">Új jelszó beállítása:</label>
+                <input type="text" id="ujjelszo"placeholder="Adja meg az új jelszót a diáknak!"></input>
+                <input type="text" id="ujjelszoRe" placeholder="Jelszó újra"></input>
+                <button onclick="JelszoValt()">Jelszó mentése</button>
                 <button onclick="PromoteToAdmin()">Adminná tétel</button>
-            </div>            
+            </form>           
             <script type="text/javascript">
                 document.getElementById('inputfile')
                     .addEventListener('change', function () {
@@ -51,6 +52,27 @@
             </ul>
         </div>
     </div>
+
+
+    <!--Megerőstítés-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Törlés</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Biztosan törölni akarja ezt a fiókot?
+            </div>
+            <div class="modal-footer" id="nemkellastil">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Mégsem</button>
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="Torles()">Megerősítés</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     <script>
         function myFunction() {
           // Declare variables
