@@ -450,9 +450,16 @@ function valaszFelkuldes(){
         else
         {
             console.log(valasz);
-            alert("Feladat sikeresen leadva!"+"\n"+valasz.maxpont+"/"+valasz.pontok+" "+valasz.pontok/valasz.maxpont * 100 +"%");
+            Eredmenymegjelenit(valasz.maxpont,valasz.pontok);
         }
     });
+}
+
+function Eredmenymegjelenit(max,elert){
+    document.getElementById("kuldes").disabled = true;
+    var div = document.getElementById("szovegresz2");
+    var szazalek = elert/max * 100;
+    div.innerHTML += "<p id='osztalyzat'>Szerezhető pont: "+max+"<br> Elért pont: "+elert+"<br> Százalék: "+szazalek+"%</p>";
 }
 
 function szovegtordel(){
