@@ -173,17 +173,17 @@ label{
     flex-wrap: nowrap;
 }
 #Profil{
-    margin-left: 83%;
-    margin-right: 2%;
-    margin-top: .3rem;
-    width: 20vw;
-    min-width: 2rem;
+    margin-right: 5%;
+    width: 6%;
+    min-width: 4rem;
     max-width: 5rem;
-    height:5vh;
-    min-height: 2rem;
+    height: 8%;
+    min-height: 4rem;
     max-height: 5rem;
-    display: inline-block;
-    padding: 2vh 0;
+    background-color: transparent;
+    border: none;
+    border-radius: 1rem;
+    padding: 4vh 0;
     position: fixed;
     display: flex;
     flex-wrap: wrap;
@@ -209,7 +209,6 @@ label{
     background: #ffffffbd;
     border: 1px solid rgb(0, 0, 0);
     border-radius: 1rem;
-    display: inline-block;
     padding: 4vh 0;
     position: fixed;
     display: flex;
@@ -347,6 +346,7 @@ input[type="radio"] {
     background-color: white;
     padding-bottom: 2%;
 }
+
 .align-top{
     width: 90%;
     margin: auto;
@@ -515,7 +515,7 @@ li{
     text-align: right;
 }
 #feladatszoveg1{
-    padding-bottom: 15%;
+    padding-bottom: 10%;
 }
 #cim1{
     text-align: center;
@@ -658,8 +658,9 @@ li{
     border: solid black 2px;
     background-color: rgba(128, 128, 128, 0.3);
     margin: 1%;
-    width: 12vh;
-    height: 4.5vh;
+    padding: 5%;
+    width: 14vh;
+    height: 100%;
 }
 .ValtoztatasGombInfo button:hover, #AdminGomb button:hover{
     transition: ease-in-out .3s;
@@ -744,4 +745,21 @@ li{
     background-color: rgb(255, 255, 255) !important;
     border-radius: 0;
     border:rgb(0, 0, 0) 0px;
+}
+#kuldes{
+    margin: 0;
+    position: absolute;
+}
+#osztalyzat{
+    margin-bottom: 15%;
+    text-align: center;
+    color: red;
+    font-size: larger;
+}
+#fsorhiba{
+    margin: auto;
+    width: 20%;
+    border: 3px solid red;
+    padding: 10px;
+    text-align: center;
 }

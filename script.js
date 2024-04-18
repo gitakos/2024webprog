@@ -13,14 +13,12 @@ const adatLekerdezes = (felh,hasheltJelszo,fajta,param) => { //És akkor nem kel
     })
     .then(function (response) {
         if (!response.ok) {
-            // alert("Nem jó válasz érekezett az adatbázisból");
             return Promise.reject("Nem jó válasz érekezett az adatbázisból");
         }
         return response.json();
     })
     .then(function (response) {
         if (response.Error) {
-            // alert(response.Error);
             return response;
         } else {
             return response;
@@ -120,13 +118,13 @@ function reg()
         }
     }
     if(megfelelo){
-        regisztralasfunction(regfn,regemail,regpw);
+        regisztralasfunction(regfn,regemail,regpw,regrepw,infobox);
     }
  
 }
 
 
-function regisztralasfunction(regfn,regemail,regpw){
+function regisztralasfunction(regfn,regemail,regpw,regrepw,infobox){
     hash(regpw.value).then((hex)=>{
         regisztracio(regfn.value,hex,regemail.value).then((response)=>{
             console.log("Válasz megérkezett!:")
@@ -134,8 +132,11 @@ function regisztralasfunction(regfn,regemail,regpw){
             if(response.Valasz!=undefined){
                 
                 console.log("Sikeresen regisztráltál!");
-                Regful(document.getElementById("RegBlockVisszaGomb"),false);
-                alert("Sikeres Regisztráció!");
+                regfn.value = '';
+                regemail.value = '';
+                regpw.value = '';
+                regrepw.value = ''; 
+                infobox.innerHTML = "Sikeres regisztráció!";
             }
         })});
 }
@@ -185,6 +186,12 @@ function Szintvalasztas(kozep){
     }
 }
 
+function FeladatLekerdHiba(){
+    var div = document.getElementById("Feladatsorok");
+    var tartalom = "Hiba lépett fel a feladatsorok lekérdezése során";
+    div.innerHTML = "<div id='fsorhiba'>"+tartalom+"</div>";
+}
+
 //feladatSor változók
 let kivalasztottFeladatsorID = 0
 let feladatsorokLista = new Array();
@@ -197,7 +204,7 @@ function FeladatsorKirakas(){
 
     adatLekerdezes(null,null,"feladatsorListaLekerdez",null).then((feladatok)=>{
         if(feladatok.Error){
-            alert("Hiba a feladatok lekérdezése során")
+            FeladatLekerdHiba();
             return
         }
         feladatsorokLista = feladatok;
@@ -270,14 +277,12 @@ const regisztracio = (felh,hasheltJelszo,email) => {
     })
     .then(function (response) {
         if (!response.ok) {
-            // alert("Nem jó válasz érekezett az adatbázisból");
             return Promise.reject("Nem jó válasz érekezett az adatbázisból");
         }
         return response.json();
     })
     .then(function (response) {
         if (response.Error) {
-            // alert(response.Error);
             return response.Error;
         } else {
             return response;
@@ -296,14 +301,12 @@ const bejelentkezes = (felh,hasheltJelszo) => {
     })
     .then(function (response) {
         if (!response.ok) {
-            // alert("Nem jó válasz érekezett az adatbázisból");
             return Promise.reject("Nem jó válasz érekezett az adatbázisból");
         }
         return response.json();
     })
     .then(function (response) {
         if (response.Error) {
-            // alert(response.Error);
             return response.Error;
         } else {
             return response;
@@ -444,15 +447,27 @@ function valaszFelkuldes(){
     let pw = sessionStorage.getItem("Jelszo");
     adatLekerdezes(fn,pw,"feladatLeadas",{valaszok:lista,feladatID:kivalasztottFeladatsorID}).then((valasz)=>{
         if(valasz.Error){
-            alert("Hiba lépett fel a feladat leadása közben");
+            HibaALeadasSoran();
             console.log(valasz.Error);
         }
         else
         {
             console.log(valasz);
-            alert("Feladat sikeresen leadva!"+"\n"+valasz.maxpont+"/"+valasz.pontok+" "+valasz.pontok/valasz.maxpont * 100 +"%");
+            Eredmenymegjelenit(valasz.maxpont,valasz.pontok);
         }
     });
+}
+
+function HibaALeadasSoran(){
+    var div = document.getElementById("szovegresz2");
+    div.innerHTML += "<p id='osztalyzat'>Hiba a feladat leadása során!<br>Kérjük próbálja újra!</p>";
+}
+
+function Eredmenymegjelenit(max,elert){
+    document.getElementById("kuldes").disabled = true;
+    var div = document.getElementById("szovegresz2");
+    var szazalek = elert/max * 100;
+    div.innerHTML += "<p id='osztalyzat'>Szerezhető pont: "+max+"<br> Elért pont: "+elert+"<br> Százalék: "+szazalek+"%</p>";
 }
 
 function szovegtordel(){
@@ -494,7 +509,7 @@ function MegNevvaltasGomb(){
     nevvaltasinfo.innerHTML = "";
     let regiNev = document.getElementById("felhasznalonevValtJelenlegi").value;
     let ujNev = document.getElementById("felhasznalonevValtUj").value;
-    const regxnev = /^[A-Za-z0-9áéíóöőúüűÁÉÍÓÖŐÚÜŰ]{1,16}$/;
+    const regxnev = /^[A-Za-z0-9áéíóöőúüűÁÉÍÓÖŐÚÜŰ\s]{1,16}$/;
     if(regiNev == sessionStorage.getItem("Megnev") && regiNev != "" && ujNev != ""){
         if(regxnev.test(ujNev)){
             mentesgomb.style.backgroundColor = "#71ff4dc7";
