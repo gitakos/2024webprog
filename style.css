@@ -173,17 +173,17 @@ label{
     flex-wrap: nowrap;
 }
 #Profil{
-    margin-left: 83%;
-    margin-right: 2%;
-    margin-top: .3rem;
-    width: 20vw;
-    min-width: 2rem;
+    margin-right: 5%;
+    width: 6%;
+    min-width: 4rem;
     max-width: 5rem;
-    height:5vh;
-    min-height: 2rem;
+    height: 8%;
+    min-height: 4rem;
     max-height: 5rem;
-    display: inline-block;
-    padding: 2vh 0;
+    background-color: transparent;
+    border: none;
+    border-radius: 1rem;
+    padding: 4vh 0;
     position: fixed;
     display: flex;
     flex-wrap: wrap;
@@ -209,7 +209,6 @@ label{
     background: #ffffffbd;
     border: 1px solid rgb(0, 0, 0);
     border-radius: 1rem;
-    display: inline-block;
     padding: 4vh 0;
     position: fixed;
     display: flex;
@@ -659,8 +658,9 @@ li{
     border: solid black 2px;
     background-color: rgba(128, 128, 128, 0.3);
     margin: 1%;
-    width: 12vh;
-    height: 4.5vh;
+    padding: 5%;
+    width: 14vh;
+    height: 100%;
 }
 .ValtoztatasGombInfo button:hover, #AdminGomb button:hover{
     transition: ease-in-out .3s;
