@@ -120,13 +120,13 @@ function reg()
         }
     }
     if(megfelelo){
-        regisztralasfunction(regfn,regemail,regpw);
+        regisztralasfunction(regfn,regemail,regpw,regrepw,infobox);
     }
  
 }
 
 
-function regisztralasfunction(regfn,regemail,regpw){
+function regisztralasfunction(regfn,regemail,regpw,regrepw,infobox){
     hash(regpw.value).then((hex)=>{
         regisztracio(regfn.value,hex,regemail.value).then((response)=>{
             console.log("Válasz megérkezett!:")
@@ -134,8 +134,11 @@ function regisztralasfunction(regfn,regemail,regpw){
             if(response.Valasz!=undefined){
                 
                 console.log("Sikeresen regisztráltál!");
-                Regful(document.getElementById("RegBlockVisszaGomb"),false);
-                alert("Sikeres Regisztráció!");
+                regfn.value = '';
+                regemail.value = '';
+                regpw.value = '';
+                regrepw.value = ''; 
+                infobox.innerHTML = "Sikeres regisztráció!";
             }
         })});
 }
@@ -494,7 +497,7 @@ function MegNevvaltasGomb(){
     nevvaltasinfo.innerHTML = "";
     let regiNev = document.getElementById("felhasznalonevValtJelenlegi").value;
     let ujNev = document.getElementById("felhasznalonevValtUj").value;
-    const regxnev = /^[A-Za-z0-9áéíóöőúüűÁÉÍÓÖŐÚÜŰ]{1,16}$/;
+    const regxnev = /^[A-Za-z0-9áéíóöőúüűÁÉÍÓÖŐÚÜŰ\s]{1,16}$/;
     if(regiNev == sessionStorage.getItem("Megnev") && regiNev != "" && ujNev != ""){
         if(regxnev.test(ujNev)){
             mentesgomb.style.backgroundColor = "#71ff4dc7";
