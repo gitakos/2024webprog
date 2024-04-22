@@ -84,6 +84,38 @@ app.post("/useradatlekerdez", bodyParser.json(), function(req,res){
     connection.end();
 });
 
+app.post("/joglekerdez", bodyParser.json(), function(req,res){
+    var connection = getConnection();
+    connection.connect();
+    const felh = req.body.felh;
+    const hasheltJelszo = req.body.hasheltJelszo;
+    const username = req.body.param.nev;
+    console.log(req.body);
+    felhasznaloValidator(felh,hasheltJelszo).then((lekerdezoAdatai)=>{
+        console.log(lekerdezoAdatai);
+        if(lekerdezoAdatai.length>0)
+        {
+            if(lekerdezoAdatai[0].jog=="admin"){
+                connection.query("select f.jog as jog from felhasznalo f where f.nev = '"+username+"'" , function(err, result,fields){
+                    if(!err){
+                        //console.log(result+"Ez a result!!");
+                        res.send(result);
+                    }else{
+                        res.send({"Error": 'Hiba a lekérdezés során!'});
+                    }
+                });
+            }
+            else{
+                res.send({"Error": 'Nincs jogosultságod ehhez a művelethez!'});
+            }
+        }
+        else{
+            res.send({"Error": 'Nem megfelelő adatok!'});
+        }
+        connection.end();
+    });
+});
+
 app.post("/felhasznaloklekerdez", bodyParser.json(), function(req,res){
     var connection = getConnection();
     connection.connect();

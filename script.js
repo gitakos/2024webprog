@@ -31,6 +31,9 @@ if(!adminFeluletenVanE){
         document.getElementById("MainDiv").classList = "MainDivS";
         document.getElementById("Profil").innerHTML = '<img src="Kepek/pfpicon.png" alt="ProfilIcon"type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#SideModal" onclick="SideModalAktiv()"></img>';
         Szintvalasztas(true);
+        adatLekerdezes(sessionStorage.getItem("Felhasznalonev"),sessionStorage.getItem("Jelszo"),"joglekerdez",{nev:sessionStorage.getItem("Felhasznalonev")}).then((result)=>{
+            sessionStorage.setItem("AdminUser",result[0].jog);
+        });
     }else{
         document.getElementById("BejelentkezesDiv").style.visibility = "visible";
         document.getElementById("MainDiv").classList = "MainDivH";

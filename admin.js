@@ -12,14 +12,14 @@ const adatLekerdezes = (felh,hasheltJelszo,fajta,param) => { //És akkor nem kel
     })
     .then(function (response) {
         if (!response.ok) {
-            // alert("Nem jó válasz érekezett az adatbázisból");
+            // console.log("Nem jó válasz érekezett az adatbázisból");
             return Promise.reject("Nem jó válasz érekezett az adatbázisból");
         }
         return response.json();
     })
     .then(function (response) {
         if (response.Error) {
-            // alert(response.Error);
+            // console.log(response.Error);
             return response;
         } else {
             return response;
@@ -54,6 +54,7 @@ var sessionStorage_transfer = function(event) {
 
 if(sessionStorage.getItem("Login")=='true'){
     NevekLekerdezAdminListaba();
+    document.getElementById("felhnev_adminfel").innerHTML = sessionStorage.getItem("Megnev");
 }
 
   // listen for changes to localStorage
@@ -69,11 +70,11 @@ if(sessionStorage.getItem("Login")=='true'){
     let pw = sessionStorage.getItem("Jelszo");
     adatLekerdezes(fn,pw,"adminnatetel",felhKivalasztott).then((eredmeny)=>{
         if(eredmeny.Error){
-            alert(eredmeny.Error);
+            console.log(eredmeny.Error);
         }
         else
         {
-            alert(eredmeny.Valasz);
+            console.log(eredmeny.Valasz);
         }
     });
 }
@@ -84,11 +85,11 @@ function emailvaltoztat(){//admin felület
     let pw = sessionStorage.getItem("Jelszo");
     adatLekerdezes(fn,pw,"emailvaltoztatas",{"kivalasztottFelh":felhKivalasztott,"ujemail":uje}).then((eredmeny)=>{
         if(eredmeny.Error){
-            alert(eredmeny.Error);
+            console.log(eredmeny.Error);
         }
         else
         {
-            alert("Sikeres email cím változtatás.");
+            console.log("Sikeres email cím változtatás.");
         }
     });
 }
@@ -99,11 +100,11 @@ function nevvaltoztat(){//admin felület
     let pw = sessionStorage.getItem("Jelszo");
     adatLekerdezes(fn,pw,"fnnevvaltoztatas",{"kivalasztottFelh":felhKivalasztott,"ujnev":ujnev}).then((eredmeny)=>{
         if(eredmeny.Error){
-            alert(eredmeny.Error);
+            console.log(eredmeny.Error);
         }
         else
         {
-            alert("Sikeres felhasználónév változtatás.");
+            console.log("Sikeres felhasználónév változtatás.");
         }
     });
 }
@@ -118,7 +119,7 @@ function NevekLekerdezAdminListaba(){//admin felület
     let pw = sessionStorage.getItem("Jelszo");
     adatLekerdezes(fn,pw,"felhasznaloklekerdez").then((felhasznalok)=>{
         if(felhasznalok.Error){
-            alert(felhasznalok.Error);
+            console.log(felhasznalok.Error);
             return;
         }
         console.log(felhasznalok)
@@ -134,7 +135,7 @@ function NevekLekerdezAdminListaba(){//admin felület
 }
 
 function felhKivalaszt(elem){
-    //console.log(elem.);
+    //console.log(elem.innerHTML);
     felhKivalasztott = elem.innerHTML;
     let kivalasztottElemek = document.getElementsByClassName("kivalasztottElem");
     if(kivalasztottElemek.length>0){
@@ -142,6 +143,13 @@ function felhKivalaszt(elem){
     }
     elem.classList.add("kivalasztottElem");
     document.getElementById("kiválasztottnev").innerHTML = felhKivalasztott;
+    adatLekerdezes(sessionStorage.getItem("Felhasznalonev"),sessionStorage.getItem("Jelszo"),"joglekerdez",{nev:elem.innerHTML}).then((result)=>{
+        if(result[0].jog=="admin"){
+            document.getElementById("AdminPromote").innerHTML = "Admin elvétel";
+        }else{
+            document.getElementById("AdminPromote").innerHTML = "Adminná tétel";
+        }
+    });
 }
 //NevekLekerdezAdminListaba();
 
@@ -152,11 +160,11 @@ function Torles(){//admin felület
     let pw = sessionStorage.getItem("Jelszo");
     adatLekerdezes(fn,pw,"felhasznalotorol",felhKivalasztott).then((eredmeny)=>{
         if(eredmeny.Error){
-            alert("Felhasználó nem lett törölve!");
+            console.log("Felhasználó nem lett törölve!");
         }
         else
         {
-            alert("A felhasználó sikeresen törölve lett!");
+            console.log("A felhasználó sikeresen törölve lett!");
             felhKivalasztott = null;
             document.getElementById("kiválasztottnev").innerHTML = "Nincs kiválasztott fiók!";
             document.getElementsByClassName("kivalasztottElem")[0].remove();
@@ -177,11 +185,11 @@ function JelszoValt(){//admin felület
         hash(mezo1).then((hasheltJelsz)=>{
             adatLekerdezes(fn,pw,"jelszovaltoztatas",{"felhasznalo":felhKivalasztott,"jelszo":hasheltJelsz}).then((eredmeny)=>{
                 if(eredmeny.Error){
-                    alert("Hiba! Jelszó nem lett megváltoztatva");
+                    console.log("Hiba! Jelszó nem lett megváltoztatva");
                 }
                 else
                 {
-                    alert("Jelszó sikeresen megváltoztatva!");
+                    console.log("Jelszó sikeresen megváltoztatva!");
                 }
             });
         });

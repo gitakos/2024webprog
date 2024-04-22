@@ -22,12 +22,12 @@
             <form class="adminUserForm">
                 <h2>Kiválasztott Diák:</h2><p id="kiválasztottnev">--ide kerül majd a név akire rá nyom--</p>
                 <h2>Opciók:</h2>
-                <button id="torlesgomb" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Törlés</button>
+                <button id="torlesgomb" type="button" data-bs-toggle="modal" data-bs-target="#Usertorlesmodal">Törlés</button>
                 <label class="formLabel" for="ujjelszo">Új jelszó beállítása:</label>
                 <input type="text" id="ujjelszo"placeholder="Adja meg az új jelszót a diáknak!"></input>
                 <input type="text" id="ujjelszoRe" placeholder="Jelszó újra"></input>
                 <button onclick="JelszoValt()">Jelszó mentése</button>
-                <button onclick="PromoteToAdmin()">Adminná tétel</button>
+                <button onclick="PromoteToAdmin()" id="AdminPromote">Adminná tétel</button>
             </form>           
             <script type="text/javascript">
                 document.getElementById('inputfile')
@@ -55,11 +55,11 @@
 
 
     <!--Megerőstítés-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="Usertorlesmodal" tabindex="-1" aria-labelledby="Usertorlesmodal" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Törlés</h5>
+              <h5 class="modal-title" id="UsertorlesmodalLabel">Törlés</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
