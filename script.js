@@ -239,7 +239,8 @@ function FeladatsorKirakas(){
             FeladatImg.alt = KozepSzintSelect ? "Közép szintű feladatlap" : "Emelt szintű feladatlap";
             let FeladatImgDiv = document.createElement("div");
             FeladatImgDiv.dataset.feladatID = feladatok[i].id;
-            FeladatImgDiv.onclick = ()=>{feladatSorGen(FeladatImgDiv);};
+            FeladatImgDiv.href="feladatsor.html";
+            FeladatImgDiv.onclick=(ez)=>{feladatKivalaszt(this);}
             FeladatImgDiv.classList.add("FeladatImgDiv");
             FeladatImgDiv.appendChild(FeladatImg);
     
@@ -258,6 +259,10 @@ function FeladatsorKirakas(){
             }
         }
     })
+}
+function feladatKivalaszt(elem){
+    sessionStorage.setItem("kivalasztottFeladatID",elem.dataset.feladatID);
+    sessionStorage.setItem("feladatsorokLista",feladatsorokLista);
 }
 
 function Logout(){
@@ -317,38 +322,6 @@ const bejelentkezes = (felh,hasheltJelszo) => {
     });
 }
 
-var szovegBe;
-function szovegRendezes()
-{
-    var div = document.getElementById("feladatsor");
-    //szöveg tördelés és létrehozás ide
-}
-
-
-function DatumMegjelenit()
-{
-    let temp = Date().split(' ');
-    let honapok = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    let magy = ["Január","Február","Március","Április","Május","Június","Július","Augusztus","Szeptember","Október","November","December"];
-    let datum = temp[3]+". "+magy[honapok.indexOf(temp[1])]+" "+temp[2]+".";
-    var csakazertis_VAR = document.getElementsByClassName("Datum");
-    for (let i = 0; i < csakazertis_VAR.length; i++) {
-        csakazertis_VAR[i].innerHTML = datum;
-    }
-}
-
-function valaszMezoGeneral(hanyvalasz){
-    for (let i = 0; i < hanyvalasz; i++) {
-        let cucc = document.getElementById("valaszok");
-        cucc.innerHTML += "<li><input type='text' class='valaszmezo' name='Valasz' id="+i+"></li>";
-    }
-}
-
-function TablaSorAdd(nev,datum,feladatsor,maxpont,elertpont,szazalek){
-    var table = document.getElementById("tablazat");
-    table.innerHTML += "<tr><td>"+nev+"</td><td>"+datum+"</td><td>"+feladatsor+"</td><td>"+maxpont+"</td><td>"+elertpont+"</td><td>"+szazalek+"</td></tr>";
-}
-
 function ErosJelszo(jelszo){
     const regxpw = /[a-zA-Z0-9]{6,16}/;
     if(regxpw.test(jelszo)){
@@ -356,131 +329,6 @@ function ErosJelszo(jelszo){
     }
     else{
         return false;
-    }
-}
-
-function feladatSorGen(img){
-    kivalasztottFeladatsorID = img.dataset.feladatID;
-    document.body.innerHTML = "<div id='oldal1'>"+
-    "<div class='align-top row '>"+
-            "<div class='col-6'>"+
-                "Angol nyelv <a id='szint'>Ide kerül a szint</a>"+
-            "</div>"+
-            "<div class='col-6 text-end'>"+
-                "Név: <a id='nev'>Ide kerül a Felhasználónév</a>"+
-            "</div>"+
-            "<!-- <div class='clear'></div> -->"+
-    "</div>"+
-    "<div id='szovegresz1'>"+
-        "<div class='szovegresz' id='feladatleiras1'>"+
-
-        "</div>"+
-        "<br>"+
-        "<div class='szovegresz' id='cim1'>"+
-
-        "</div>"+
-        "<br>"+
-        "<div class='szovegresz' id='feladatszoveg1'>"+
-
-        "</div>"+
-    "</div>"+
-    "<div class='align-bottom row '>"+
-        "<div class='col-6'>"+
-            "írásbeli vizsga, II. összetevő"+
-        "</div>"+
-            "<div class='col-6 text-end'>"+
-                "<a class='Datum'>Ide kerül be dátum</a>"+
-            "</div>"+
-        "</div>"+
-    "</div>"+
-
-    "<div id='oldal2'>"+
-        "<div class='align-top row'>"+
-            "<div class='col-6'>"+
-                "Angol nyelv <a id='szint'>Ide kerül a szint</a>"+
-            "</div>"+
-            "<div class='col-6 text-end'>"+
-                "Név: <a id='nev'>Ide kerül a Felhasználónév</a>"+
-            "</div>"+
-            "<!-- <div class='clear'></div> -->"+
-        "</div>"+
-        
-        "<div class='szovegresz' id='szovegresz2'>"+
-            "<ol id='valaszok'>"+
-                
-            "</ol>"+
-        "</div>"+
-        "<div class='align-bottom row'>"+
-            "<div class='col-6'>"+
-                "írásbeli vizsga, II. összetevő"+
-            "</div>"+
-            "<div class='col-6 text-end'>"+
-                "<a class='Datum'>Ide kerül be dátum</a>"+
-            "</div>"+
-        "</div>"+
-    "</div>"+
-    "<button id='kuldes' onclick='valaszFelkuldes()'>LESSGOO</button>"
-    DatumMegjelenit();
-    valaszMezoGeneral(feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).valaszDB);
-    document.getElementById("feladatleiras1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).fleiras
-    document.getElementById("cim1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).cim
-    document.getElementById("feladatszoveg1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).fel
-    FeladatTagol();
-}
-
-function FeladatTagol(){
-    var div = document.getElementById("feladatleiras1");
-    var temp = div.innerText;
-    temp = temp.replace(/•/g, "<br>•"); 
-    div.innerHTML = temp;
-}
-function valaszFelkuldes(){
-    let valaszLista =  document.getElementById("valaszok").getElementsByTagName("li");
-    let lista = new Array();
-    for(let i = 0;i<valaszLista.length;i++){
-        if(valaszLista[i].getElementsByTagName("input")[0].value == undefined){
-            lista.push("%URES%");
-        }
-        else
-        {
-            lista.push(valaszLista[i].getElementsByTagName("input")[0].value)
-        }
-    }
-    let fn = sessionStorage.getItem("Felhasznalonev");
-    let pw = sessionStorage.getItem("Jelszo");
-    adatLekerdezes(fn,pw,"feladatLeadas",{valaszok:lista,feladatID:kivalasztottFeladatsorID}).then((valasz)=>{
-        if(valasz.Error){
-            HibaALeadasSoran();
-            console.log(valasz.Error);
-        }
-        else
-        {
-            console.log(valasz);
-            Eredmenymegjelenit(valasz.maxpont,valasz.pontok);
-        }
-    });
-}
-
-function HibaALeadasSoran(){
-    var div = document.getElementById("szovegresz2");
-    div.innerHTML += "<p id='osztalyzat'>Hiba a feladat leadása során!<br>Kérjük próbálja újra!</p>";
-}
-
-function Eredmenymegjelenit(max,elert){
-    document.getElementById("kuldes").disabled = true;
-    var div = document.getElementById("szovegresz2");
-    var szazalek = elert/max * 100;
-    div.innerHTML += "<p id='osztalyzat'>Szerezhető pont: "+max+"<br> Elért pont: "+elert+"<br> Százalék: "+szazalek+"%</p>";
-}
-
-function szovegtordel(){
-    var szoveg = document.getElementById("feladatleiras1").innerHTML;
-    for (let i = 0; i < szoveg.length; i++) {
-        if(szoveg[i] == '•')
-        {
-            szoveg[i].innerHTML += "<br>";
-        }
-        
     }
 }
 //szovegtordel();
