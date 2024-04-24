@@ -349,16 +349,6 @@ function TablaSorAdd(nev,datum,feladatsor,maxpont,elertpont,szazalek){
     table.innerHTML += "<tr><td>"+nev+"</td><td>"+datum+"</td><td>"+feladatsor+"</td><td>"+maxpont+"</td><td>"+elertpont+"</td><td>"+szazalek+"</td></tr>";
 }
 
-function ErosJelszo(jelszo){
-    const regxpw = /[a-zA-Z0-9]{6,16}/;
-    if(regxpw.test(jelszo)){
-        return true;
-    }
-    else{
-        return false;
-    }
-}
-
 function feladatSorGen(img){
     kivalasztottFeladatsorID = img.dataset.feladatID;
     document.body.innerHTML = "<div id='oldal1'>"+

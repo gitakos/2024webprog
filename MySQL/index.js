@@ -121,6 +121,7 @@ app.post("/felhasznaloklekerdez", bodyParser.json(), function(req,res){
     connection.connect();
     const felh = req.body.felh;
     const hasheltJelszo = req.body.hasheltJelszo;
+    const adminnev = req.body.param.adminnev;
     //Ezek maradhatnak, majd lekéne ellenőrizni hogy tényleg egy admin kéri az adatokat, vagy nem! (ez vonatkozik az összes többi admin felületi lekérdezésre)
     console.log(req.body);
     felhasznaloValidator(felh,hasheltJelszo).then((lekerdezoAdatai)=>{
@@ -128,7 +129,7 @@ app.post("/felhasznaloklekerdez", bodyParser.json(), function(req,res){
         if(lekerdezoAdatai.length>0)
         {
             if(lekerdezoAdatai[0].jog=="admin"){
-                connection.query("select f.nev as nev from felhasznalo f" , function(err, result,fields){
+                connection.query("select f.nev as nev from felhasznalo f where f.nev <> '"+adminnev+"'" , function(err, result,fields){
                     if(!err){
                         //console.log(result+"Ez a result!!");
                         res.send(result);

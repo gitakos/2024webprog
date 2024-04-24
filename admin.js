@@ -117,7 +117,7 @@ function NevekLekerdezAdminListaba(){//admin felület
     //Ide kell bepakolni a neveket az adatbázisból akik nem adminok
     let fn = sessionStorage.getItem("Felhasznalonev");
     let pw = sessionStorage.getItem("Jelszo");
-    adatLekerdezes(fn,pw,"felhasznaloklekerdez").then((felhasznalok)=>{
+    adatLekerdezes(fn,pw,"felhasznaloklekerdez",{adminnev:sessionStorage.getItem("Felhasznalonev")}).then((felhasznalok)=>{
         if(felhasznalok.Error){
             console.log(felhasznalok.Error);
             return;
@@ -136,6 +136,9 @@ function NevekLekerdezAdminListaba(){//admin felület
 
 function felhKivalaszt(elem){
     //console.log(elem.innerHTML);
+    document.getElementById("torlesgomb").disabled = false;
+    document.getElementById("JelszoMent").disabled = false;
+    document.getElementById("AdminPromote").disabled = false;
     felhKivalasztott = elem.innerHTML;
     let kivalasztottElemek = document.getElementsByClassName("kivalasztottElem");
     if(kivalasztottElemek.length>0){
@@ -173,34 +176,41 @@ function Torles(){//admin felület
 }
 
 function JelszoValt(){//admin felület
-    console.log("Jelszo változtat");
     let mezo1 = document.getElementById("ujjelszo").value;
     let mezo2 = document.getElementById("ujjelszoRe").value;
-
-    if(mezo1 == mezo2  && ErosJelszo(mezo1))
-    {
-        console.log("Jó a jelszó");
-        let fn = sessionStorage.getItem("Felhasznalonev");
-        let pw = sessionStorage.getItem("Jelszo");
-        hash(mezo1).then((hasheltJelsz)=>{
-            adatLekerdezes(fn,pw,"jelszovaltoztatas",{"felhasznalo":felhKivalasztott,"jelszo":hasheltJelsz}).then((eredmeny)=>{
-                if(eredmeny.Error){
-                    console.log("Hiba! Jelszó nem lett megváltoztatva");
-                }
-                else
-                {
-                    console.log("Jelszó sikeresen megváltoztatva!");
-                }
-            });
-        });
-        
+    let infobox = document.getElementById("Ujjelszoadmininfo");
+    const regxpw = /^(?=.*[0-9])(?=.*[A-ZÁÉÍÓÖŐÚÜŰ])[a-zA-Z0-9!@#$%^&*._-áéíóöőúüűÁÉÍÓÖŐÚÜŰ]{6,16}$/;
+    infobox.innerHTML = "";
+    if(mezo1 != ""){
+        if(regxpw.test(mezo1)){
+            if(mezo1 == mezo2){
+                let fn = sessionStorage.getItem("Felhasznalonev");
+                let pw = sessionStorage.getItem("Jelszo");
+                hash(mezo1).then((hex)=>{
+                    adatLekerdezes(fn,pw,"jelszovaltoztatas",{felhasznalo:felhKivalasztott,jelszo:hex}).then((eredmeny)=>{
+                        if(eredmeny.Error){
+                            infobox.innerHTML = "Hiba történt a feltöltés során!";
+                        }else{
+                            infobox.innerHTML = "A jelszó sikeresen módosult!";
+                            mezo1 = "";
+                            mezo2 = "";
+                        }
+                    });
+                });
+            }else{
+    
+            }   
+        }
+        else{
+            infobox.innerHTML = "A jelszó nem elég erős";
+        }
+    }else{
+        infobox.innerHTML = "Adja meg az új jelszót!";
     }
-    else{
-        console.log("Hiba");
-    }
+    
 }
 
-async function hash(string) {
+async function hash(string){
     const utf8 = new TextEncoder().encode(string);
     const hashBuffer = await crypto.subtle.digest('SHA-256', utf8);
     const hashArray = Array.from(new Uint8Array(hashBuffer));
