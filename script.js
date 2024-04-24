@@ -497,12 +497,30 @@ function SideModalAktiv(){
     }else{
         diaknev.innerHTML = mnev;
     }
-
+    EredmenyekLekerdez();
 }
-function EredmenyKimutat(){
+
+
+function EredmenyekLekerdez(){
+    console.log("hehre1");
     let selectBox = document.getElementById("EredmenySelect")
-    selectBox.options[selectBox.selectedIndex].value
-    console.log(selectBox.options[selectBox.selectedIndex].value);
+    let fn = sessionStorage.getItem("Felhasznalonev");
+    let pw = sessionStorage.getItem("Jelszo");
+    adatLekerdezes(fn,pw,"eredmenyeklekerd",null).then((eredmenyek)=>{
+        console.log(eredmenyek);
+        eredmenyekg = eredmenyek;
+        for(let i = 0;i<eredmenyek.length;i++)
+        {
+            selectBox.innerHTML += "<option id='lehetoseg'>"+eredmenyek[i].datum+"</option>";
+        }   
+    });
+}
+var eredmenyekg;
+function EredmenyKimutat(){
+    console.log("hehre!");
+    let selectBox = document.getElementById("EredmenySelect");
+    var kiv_id = eredmenyekg[selectBox.selectedIndex].id;
+    console.log(kiv_id);
 }
 
 function MegNevvaltasGomb(){
