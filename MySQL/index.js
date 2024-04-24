@@ -507,6 +507,24 @@ function felhasznaloValidator(felh,hasheltJelszo){
       });
 }
 
+app.post("/eredmenyeklekerd", bodyParser.json(), function(req,res){
+    const jelszo = req.body.hasheltJelszo;
+    const felh = req.body.felh;
+    felhasznaloValidator(felh,jelszo).then((fid)=>{
+        var connection = getConnection();
+        connection.connect();
+        connection.query("select * from eredmenyek where eredmenyek.felhasznaloid = '"+fid[0].id+"'", function(err, result,fields){
+            if(!err){
+                console.log(result);
+                res.send(result);
+            }else{
+                res.send({"Error": 'Hiba eredmenyek lekérdezése során!'});
+            }
+        })
+        connection.end();
+    });     
+});
+
 function felhasznaloAdatLekerdez(felh){
 
     let command = "select f.id as id, f.nev as nev, f.email as email, f.jog as jog from felhasznalo f where f.nev = '"+felh+"'"
