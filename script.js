@@ -239,7 +239,7 @@ function FeladatsorKirakas(){
             FeladatImg.alt = KozepSzintSelect ? "Közép szintű feladatlap" : "Emelt szintű feladatlap";
             let FeladatImgDiv = document.createElement("div");
             FeladatImgDiv.dataset.feladatID = feladatok[i].id;
-            FeladatImgDiv.onclick = ()=>{feladatSorGen(FeladatImgDiv);};
+            FeladatImgDiv.onclick = "feladatSorGen(this)";
             FeladatImgDiv.classList.add("FeladatImgDiv");
             FeladatImgDiv.appendChild(FeladatImg);
     
@@ -256,6 +256,7 @@ function FeladatsorKirakas(){
             if(x%6==5 || i==9||i == feladatok.length-1 /* feladatsorok hossza */ ){
                 document.getElementById("Feladatsorok").appendChild(SorDiv);
             }
+            //Valami baj van a kiválasztással
         }
     })
 }
@@ -489,14 +490,17 @@ function SideModalAktiv(){
     }
     EredmenyekLekerdez();
 }
-
+var eredmenyekg;
 
 function EredmenyekLekerdez(){
     console.log("hehre1");
     let selectBox = document.getElementById("EredmenySelect")
     let fn = sessionStorage.getItem("Felhasznalonev");
     let pw = sessionStorage.getItem("Jelszo");
+
     adatLekerdezes(fn,pw,"eredmenyeklekerd",null).then((eredmenyek)=>{
+        sessionStorage.setItem("kivalasztottEredmeny",undefined);
+        selectBox.innerHTML = "<option value='Válasszon egy dárumot!'></option>";
         console.log(eredmenyek);
         eredmenyekg = eredmenyek;
         for(let i = 0;i<eredmenyek.length;i++)
@@ -505,12 +509,14 @@ function EredmenyekLekerdez(){
         }   
     });
 }
-var eredmenyekg;
+
 function EredmenyKimutat(){
     console.log("hehre!");
     let selectBox = document.getElementById("EredmenySelect");
-    var kiv_id = eredmenyekg[selectBox.selectedIndex].id;
-    console.log(kiv_id);
+    console.log(selectBox.selectedIndex);
+    console.log(eredmenyekg[selectBox.selectedIndex-1]);
+    sessionStorage.setItem("kivalasztottEredmeny",eredmenyekg[selectBox.selectedIndex-1]);
+    window.location.href = "megoldasok.html";
 }
 
 function MegNevvaltasGomb(){
