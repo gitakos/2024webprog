@@ -338,6 +338,7 @@ app.post("/adminnatetel", bodyParser.json(), function(req,res){
     });
 });
 
+//ezzel kéne valahogy a cuccot lekérdezni a válaszok megjelenítéséhez
 app.post("/valaszlekerd", bodyParser.json(), function(req,res){
     var connection = getConnection();
     connection.connect();
