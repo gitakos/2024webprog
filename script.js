@@ -237,11 +237,14 @@ function FeladatsorKirakas(){
             FeladatImg.src = "Kepek/"+(KozepSzintSelect ? "KozepLap" : "EmeltLap")+".png";
             FeladatImg.title = KozepSzintSelect ? "Közép szintű feladatlap" : "Emelt szintű feladatlap";
             FeladatImg.alt = KozepSzintSelect ? "Közép szintű feladatlap" : "Emelt szintű feladatlap";
+            FeladatImg.href = "feladatsor.html";
+            let link = document.createElement("a");
+            link.href = "feladatsor.html";
             let FeladatImgDiv = document.createElement("div");
             FeladatImgDiv.dataset.feladatID = feladatok[i].id;
-            FeladatImgDiv.onclick = "feladatSorGen(this)";
             FeladatImgDiv.classList.add("FeladatImgDiv");
-            FeladatImgDiv.appendChild(FeladatImg);
+            link.appendChild(FeladatImg);
+            FeladatImgDiv.appendChild(link);
     
             let FeladatsorHonap = document.createElement("h3");
             FeladatsorHonap.innerHTML = feladatok[i].honap;
