@@ -75,7 +75,7 @@ function DatumMegjelenit()
 function valaszMezoGeneral(hanyvalasz){
     for (let i = 0; i < hanyvalasz; i++) {
         let cucc = document.getElementById("valaszok");
-        cucc.innerHTML += "<li><input type='text' class='valaszmezo' name='Valasz' id="+i+"></li>";
+        cucc.innerHTML += "<li><p class='valaszmezo' id="+i+"></p></li>";
     }
 }
 
@@ -90,20 +90,23 @@ function Main(){
     console.log("Main elkezdettLefutni")
     let fn = sessionStorage.getItem("Felhasznalonev");
     let pw = sessionStorage.getItem("Jelszo");
-    let eredmenyAdat = sessionStorage.getItem("kivalasztottEredmeny");
-    adatLekerdezes(fn,pw,"feladatsorListaLekerdez",undefined).then((feladatSorok)=>{
+    let kivalasztottEredmeny = sessionStorage.getItem("kivalasztottEredmeny");
+    adatLekerdezes(fn,pw,"eredmenyeklekerd",undefined).then((eredmenyek)=>{
+        eredmenyAdat = eredmenyek.find((c)=>c.id == kivalasztottEredmeny);
         console.log(eredmenyAdat);
-        console.log(feladatSorok.find((c)=>c.id = eredmenyAdat.feladatid))
-        feladat = feladatSorok.find((c)=>c.id = eredmenyAdat.feladatid);
+        adatLekerdezes(fn,pw,"feladatsorListaLekerdez",undefined).then((feladatSorok)=>{
+            console.log(feladatSorok.find((c)=>c.id = eredmenyAdat.feladatsorid))
+            feladat = feladatSorok.find((c)=>c.id = eredmenyAdat.feladatsorid);
 
-        document.getElementById("feladatleiras1").innerHTML = feladat.fleiras
-        document.getElementById("cim1").innerHTML = feladat.cim
-        document.getElementById("feladatszoveg1").innerHTML = feladat.fel
+            document.getElementById("feladatleiras1").innerHTML = feladat.fleiras
+            document.getElementById("cim1").innerHTML = feladat.cim
+            document.getElementById("feladatszoveg1").innerHTML = feladat.fel
 
-        DatumMegjelenit();
-        valaszMezoGeneral(feladat.valaszDB);
-        FeladatTagol();
-        console.log("Main lefutott")
+            DatumMegjelenit();
+            valaszMezoGeneral(feladat.valaszDB);
+            FeladatTagol();
+            console.log("Main lefutott")
+        });
     });
 }
 
