@@ -74,6 +74,11 @@ if(sessionStorage.getItem("Login")=='true'){
         }
         else
         {
+            if(eredmeny.Valasz.includes("admin")){
+                document.getElementById("AdminPromote").innerHTML = "Admin elvétel";
+            }else{
+                document.getElementById("AdminPromote").innerHTML = "Adminná tétel";
+            }
             console.log(eredmeny.Valasz);
         }
     });
