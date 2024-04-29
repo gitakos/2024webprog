@@ -96,7 +96,7 @@ function Main(){
         console.log(feladatSorok.find((c)=>c.id = eredmenyAdat.feladatid))
         feladat = feladatSorok.find((c)=>c.id = eredmenyAdat.feladatid);
 
-        document.getElementById("feladatleiras1").innerHTML = feladat.fleiras
+        document.getElementById("feladatleiras1").innerHTML = feladat.fleiras;
         document.getElementById("cim1").innerHTML = feladat.cim
         document.getElementById("feladatszoveg1").innerHTML = feladat.fel
 
