@@ -237,14 +237,11 @@ function FeladatsorKirakas(){
             FeladatImg.src = "Kepek/"+(KozepSzintSelect ? "KozepLap" : "EmeltLap")+".png";
             FeladatImg.title = KozepSzintSelect ? "Közép szintű feladatlap" : "Emelt szintű feladatlap";
             FeladatImg.alt = KozepSzintSelect ? "Közép szintű feladatlap" : "Emelt szintű feladatlap";
-            FeladatImg.href = "feladatsor.html";
-            let link = document.createElement("a");
-            link.href = "feladatsor.html";
             let FeladatImgDiv = document.createElement("div");
             FeladatImgDiv.dataset.feladatID = feladatok[i].id;
+            FeladatImgDiv.onclick = "feladatKivalaszt(this)";
             FeladatImgDiv.classList.add("FeladatImgDiv");
-            link.appendChild(FeladatImg);
-            FeladatImgDiv.appendChild(link);
+            FeladatImgDiv.appendChild(FeladatImg);
     
             let FeladatsorHonap = document.createElement("h3");
             FeladatsorHonap.innerHTML = feladatok[i].honap;
@@ -377,7 +374,7 @@ function EredmenyKimutat(){
     console.log(eredmenyekg[selectBox.selectedIndex-1]);
     sessionStorage.setItem("kivalasztottEredmeny",eredmenyekg[selectBox.selectedIndex-1].id);
     console.log(sessionStorage.getItem("kivalasztottEredmeny")+" szaaaart");
-    window.location.href = "megoldasok.html";
+    //window.location.href = "megoldasok.html";
 }
 
 function MegNevvaltasGomb(){
