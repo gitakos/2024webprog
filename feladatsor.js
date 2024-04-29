@@ -15,7 +15,6 @@ var sessionStorage_transfer = function(event) {
                 sessionStorage.setItem(key, data[key]);
             }
         }
-        feladatSorGen();
     }
 };
   
@@ -135,3 +134,5 @@ if (sessionStorage.getItem("Login")==undefined) {
     localStorage.setItem('getSessionStorage', 'foobar');
     localStorage.removeItem('getSessionStorage', 'foobar');
 };
+
+feladatSorGen();
