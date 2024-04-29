@@ -239,8 +239,7 @@ function FeladatsorKirakas(){
             FeladatImg.alt = KozepSzintSelect ? "Közép szintű feladatlap" : "Emelt szintű feladatlap";
             let FeladatImgDiv = document.createElement("div");
             FeladatImgDiv.dataset.feladatID = feladatok[i].id;
-            FeladatImgDiv.href="feladatsor.html";
-            FeladatImgDiv.onclick=(ez)=>{feladatKivalaszt(this);}
+            FeladatImgDiv.onclick = "feladatSorGen(this)";
             FeladatImgDiv.classList.add("FeladatImgDiv");
             FeladatImgDiv.appendChild(FeladatImg);
     
@@ -257,6 +256,7 @@ function FeladatsorKirakas(){
             if(x%6==5 || i==9||i == feladatok.length-1 /* feladatsorok hossza */ ){
                 document.getElementById("Feladatsorok").appendChild(SorDiv);
             }
+            //Valami baj van a kiválasztással
         }
     })
 }
@@ -345,12 +345,35 @@ function SideModalAktiv(){
     }else{
         diaknev.innerHTML = mnev;
     }
-
+    EredmenyekLekerdez();
 }
-function EredmenyKimutat(){
+var eredmenyekg;
+
+function EredmenyekLekerdez(){
+    console.log("hehre1");
     let selectBox = document.getElementById("EredmenySelect")
-    selectBox.options[selectBox.selectedIndex].value
-    console.log(selectBox.options[selectBox.selectedIndex].value);
+    let fn = sessionStorage.getItem("Felhasznalonev");
+    let pw = sessionStorage.getItem("Jelszo");
+
+    adatLekerdezes(fn,pw,"eredmenyeklekerd",null).then((eredmenyek)=>{
+        sessionStorage.setItem("kivalasztottEredmeny",undefined);
+        selectBox.innerHTML = "<option value='Válasszon egy dárumot!'></option>";
+        console.log(eredmenyek);
+        eredmenyekg = eredmenyek;
+        for(let i = 0;i<eredmenyek.length;i++)
+        {
+            selectBox.innerHTML += "<option id='lehetoseg'>"+eredmenyek[i].datum+"</option>";
+        }   
+    });
+}
+
+function EredmenyKimutat(){
+    console.log("hehre!");
+    let selectBox = document.getElementById("EredmenySelect");
+    console.log(selectBox.selectedIndex);
+    console.log(eredmenyekg[selectBox.selectedIndex-1]);
+    sessionStorage.setItem("kivalasztottEredmeny",eredmenyekg[selectBox.selectedIndex-1]);
+    window.location.href = "megoldasok.html";
 }
 
 function MegNevvaltasGomb(){
