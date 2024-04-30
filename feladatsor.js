@@ -17,6 +17,30 @@ var sessionStorage_transfer = function(event) {
         }
     }
 };
+
+const adatLekerdezes = (felh,hasheltJelszo,fajta,param) => { //És akkor nem kell kilenc millió post kérést írni
+    const data = { felh: felh,hasheltJelszo: hasheltJelszo ,param: param};
+    return fetch("http://127.0.0.1:3000/"+fajta, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(function (response) {
+        if (!response.ok) {
+            return Promise.reject("Nem jó válasz érekezett az adatbázisból");
+        }
+        return response.json();
+    })
+    .then(function (response) {
+        if (response.Error) {
+            return response;
+        } else {
+            return response;
+        }
+    });
+}
   
 // listen for changes to localStorage
 if(window.addEventListener) {
@@ -74,13 +98,18 @@ let feladatsorokLista;
 
 function feladatSorGen(){
     kivalasztottFeladatsorID = sessionStorage.getItem("kivalasztottFeladatID");
-    feladatsorokLista = sessionStorage.getItem("feladatsorokLista");
+    console.log(kivalasztottFeladatsorID);
     DatumMegjelenit();
-    valaszMezoGeneral(feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).valaszDB);
-    document.getElementById("feladatleiras1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).fleiras
-    document.getElementById("cim1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).cim
-    document.getElementById("feladatszoveg1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).fel
-    FeladatTagol();
+    let fn = sessionStorage.getItem("Felhasznalonev");
+    let pw = sessionStorage.getItem("Jelszo");
+    adatLekerdezes(fn,pw,"feladatsorListaLekerdez",null).then((feladatok)=>{
+        feladatsorokLista = feladatok;
+        valaszMezoGeneral(feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).valaszDB);
+        document.getElementById("feladatleiras1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).fleiras
+        document.getElementById("cim1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).cim
+        document.getElementById("feladatszoveg1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).fel
+        FeladatTagol();
+    });
 }
 
 function FeladatTagol(){
