@@ -272,6 +272,10 @@ input[type="radio"] {
     padding-left: 10%;
     padding-right: 10%;
 }
+#oldal1{
+    height: auto !important;
+    margin-top: 3rem;
+}
 
 .align-bottom {
     width: 90%;
