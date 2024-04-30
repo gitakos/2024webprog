@@ -393,7 +393,7 @@ li{
 } Ez okozta a random countert(?)*/ 
 
 .valaszmezo{
-    width: 85%;
+
     text-align: center;
     border: none;
     border-bottom: dotted black ; 
@@ -813,4 +813,10 @@ li{
     border-radius: .5rem;
     border:solid black 1px;
     background-color: rgba(255, 255, 255, 0.7);
+}
+.m{
+    color: green;
+}
+.j{
+    color: red;
 }

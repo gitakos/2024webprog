@@ -1,10 +1,10 @@
 // Ask other tabs for session storage (this is ONLY to trigger event)
 console.log(sessionStorage.getItem("Login"));
-/*if (sessionStorage.getItem("Login")==undefined) {
+if (sessionStorage.getItem("Login")==undefined) {
     console.log("Elkérem az a datokat UwU")
     localStorage.setItem('getSessionStorage', 'foobar');
     localStorage.removeItem('getSessionStorage', 'foobar');
-};*/
+};
 
 var sessionStorage_transfer = function(event) {
     console.log("Ide bekéne");
@@ -80,13 +80,22 @@ function valaszMezoGeneral(hanyvalasz){
 }
 
 
-function valaszElhelyez(hanyvalasz){
-    console.log(feladat);
-    console.log(eredmenyAdat);
-    for(let i = 0; i<hanyvalasz;i++){
-        let mezo = document.getElementById(i);
-        
-    }    
+function valaszElhelyez(hanyvalasz,eredmenyAdat){
+    let fn = sessionStorage.getItem("Felhasznalonev");
+    let pw = sessionStorage.getItem("Jelszo");
+    var valaszlista;
+    adatLekerdezes(fn,pw,"valaszlekerd_id",feladat.id).then((Valaszok)=>{
+        //console.log(Valaszok[0].valaszok);
+        var valaszlista = Valaszok[0].valaszok.split(';');
+        var megoldasoklista = eredmenyAdat.megadott_valaszok.split(';')
+        console.log(megoldasoklista);
+        console.log(valaszlista);
+        for(let i = 0; i<hanyvalasz;i++){
+            let mezo = document.getElementById(i);
+            mezo.innerHTML = "<p class= m> Ezt adtad meg te: "+megoldasoklista[i]+"</p><p class= j> Ezek a jó válaszok: "+valaszlista[i]+"</p>";
+        }  
+    });
+      
 }
 
 
@@ -104,9 +113,9 @@ function Main(){
     let kivalasztottEredmeny = sessionStorage.getItem("kivalasztottEredmeny");
     adatLekerdezes(fn,pw,"eredmenyeklekerd",undefined).then((eredmenyek)=>{
         eredmenyAdat = eredmenyek.find((c)=>c.id == kivalasztottEredmeny);
-        console.log(eredmenyAdat); //ezek az eredmények
+        //console.log(eredmenyAdat); //ezek az eredmények
         adatLekerdezes(fn,pw,"feladatsorListaLekerdez",undefined).then((feladatSorok)=>{
-            console.log(feladatSorok.find((c)=>c.id = eredmenyAdat.feladatsorid)); 
+            //console.log(feladatSorok.find((c)=>c.id = eredmenyAdat.feladatsorid)); 
             feladat = feladatSorok.find((c)=>c.id = eredmenyAdat.feladatsorid);
 
             document.getElementById("feladatleiras1").innerHTML = feladat.fleiras
@@ -116,7 +125,7 @@ function Main(){
             DatumMegjelenit();
             valaszMezoGeneral(feladat.valaszDB);
             FeladatTagol();
-            valaszElhelyez(feladat.valaszDB);
+            valaszElhelyez(feladat.valaszDB,eredmenyAdat);
             console.log("Main lefutott")
         });
     });

@@ -374,7 +374,7 @@ function EredmenyKimutat(){
     console.log(eredmenyekg[selectBox.selectedIndex-1]);
     sessionStorage.setItem("kivalasztottEredmeny",eredmenyekg[selectBox.selectedIndex-1].id);
     console.log(sessionStorage.getItem("kivalasztottEredmeny")+" szaaaart");
-    //window.location.href = "megoldasok.html";
+    window.location.href = "megoldasok.html";
 }
 
 function MegNevvaltasGomb(){

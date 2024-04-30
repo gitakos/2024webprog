@@ -338,14 +338,16 @@ app.post("/adminnatetel", bodyParser.json(), function(req,res){
     });
 });
 
-//ezzel kéne valahogy a cuccot lekérdezni a válaszok megjelenítéséhez
-app.post("/valaszlekerd", bodyParser.json(), function(req,res){
+
+
+app.post("/valaszlekerd_id", bodyParser.json(), function(req,res){
     var connection = getConnection();
     connection.connect();
     const felh = req.body.felh;
-    const mikorierettsegi = req.body.param;
+    const hasheltJelszo = req.body.hasheltJelszo;
+    const id = req.body.param;
     console.log(req.body);
-    connection.query("select f.valaszok from feladatsor f where f.mikorierettsegi ='"+mikorierettsegi+"'" , function(err, result,fields){
+    connection.query("select f.valaszok from feladatsor f where f.id = "+id , function(err, result,fields){
         if(!err){
             console.log(result);
             res.send(result);
