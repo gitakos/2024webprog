@@ -274,7 +274,6 @@ input[type="radio"] {
 }
 #oldal1{
     height: auto !important;
-    margin-top: 3rem;
 }
 
 .align-bottom {
@@ -307,7 +306,7 @@ li{
 } Ez okozta a random countert(?)*/ 
 
 .valaszmezo{
-
+    width: 100%;
     text-align: center;
     border: none;
     border-bottom: dotted black ; 
@@ -679,7 +678,7 @@ li{
     text-align: center;
 }
 #OldalVisszaGomb{
-    width: 3rem;
+    width: 2rem;
     float: right;
     margin: 1%;
 }
@@ -729,11 +728,30 @@ li{
     background-color: rgba(255, 255, 255, 0.7);
 }
 .m{
-    color: green;
+    color: green !important;
 }
 .j{
-    color: red;
+    text-decoration: line-through;
+    text-decoration-color: red;
+    text-decoration-thickness: 2px;
 }
+
+.fooldalvisszagombdiv{
+    height: 2%;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+}
+
+#kiertekelo{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: center;
+}
+
+
 @media screen and (min-width: 575px) {
     .Kozep:checked ~ .selector {
         left: 1.25vw;

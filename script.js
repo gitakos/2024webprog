@@ -200,12 +200,11 @@ let kivalasztottFeladatsorID = 0
 let feladatsorokLista = new Array();
 
 function FeladatsorKirakas(){
-    //let feladatsorok = [];
     let feladatDiv = document.getElementById("Feladatsorok");
     feladatDiv.innerHTML = "";
     let x = 0;
 
-    adatLekerdezes(null,null,"feladatsorListaLekerdez",null).then((feladatok)=>{
+    adatLekerdezes(null,null,"feladatsorListaLekerdez",{megoldas:false, feladatsorid:undefined}).then((feladatok)=>{
         if(feladatok.Error){
             FeladatLekerdHiba();
             return
@@ -239,6 +238,7 @@ function FeladatsorKirakas(){
             FeladatImg.alt = KozepSzintSelect ? "Közép szintű feladatlap" : "Emelt szintű feladatlap";
             let FeladatImgDiv = document.createElement("div");
             FeladatImgDiv.dataset.feladatID = feladatok[i].id;
+            FeladatImgDiv.dataset.feladatSzint = KozepSzintSelect ? "közép szint" : "emelt szint";
             FeladatImgDiv.setAttribute('onclick',"feladatKivalaszt(this)");
             FeladatImgDiv.classList.add("FeladatImgDiv");
             FeladatImgDiv.appendChild(FeladatImg);
@@ -263,6 +263,7 @@ function FeladatsorKirakas(){
 }
 function feladatKivalaszt(elem){
     sessionStorage.setItem("kivalasztottFeladatID",elem.dataset.feladatID);
+    sessionStorage.setItem("kivalasztottFeladatSzint",elem.dataset.feladatSzint);
     sessionStorage.setItem("feladatsorokLista",feladatsorokLista);
     window.location.href = "feladatsor.html";
 }
@@ -359,12 +360,13 @@ function EredmenyekLekerdez(){
 
     adatLekerdezes(fn,pw,"eredmenyeklekerd",null).then((eredmenyek)=>{
         sessionStorage.setItem("kivalasztottEredmeny",undefined);
-        selectBox.innerHTML = "<option value='Válasszon egy dárumot!'></option>";
+        selectBox.innerHTML = "<option selected='selected'>Válasszon egy dátumot!</option>";
         console.log(eredmenyek);
         eredmenyekg = eredmenyek;
         for(let i = 0;i<eredmenyek.length;i++)
         {
-            selectBox.innerHTML += "<option id='lehetoseg'>"+eredmenyek[i].datum+"</option>";
+            let tempdate = eredmenyek[i].datum.slice(0,10).split('-');
+            selectBox.innerHTML += "<option id='lehetoseg'>"+tempdate[0]+'.'+tempdate[1]+'.'+tempdate[2]+"</option>";
         }   
     });
 }

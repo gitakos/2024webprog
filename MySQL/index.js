@@ -347,7 +347,7 @@ app.post("/valaszlekerd_id", bodyParser.json(), function(req,res){
     const hasheltJelszo = req.body.hasheltJelszo;
     const id = req.body.param;
     console.log(req.body);
-    connection.query("select f.valaszok from feladatsor f where f.id = "+id , function(err, result,fields){
+    connection.query("select f.valaszok from feladatsor f where f.id = "+id, function(err, result,fields){
         if(!err){
             console.log(result);
             res.send(result);
@@ -448,8 +448,16 @@ app.post("/feladatsorListaLekerdez", bodyParser.json(), function(req,res){
     connection.connect();
     const felh = req.body.felh;
     const hasheltJelszo = req.body.hasheltJelszo;
+    const megoldashozE = req.body.param.megoldas;
+    const feladatsorid = req.body.param.feladatsorid;
+    let sqlquery = "";
     console.log(req.body);
-    connection.query("select f.id as id,f.feladatok as fel, f.ev as ev, f.honap as honap, f.cim as cim, f.feladatleiras as fleiras, f.valaszDB as valaszDB from feladatsor f", function(err, result,fields){
+    if(!megoldashozE){
+        sqlquery = "select f.* from feladatsor f";
+    }else{
+        sqlquery = "select f.* from feladatsor f where f.id = "+feladatsorid+"";
+    }
+    connection.query(sqlquery, function(err, result,fields){
         if(!err){ 
             res.send(result);
         }else{
@@ -516,7 +524,7 @@ app.post("/eredmenyeklekerd", bodyParser.json(), function(req,res){
     felhasznaloValidator(felh,jelszo).then((fid)=>{
         var connection = getConnection();
         connection.connect();
-        connection.query("select * from eredmenyek where eredmenyek.felhasznaloid = '"+fid[0].id+"'", function(err, result,fields){
+        connection.query("select e.*,f.szint from eredmenyek e,feladatsor f where e.felhasznaloid = '"+fid[0].id+"' and f.id = e.feladatsorid;", function(err, result,fields){
             if(!err){
                 console.log(result);
                 res.send(result);
@@ -568,7 +576,7 @@ app.post("/feladatLeadas", bodyParser.json(), function(req,res){
                 else
                 {
                     console.log(feladatValaszok);
-                    let feladatValaszokLista = feladatValaszok[0].valaszok.split(';')
+                    let feladatValaszokLista = feladatValaszok[0].valaszok.split(';');
                     let pontok = feladatKijav(userValaszok,feladatValaszok[0].valaszok.split(';'));
                     valaszLement(lekerdezoAdatai[0].id,pontok,feladatID,userValaszok.join(";")).then((valasz)=>{
                         if(valasz==undefined){
@@ -578,7 +586,7 @@ app.post("/feladatLeadas", bodyParser.json(), function(req,res){
                         else
                         {
                             console.log("cucc");
-                            res.send({"Valasz":"kijavított feladat","pontok":pontok,"maxpont":feladatValaszokLista.length});
+                            res.send({"Valasz":"kijavított feladat","pontok":pontok,"maxpont":feladatValaszokLista.length, jovalaszok:feladatValaszok[0].valaszok});
                         }
                     });
                 }
@@ -614,7 +622,7 @@ function feladatKijav(userValaszok,feladatValaszok){
         let voltEJo = false
         let valaszLista = feladatValaszok[i].split('/');
         for(let j = 0;j<valaszLista.length;j++){
-            if(valaszLista[j]==userValaszok[i]){
+            if(valaszLista[j]==userValaszok[i].toLowerCase()){
                 voltEJo = true;
                 break;
             }

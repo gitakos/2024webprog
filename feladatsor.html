@@ -11,64 +11,80 @@
     <title>Feladatsor</title>
 </head>
 <body>
-    <div id='oldal1'>
-        <div class='align-top row '>
-                <div class='col-6'>
-                    Angol nyelv <a id='szint'>Ide kerül a szint</a>
-                </div>
-                <div class='col-6 text-end'>
-                    Név: <a id='nev'>Ide kerül a Felhasználónév</a>
-                </div>
-                <!-- <div class='clear'></div> -->
+    <div>
+        <div class="fooldalvisszagombdiv" >
+            <div><a href="index.html"><img src="Kepek/backarrow.png" alt="VisszaGomb" id="OldalVisszaGomb"></a></div>
         </div>
-        <div class='szovegresz'>
-            <div class='szovegresz' id='feladatleiras1'>
-    
+        <div style="height: 98%;">
+            <div id='oldal1'>
+                <div class='align-top row '>
+                    <div class='col-6'>
+                        Angol nyelv <a id='feladatsorSzint'>Ide kerül a szint</a>
+                    </div>
+                    <div class='col-6 text-end'>
+                        Név: <a id='feladatsorNev'>Ide kerül a Felhasználónév</a>
+                    </div>
+                    <!-- <div class='clear'></div> -->
             </div>
-            <br>
-            <div class='szovegresz' id='cim1'>
-    
-            </div>
-            <br>
-            <div class='szovegresz' id='feladatszoveg1'>
-    
-            </div>
-        </div>
-        <div class='align-bottom row '>
-            <div class='col-6'>
-                írásbeli vizsga, II. összetevő
-            </div>
-                <div class='col-6 text-end'>
-                    <a class='Datum'>Ide kerül be dátum</a>
-                </div>
-            </div>
-        </div>
-    
-        <div id='oldal2'>
-            <div class='align-top row'>
-                <div class='col-6'>
-                    Angol nyelv <a id='szint'>Ide kerül a szint</a>
-                </div>
-                <div class='col-6 text-end'>
-                    Név: <a id='nev'>Ide kerül a Felhasználónév</a>
-                </div>
-                <!-- <div class='clear'></div> -->
-            </div>
-            
-            <div class='szovegresz' id='szovegresz2'>
-                <ol id='valaszok'>
+            <div class='szovegresz'>
+                <div class='szovegresz' id='feladatleiras1'>
                     
-                </ol>
+                </div>
+                <br>
+                <div class='szovegresz' id='cim1'>
+                    
+                </div>
+                <br>
+                <div class='szovegresz' id='feladatszoveg1'>
+                    
+                </div>
             </div>
-            <div class='align-bottom row'>
+            <div class='align-bottom row '>
                 <div class='col-6'>
                     írásbeli vizsga, II. összetevő
                 </div>
-                <div class='col-6 text-end'>
-                    <a class='Datum'>Ide kerül be dátum</a>
+                    <div class='col-6 text-end'>
+                        <a class='Datum'>Ide kerül be dátum</a>
+                    </div>
                 </div>
             </div>
+            
+            <div id='oldal2'>
+                <div class='align-top row'>
+                    <div class='col-6'>
+                        Angol nyelv <a id='feladatsorSzint2'>Ide kerül a szint</a>
+                    </div>
+                    <div class='col-6 text-end'>
+                        Név: <a id='feladatsorNev2'>Ide kerül a Felhasználónév</a>
+                    </div>
+                    <!-- <div class='clear'></div> -->
+                </div>
+                
+                <div class='szovegresz'>
+                    <ol id='valaszok'>
+                        
+                    </ol>
+                    <div id="kiertekelo">
+                        <div id="pontertekeles">
+
+                        </div>
+                        <div id="szazalekertekeles">
+
+                        </div>
+                    </div>
+                </div>
+                <div class='align-bottom row'>
+                    <div class='col-6'>
+                        írásbeli vizsga, II. összetevő
+                    </div>
+                    <div class='col-6 text-end'>
+                        <a class='Datum'>Ide kerül be dátum</a>
+                    </div>
+                </div>
+            </div>    
+            <button id='kuldes' onclick='valaszFelkuldes()'>LESSGOO</button>
         </div>
-        <button id='kuldes' onclick='valaszFelkuldes()'>LESSGOO</button>
+        
+    </div>
 </body>
 </html>

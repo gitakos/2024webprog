@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2024. Ápr 29. 07:35
--- Kiszolgáló verziója: 10.4.20-MariaDB
--- PHP verzió: 8.0.9
+-- Létrehozás ideje: 2024. Ápr 30. 16:55
+-- Kiszolgáló verziója: 10.4.32-MariaDB
+-- PHP verzió: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -34,7 +34,7 @@ CREATE TABLE `eredmenyek` (
   `datum` date DEFAULT current_timestamp(),
   `feladatsorid` int(255) NOT NULL,
   `megadott_valaszok` longtext NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- A tábla adatainak kiíratása `eredmenyek`
@@ -65,16 +65,17 @@ CREATE TABLE `feladatsor` (
   `cim` varchar(255) NOT NULL,
   `feladatleiras` text NOT NULL,
   `valaszok` longtext NOT NULL,
-  `valaszDB` int(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `valaszDB` int(255) NOT NULL,
+  `szint` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- A tábla adatainak kiíratása `feladatsor`
 --
 
-INSERT INTO `feladatsor` (`id`, `feladatok`, `ev`, `honap`, `cim`, `feladatleiras`, `valaszok`, `valaszDB`) VALUES
-(1, 'In Dutch the @ sign is called a “monkey tail”, in (0) ______ (Hungary) a “maggot”, in Danish an “elephant’s trunk”, and in (9) ______ (Wales) a “snail”. Appearing everywhere now in emails, the @ sign has history. \n  \nThe first (10) ______ (record) use was in The Mannasses Chronicle in 1345, where an @ sign is the first letter in the word ‘Amen’. By the 16th century, in southern (11) ______ (Europe) documents of trade, the sign represented amphora, a storage jar (12) _______ (use) since Roman times. By the 18th century it was called ‘commercial A’ and meant ‘at the rate of’  (eg.: 10 hats @ 1 shilling = 10 shillings). \n  \nIt didn’t make it onto the earliest typewriters but was included by 1889, when it became a standard character. By 1963 @ was included in the new (13) _______ (international) recognised character set. \n  \nIn 1971 computer (14) _______ (programme) Ray Tomlinson was at work on Arpanet, the prototype of the internet. He added some of his own code to an (15) _______ (exist) programme and sent a message from one computer to (16) ______ (other) – the first email. Ray needed a character to separate the message’s recipient from the computer it would arrive at, and  (17) _______ (look) down at his teletype keyboard, he chose the @ symbol and changed the world forever.', 2021, 'október', 'A WELL-KNOWN SIGN', 'Task 2                                                                       •	You are going to read an article about the origins of the @ sign. Some words are missing from the text.  •	Use the words in brackets to form the words that fit in the gaps (9-17).  •	Then write the appropriate form of these words on the dotted lines after the text.  •	There might be cases when you do not have to change the word in brackets.  •	Use only one word for each gap.  •	There is an example (0) at the beginning. ', 'teszt1/teszt2;teszt3', 2),
-(2, 'kaka', 2001, 'szeptember', 'teszt', 'anyádfaszát', 'nyam;nyamnyam', 2);
+INSERT INTO `feladatsor` (`id`, `feladatok`, `ev`, `honap`, `cim`, `feladatleiras`, `valaszok`, `valaszDB`, `szint`) VALUES
+(1, 'In Dutch the @ sign is called a “monkey tail”, in (0) ______ (Hungary) a “maggot”, in Danish an “elephant’s trunk”, and in (9) ______ (Wales) a “snail”. Appearing everywhere now in emails, the @ sign has history. \n  \nThe first (10) ______ (record) use was in The Mannasses Chronicle in 1345, where an @ sign is the first letter in the word ‘Amen’. By the 16th century, in southern (11) ______ (Europe) documents of trade, the sign represented amphora, a storage jar (12) _______ (use) since Roman times. By the 18th century it was called ‘commercial A’ and meant ‘at the rate of’  (eg.: 10 hats @ 1 shilling = 10 shillings). \n  \nIt didn’t make it onto the earliest typewriters but was included by 1889, when it became a standard character. By 1963 @ was included in the new (13) _______ (international) recognised character set. \n  \nIn 1971 computer (14) _______ (programme) Ray Tomlinson was at work on Arpanet, the prototype of the internet. He added some of his own code to an (15) _______ (exist) programme and sent a message from one computer to (16) ______ (other) – the first email. Ray needed a character to separate the message’s recipient from the computer it would arrive at, and  (17) _______ (look) down at his teletype keyboard, he chose the @ symbol and changed the world forever.', 2021, 'október', 'A WELL-KNOWN SIGN', 'Task 2                                                                       •	You are going to read an article about the origins of the @ sign. Some words are missing from the text.  •	Use the words in brackets to form the words that fit in the gaps (9-17).  •	Then write the appropriate form of these words on the dotted lines after the text.  •	There might be cases when you do not have to change the word in brackets.  •	Use only one word for each gap.  •	There is an example (0) at the beginning. ', 'teszt1/teszt2;teszt3', 2, 'közép'),
+(2, 'kaka', 2001, 'szeptember', 'teszt', 'anyádfaszát', 'nyam;nyamnyam;kms', 3, 'közép');
 
 -- --------------------------------------------------------
 
@@ -90,7 +91,7 @@ CREATE TABLE `felhasznalo` (
   `jog` varchar(255) NOT NULL,
   `letrehozas` date NOT NULL,
   `megnev` varchar(255) NOT NULL DEFAULT 'Cica virág nem választottál nevet'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- A tábla adatainak kiíratása `felhasznalo`
