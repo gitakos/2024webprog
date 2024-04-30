@@ -83,13 +83,14 @@ function valaszMezoGeneral(hanyvalasz){
 function valaszElhelyez(hanyvalasz,eredmenyAdat){
     let fn = sessionStorage.getItem("Felhasznalonev");
     let pw = sessionStorage.getItem("Jelszo");
-    var valaszlista;
+    
     adatLekerdezes(fn,pw,"valaszlekerd_id",feladat.id).then((Valaszok)=>{
         //console.log(Valaszok[0].valaszok);
         var valaszlista = Valaszok[0].valaszok.split(';');
         var megoldasoklista = eredmenyAdat.megadott_valaszok.split(';')
         console.log(megoldasoklista);
         console.log(valaszlista);
+        ElertPontszamitas(valaszlista.length,valaszlista,megoldasoklista);
         for(let i = 0; i<hanyvalasz;i++){
             let mezo = document.getElementById(i);
             mezo.innerHTML = "<p class= m> Ezt adtad meg te: "+megoldasoklista[i]+"</p><p class= j> Ezek a jó válaszok: "+valaszlista[i]+"</p>";
@@ -98,12 +99,35 @@ function valaszElhelyez(hanyvalasz,eredmenyAdat){
       
 }
 
-
 function FeladatTagol(){
     var div = document.getElementById("feladatleiras1");
     var temp = div.innerText;
     temp = temp.replace(/•/g, "<br>•"); 
     div.innerHTML = temp;
+}
+
+
+function ElertPontszamitas(hanyvalasz,listav,listam){
+    var max = hanyvalasz;
+    var elert = 0;
+    console.log(listav);
+    console.log(listam);
+    for(let i = 0;i<listav.length;i++)
+    {
+        if(listav[i] == listam[i] || (listav[i].includes(listam[i]) && listam[i].length != 0))
+        {
+            elert++;
+        }
+    }
+    console.log("max: "+max);
+    console.log("elert: "+elert);
+    Eredmenymegjelenit(max,elert);
+}
+
+function Eredmenymegjelenit(max,elert){
+    var div = document.getElementById("szovegresz2");
+    var szazalek = elert/max * 100;
+    div.innerHTML += "<p id='osztalyzat'>Szerezhető pont: "+max+"<br> Elért pont: "+elert+"<br> Százalék: "+szazalek+"%</p>";
 }
 
 function Main(){
