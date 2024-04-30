@@ -79,6 +79,17 @@ function valaszMezoGeneral(hanyvalasz){
     }
 }
 
+
+function valaszElhelyez(hanyvalasz){
+    console.log(feladat);
+    console.log(eredmenyAdat);
+    for(let i = 0; i<hanyvalasz;i++){
+        let mezo = document.getElementById(i);
+        
+    }    
+}
+
+
 function FeladatTagol(){
     var div = document.getElementById("feladatleiras1");
     var temp = div.innerText;
@@ -93,9 +104,9 @@ function Main(){
     let kivalasztottEredmeny = sessionStorage.getItem("kivalasztottEredmeny");
     adatLekerdezes(fn,pw,"eredmenyeklekerd",undefined).then((eredmenyek)=>{
         eredmenyAdat = eredmenyek.find((c)=>c.id == kivalasztottEredmeny);
-        console.log(eredmenyAdat);
+        console.log(eredmenyAdat); //ezek az eredmények
         adatLekerdezes(fn,pw,"feladatsorListaLekerdez",undefined).then((feladatSorok)=>{
-            console.log(feladatSorok.find((c)=>c.id = eredmenyAdat.feladatsorid))
+            console.log(feladatSorok.find((c)=>c.id = eredmenyAdat.feladatsorid)); 
             feladat = feladatSorok.find((c)=>c.id = eredmenyAdat.feladatsorid);
 
             document.getElementById("feladatleiras1").innerHTML = feladat.fleiras
@@ -105,6 +116,7 @@ function Main(){
             DatumMegjelenit();
             valaszMezoGeneral(feladat.valaszDB);
             FeladatTagol();
+            valaszElhelyez(feladat.valaszDB);
             console.log("Main lefutott")
         });
     });
