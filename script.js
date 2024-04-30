@@ -237,15 +237,12 @@ function FeladatsorKirakas(){
             FeladatImg.src = "Kepek/"+(KozepSzintSelect ? "KozepLap" : "EmeltLap")+".png";
             FeladatImg.title = KozepSzintSelect ? "Közép szintű feladatlap" : "Emelt szintű feladatlap";
             FeladatImg.alt = KozepSzintSelect ? "Közép szintű feladatlap" : "Emelt szintű feladatlap";
-            let link = document.createElement("a");
-            link.href = "feladatsor.html";
             let FeladatImgDiv = document.createElement("div");
             FeladatImgDiv.dataset.feladatID = feladatok[i].id;
-            FeladatImgDiv.onclick = "feladatSorGen(this)";
+            FeladatImgDiv.setAttribute('onclick',"feladatKivalaszt(this)");
             FeladatImgDiv.classList.add("FeladatImgDiv");
             FeladatImgDiv.appendChild(FeladatImg);
-            link.appendChild(FeladatImg);
-            FeladatImgDiv.appendChild(link);
+            
 
             let FeladatsorHonap = document.createElement("h3");
             FeladatsorHonap.innerHTML = feladatok[i].honap;
@@ -267,6 +264,7 @@ function FeladatsorKirakas(){
 function feladatKivalaszt(elem){
     sessionStorage.setItem("kivalasztottFeladatID",elem.dataset.feladatID);
     sessionStorage.setItem("feladatsorokLista",feladatsorokLista);
+    window.location.href = "feladatsor.html";
 }
 
 function Logout(){
