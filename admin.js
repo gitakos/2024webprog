@@ -161,14 +161,24 @@ function felhKivalaszt(elem){
 }
 //NevekLekerdezAdminListaba();
 
+function errorUzenetGen(element,uzenet){
+    let errorJelen = document.createElement("p");
+    errorJelen.id = "errorUzenet"
+    errorJelen.innerHTML = "Hiba: "+uzenet;
+    errorJelen.style.color = "red";
+    element.appendChild(errorJelen);
+    setTimeout(()=>{document.getElementById("errorUzenet").remove()},3000);
+}
+
 function Torles(){//admin felület
     //itt kerül meghívásra a törlésés lekérdezés az index.js-ből
-    console.log("TÖRÖLVE!!!");
+    console.log("TÖRÖLÉS ELKEZDVE!!!");
     let fn = sessionStorage.getItem("Felhasznalonev");
     let pw = sessionStorage.getItem("Jelszo");
     adatLekerdezes(fn,pw,"felhasznalotorol",felhKivalasztott).then((eredmeny)=>{
         if(eredmeny.Error){
             console.log("Felhasználó nem lett törölve!");
+            errorUzenetGen(document.getElementsByClassName("adminUserForm")[0],eredmeny.Error);
         }
         else
         {

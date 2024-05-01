@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2024. Ápr 30. 16:55
+-- Létrehozás ideje: 2024. Máj 01. 12:09
 -- Kiszolgáló verziója: 10.4.32-MariaDB
--- PHP verzió: 8.0.30
+-- PHP verzió: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -157,7 +157,7 @@ ALTER TABLE `felhasznalo`
 --
 ALTER TABLE `eredmenyek`
   ADD CONSTRAINT `fk_feladatid` FOREIGN KEY (`feladatsorid`) REFERENCES `feladatsor` (`id`),
-  ADD CONSTRAINT `fk_felhasznaloid` FOREIGN KEY (`felhasznaloid`) REFERENCES `felhasznalo` (`id`);
+  ADD CONSTRAINT `fk_felhasznaloid` FOREIGN KEY (`felhasznaloid`) REFERENCES `felhasznalo` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

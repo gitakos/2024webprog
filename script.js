@@ -209,6 +209,9 @@ function FeladatsorKirakas(){
             FeladatLekerdHiba();
             return
         }
+        if(!KozepSzintSelect){
+            feladatok = feladatok.filter((c)=>{c.szint=="emelt"});
+        }
         feladatsorokLista = feladatok;
         console.log(feladatok)
         console.log(feladatok.length)

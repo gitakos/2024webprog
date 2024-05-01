@@ -167,7 +167,8 @@ app.post("/felhasznalotorol", bodyParser.json(), function(req,res){
                         console.log(result);
                         res.send(result);
                     }else{
-                        res.send({"Error": 'Hiba a törlés során!'});
+                        console.log(err);
+                        res.send({"Error": "Hiba a törlés során"});
                     }
                 });
             }
