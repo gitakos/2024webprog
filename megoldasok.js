@@ -80,9 +80,6 @@ function valaszMezoGeneral(hanyvalasz){
 
 
 function valaszElhelyez(hanyvalasz,eredmenyAdat){
-    let fn = sessionStorage.getItem("Felhasznalonev");
-    let pw = sessionStorage.getItem("Jelszo");
-    
     var valaszlista = feladat.valaszok.split(';');
     var megoldasoklista = eredmenyAdat.megadott_valaszok.split(';')
     console.log(megoldasoklista);

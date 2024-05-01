@@ -85,7 +85,7 @@ function DatumMegjelenit()
 function valaszMezoGeneral(hanyvalasz){
     for (let i = 1; i <= hanyvalasz; i++) {
         let cucc = document.getElementById("valaszok");
-        cucc.innerHTML += "<li><input type='text' class='valaszmezo' name='Valasz' id=Valasz"+i+"></li>";
+        cucc.innerHTML += "<li><input type='text' class='valaszmezo' name='Valasz' id=Valasz"+i+"><label class='valaszLabel' for='Valasz"+i+"'></label></li>";
     }
 }
 
@@ -159,6 +159,7 @@ function HibaALeadasSoran(){
 
 function Eredmenymegjelenit(valasz){
     document.getElementById("kuldes").disabled = true;
+    document.getElementById("kuldes").textContent = "Leadva";
     let megoldasok = valasz.jovalaszok.split(';');
     for(let i = 0;i<megoldasok.length;i++){
         let mezo = document.getElementById("Valasz"+(i+1)+"");
@@ -168,13 +169,14 @@ function Eredmenymegjelenit(valasz){
         let voltjo = false;
         for(let j = 0;j<elfogadhatomegoldasok.length;j++){
             if(!voltjo && elfogadhatomegoldasok[j] == mezo.value.toLowerCase()){
-                mezo.classList.add("m");
+                mezo.parentElement.classList.add("m");
                 voltjo = true;
             }
         }
         if(!voltjo){
-            mezo.classList.add("j");
+            mezo.parentElement.classList.add("j");
         }
+        mezo.parentElement.getElementsByTagName("label")[0].innerText = "Lehetséges helyes megoldások: "+megoldasok[i]
     }
     let div = document.getElementById("pontertekeles");
     div.innerHTML += "<p id='osztalyzat'>"+valasz.maxpont+" / "+valasz.pontok+"</p>";

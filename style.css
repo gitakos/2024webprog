@@ -728,12 +728,19 @@ li{
     background-color: rgba(255, 255, 255, 0.7);
 }
 .m{
-    color: green !important;
+    background-color: rgb(162, 255, 162);
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 .j{
+    padding-left: 10px;
+    padding-right: 10px;
     text-decoration: line-through;
     text-decoration-color: red;
     text-decoration-thickness: 2px;
+    background-color: rgb(253, 93, 93) !important;
+    border-radius: 10px;
 }
 
 .fooldalvisszagombdiv{
@@ -866,4 +873,10 @@ li{
     border-radius: .2rem !important;
     background-color: rgba(255, 255, 255, 1);
     font-weight: 600;
+}
+
+.valaszLabel{
+    font-style: italic;
+    font-weight: normal;
+    font-size: medium;
 }
