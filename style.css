@@ -736,11 +736,13 @@ li{
 .j{
     padding-left: 10px;
     padding-right: 10px;
-    text-decoration: line-through;
-    text-decoration-color: red;
-    text-decoration-thickness: 2px;
     background-color: rgb(253, 93, 93) !important;
     border-radius: 10px;
+}
+.j input{
+    text-decoration: line-through;
+    text-decoration-color: red;
+    text-decoration-thickness: 1.5px;
 }
 
 .fooldalvisszagombdiv{
