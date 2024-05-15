@@ -84,7 +84,7 @@ function PromoteToAdmin(){//admin felület
         }
     });
 }
-function Zarolas(){
+function FelhasznaloZarolas(){
     let fn = sessionStorage.getItem("Felhasznalonev");
     let pw = sessionStorage.getItem("Jelszo");
     adatLekerdezes(fn,pw,"felhasznalozarolas",felhKivalasztott).then((eredmeny)=>{

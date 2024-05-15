@@ -353,14 +353,14 @@ app.post("/felhasznalozarolas", bodyParser.json(), function(req,res){
             return;
         }
         let ezarolt = adatok[0].zarolt;
-        let zarolas = true;
+        let zarolas = 1;
         if(ezarolt){
-            zarolas = false;
+            zarolas = 0;
         }
         connection.query("UPDATE felhasznalo f SET f.zarolt = '"+zarolas+"' WHERE f.nev = '"+kivalasztottfelhasznalonev+"'" , function(err, result,fields){
             if(!err){
                 console.log(result);
-                res.send({"Valasz":"A felhasználó "+(!zarolas ? "imét elérhető" : "zárolva")+" lett!"});
+                res.send({"Valasz":"A felhasználó "+(zarolas==0 ? "imét elérhető" : "zárolva")+" lett!"});
             }else{
                 res.send({"Error": 'Hiba a zárolás változtatás során!'});
             }
