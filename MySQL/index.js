@@ -73,7 +73,7 @@ app.post("/useradatlekerdez", bodyParser.json(), function(req,res){
     const felh = req.body.felh;
     const hasheltJelszo = req.body.hasheltJelszo;
     console.log(req.body);
-    connection.query("select f.nev as nev, f.email as email, f.jelszo as jelszo, f.jog as jog, f.letrehozas as letrehozas, f.megnev as megnev from felhasznalo f where f.nev = '"+felh+"' and f.jelszo = '"+hasheltJelszo+"'", function(err, result,fields){
+    connection.query("select f.nev as nev, f.email as email, f.jelszo as jelszo, f.jog as jog, f.letrehozas as letrehozas, f.megnev as megnev, f.zarolt as zarolt from felhasznalo f where f.nev = '"+felh+"' and f.jelszo = '"+hasheltJelszo+"'", function(err, result,fields){
         if(!err){
             console.log(result);
             res.send(result);
@@ -84,7 +84,7 @@ app.post("/useradatlekerdez", bodyParser.json(), function(req,res){
     connection.end();
 });
 
-app.post("/joglekerdez", bodyParser.json(), function(req,res){
+app.post("/jogZaroltLekerdezes", bodyParser.json(), function(req,res){
     var connection = getConnection();
     connection.connect();
     const felh = req.body.felh;
@@ -96,7 +96,7 @@ app.post("/joglekerdez", bodyParser.json(), function(req,res){
         if(lekerdezoAdatai.length>0)
         {
             if(lekerdezoAdatai[0].jog=="admin"){
-                connection.query("select f.jog as jog from felhasznalo f where f.nev = '"+username+"'" , function(err, result,fields){
+                connection.query("select f.jog as jog, f.zarolt as zarolt from felhasznalo f where f.nev = '"+username+"'" , function(err, result,fields){
                     if(!err){
                         //console.log(result+"Ez a result!!");
                         res.send(result);
@@ -339,7 +339,35 @@ app.post("/adminnatetel", bodyParser.json(), function(req,res){
     });
 });
 
+app.post("/felhasznalozarolas", bodyParser.json(), function(req,res){
+    var connection = getConnection();
+    connection.connect();
+    const felh = req.body.felh;
+    const hasheltJelszo = req.body.hasheltJelszo;
+    const kivalasztottfelhasznalonev = req.body.param;
+    console.log(req.body);
 
+    felhasznaloAdatLekerdez(kivalasztottfelhasznalonev).then((adatok)=>{
+        if(adatok.length<0){
+            res.send({"Error":"Nem létezik ez a felhasználó!"});
+            return;
+        }
+        let ezarolt = adatok[0].zarolt;
+        let zarolas = 1;
+        if(ezarolt){
+            zarolas = 0;
+        }
+        connection.query("UPDATE felhasznalo f SET f.zarolt = '"+zarolas+"' WHERE f.nev = '"+kivalasztottfelhasznalonev+"'" , function(err, result,fields){
+            if(!err){
+                console.log(result);
+                res.send({"Valasz":"A felhasználó "+(zarolas==0 ? "imét elérhető" : "zárolva")+" lett!"});
+            }else{
+                res.send({"Error": 'Hiba a zárolás változtatás során!'});
+            }
+        })
+        connection.end();
+    });
+});
 
 app.post("/valaszlekerd_id", bodyParser.json(), function(req,res){
     var connection = getConnection();
@@ -380,7 +408,7 @@ app.post("/regisztracio", bodyParser.json(),async function(req,res){
             let honapok = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
             let datum = temp[3]+"-"+(parseInt(honapok.indexOf(temp[1]))+1)+"-"+temp[2];
             console.log(datum);
-            connection.query("insert into felhasznalo values(NULL,'"+felh+"','"+email+"','"+hasheltJelszo+"','user','"+datum+"','"+felh+"')", function(err,result,fields){
+            connection.query("insert into felhasznalo values(NULL,'"+felh+"','"+email+"','"+hasheltJelszo+"','user','"+datum+"','"+felh+"',0)", function(err,result,fields){
                 if(!err){
                     console.log("Felhasználó regisztrálva!");
                     res.send({"Valasz":"Sikeres Regisztráció!"});
@@ -539,7 +567,7 @@ app.post("/eredmenyeklekerd", bodyParser.json(), function(req,res){
 
 function felhasznaloAdatLekerdez(felh){
 
-    let command = "select f.id as id, f.nev as nev, f.email as email, f.jog as jog from felhasznalo f where f.nev = '"+felh+"'"
+    let command = "select f.id as id, f.nev as nev, f.email as email, f.jog as jog, f.megnev as megnev, f.zarolt as zarolt from felhasznalo f where f.nev = '"+felh+"'"
 
     return new Promise((resolve) => {
         var connection = getConnection();

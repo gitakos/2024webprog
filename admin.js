@@ -56,15 +56,16 @@ if(sessionStorage.getItem("Login")=='true'){
     NevekLekerdezAdminListaba();
     document.getElementById("felhnev_adminfel").innerHTML = sessionStorage.getItem("Megnev");
 }
+// listen for changes to localStorage
+if(window.addEventListener) {
+window.addEventListener("storage", sessionStorage_transfer, false);
+} else {
+window.attachEvent("onstorage", sessionStorage_transfer);
+};
 
-  // listen for changes to localStorage
-  if(window.addEventListener) {
-    window.addEventListener("storage", sessionStorage_transfer, false);
-  } else {
-    window.attachEvent("onstorage", sessionStorage_transfer);
-  };
 
-  function PromoteToAdmin(){//admin felület
+
+function PromoteToAdmin(){//admin felület
     //itt kell a kiválasztott felhasználót adminná tenni
     let fn = sessionStorage.getItem("Felhasznalonev");
     let pw = sessionStorage.getItem("Jelszo");
@@ -78,6 +79,24 @@ if(sessionStorage.getItem("Login")=='true'){
                 document.getElementById("AdminPromote").innerHTML = "Admin elvétel";
             }else{
                 document.getElementById("AdminPromote").innerHTML = "Adminná tétel";
+            }
+            console.log(eredmeny.Valasz);
+        }
+    });
+}
+function FelhasznaloZarolas(){
+    let fn = sessionStorage.getItem("Felhasznalonev");
+    let pw = sessionStorage.getItem("Jelszo");
+    adatLekerdezes(fn,pw,"felhasznalozarolas",felhKivalasztott).then((eredmeny)=>{
+        if(eredmeny.Error){
+            console.log(eredmeny.Error);
+        }
+        else
+        {
+            if(eredmeny.Valasz.includes("elérhető")){
+                document.getElementById("Zarolas").innerHTML = "Felhasználó zárolása";
+            }else{
+                document.getElementById("Zarolas").innerHTML = "Zárolás feloldása";
             }
             console.log(eredmeny.Valasz);
         }
@@ -144,6 +163,7 @@ function felhKivalaszt(elem){
     document.getElementById("torlesgomb").disabled = false;
     document.getElementById("JelszoMent").disabled = false;
     document.getElementById("AdminPromote").disabled = false;
+    document.getElementById("Zarolas").disabled = false;
     felhKivalasztott = elem.innerHTML;
     let kivalasztottElemek = document.getElementsByClassName("kivalasztottElem");
     if(kivalasztottElemek.length>0){
@@ -151,11 +171,16 @@ function felhKivalaszt(elem){
     }
     elem.classList.add("kivalasztottElem");
     document.getElementById("kiválasztottnev").innerHTML = felhKivalasztott;
-    adatLekerdezes(sessionStorage.getItem("Felhasznalonev"),sessionStorage.getItem("Jelszo"),"joglekerdez",{nev:elem.innerHTML}).then((result)=>{
+    adatLekerdezes(sessionStorage.getItem("Felhasznalonev"),sessionStorage.getItem("Jelszo"),"jogZaroltLekerdezes",{nev:elem.innerHTML}).then((result)=>{
         if(result[0].jog=="admin"){
             document.getElementById("AdminPromote").innerHTML = "Admin elvétel";
         }else{
             document.getElementById("AdminPromote").innerHTML = "Adminná tétel";
+        }
+        if(!result[0].zarolt){
+            document.getElementById("Zarolas").innerHTML = "Felhasználó zárolása";
+        }else{
+            document.getElementById("Zarolas").innerHTML = "Zárolás feloldása";
         }
     });
 }

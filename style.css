@@ -850,31 +850,22 @@ li{
     }
   }
 #kuldesDiv{
-    width: 50vw;
-    max-width: 20cm;  
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 5%;
-    padding-bottom: 2%;
-    /*margin-left: 24%;
-    margin-right: 24%;*/
-    padding: .5%;
+    width: 90vw;
+    max-width: 20cm;
+    margin: auto;
+    padding-bottom: 5rem;
 }
 
 #kuldes{
-    width: 50vw;
-    max-width: 20cm;  
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 5%;
-    background-color: white;
-    padding-bottom: 2%;
-    /*margin-left: 24%;
-    margin-right: 24%;*/
     padding: .5%;
-    border-radius: .2rem !important;
-    background-color: rgba(255, 255, 255, 1);
-    font-weight: 600;
+    width: 90vw;
+    max-width: 20cm;
+    transition: .3s ease-in-out;
+}
+#kuldes:hover{
+    transition: .3s ease-in-out;
+    font-weight: bold;
+    box-shadow: 0 0 2px .5px black inset, 0 0 2px 1px black;
 }
 
 .valaszLabel{
