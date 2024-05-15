@@ -60,12 +60,11 @@ var sessionStorage_transfer = function(event) {
 let feladat = undefined
 let eredmenyAdat = undefined
 
-function DatumMegjelenit()
+function DatumMegjelenit(date)
 {
-    let temp = Date().split(' ');
-    let honapok = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    let datetemp = date.slice(0,10).split('-');
     let magy = ["Január","Február","Március","Április","Május","Június","Július","Augusztus","Szeptember","Október","November","December"];
-    let datum = temp[3]+". "+magy[honapok.indexOf(temp[1])]+" "+temp[2]+".";
+    let datum = datetemp[0]+". "+magy[parseInt(datetemp[1])]+" "+datetemp[2]+".";
     var csakazertis_VAR = document.getElementsByClassName("Datum");
     for (let i = 0; i < csakazertis_VAR.length; i++) {
         csakazertis_VAR[i].innerHTML = datum;
@@ -81,21 +80,16 @@ function valaszMezoGeneral(hanyvalasz){
 
 
 function valaszElhelyez(hanyvalasz,eredmenyAdat){
-    let fn = sessionStorage.getItem("Felhasznalonev");
-    let pw = sessionStorage.getItem("Jelszo");
+    var valaszlista = feladat.valaszok.split(';');
+    var megoldasoklista = eredmenyAdat.megadott_valaszok.split(';')
+    console.log(megoldasoklista);
+    console.log(valaszlista);
+    ElertPontszamitas(valaszlista.length,valaszlista,megoldasoklista);
+    for(let i = 0; i<hanyvalasz;i++){
+        let mezo = document.getElementById(i);
+        mezo.innerHTML = "<p style='color: green;'> Ezt adtad meg te: "+megoldasoklista[i]+"</p><p style='color: red;'> Ezek a jó válaszok: "+valaszlista[i]+"</p>";
+    }  
     
-    adatLekerdezes(fn,pw,"valaszlekerd_id",feladat.id).then((Valaszok)=>{
-        //console.log(Valaszok[0].valaszok);
-        var valaszlista = Valaszok[0].valaszok.split(';');
-        var megoldasoklista = eredmenyAdat.megadott_valaszok.split(';')
-        console.log(megoldasoklista);
-        console.log(valaszlista);
-        ElertPontszamitas(valaszlista.length,valaszlista,megoldasoklista);
-        for(let i = 0; i<hanyvalasz;i++){
-            let mezo = document.getElementById(i);
-            mezo.innerHTML = "<p class= m> Ezt adtad meg te: "+megoldasoklista[i]+"</p><p class= j> Ezek a jó válaszok: "+valaszlista[i]+"</p>";
-        }  
-    });
       
 }
 
@@ -137,16 +131,23 @@ function Main(){
     let kivalasztottEredmeny = sessionStorage.getItem("kivalasztottEredmeny");
     adatLekerdezes(fn,pw,"eredmenyeklekerd",undefined).then((eredmenyek)=>{
         eredmenyAdat = eredmenyek.find((c)=>c.id == kivalasztottEredmeny);
+        //console.log(eredmenyAdat)
+        document.getElementById("megoldasSzint").innerHTML = eredmenyAdat.szint + " szint";
+        document.getElementById("megoldasSzint2").innerHTML = eredmenyAdat.szint + " szint";
+        document.getElementById("megoldasNev").innerHTML = sessionStorage.getItem("Megnev");
+        document.getElementById("megoldasNev2").innerHTML = sessionStorage.getItem("Megnev");
         //console.log(eredmenyAdat); //ezek az eredmények
-        adatLekerdezes(fn,pw,"feladatsorListaLekerdez",undefined).then((feladatSorok)=>{
+        adatLekerdezes(fn,pw,"feladatsorListaLekerdez",{megoldas:true, feladatsorid:eredmenyAdat.feladatsorid}).then((feladatres)=>{
             //console.log(feladatSorok.find((c)=>c.id = eredmenyAdat.feladatsorid)); 
-            feladat = feladatSorok.find((c)=>c.id = eredmenyAdat.feladatsorid);
+            //feladat = feladatSorok.find((c)=>c.id = eredmenyAdat.megoldasid);
+            feladat = feladatres[0];
+            
 
-            document.getElementById("feladatleiras1").innerHTML = feladat.fleiras
-            document.getElementById("cim1").innerHTML = feladat.cim
-            document.getElementById("feladatszoveg1").innerHTML = feladat.fel
+            document.getElementById("feladatleiras1").innerHTML = feladat.feladatleiras;
+            document.getElementById("cim1").innerHTML = feladat.cim;
+            document.getElementById("feladatszoveg1").innerHTML = feladat.feladatok;
 
-            DatumMegjelenit();
+            DatumMegjelenit(eredmenyAdat.datum);
             valaszMezoGeneral(feladat.valaszDB);
             FeladatTagol();
             valaszElhelyez(feladat.valaszDB,eredmenyAdat);

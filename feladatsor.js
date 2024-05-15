@@ -83,9 +83,9 @@ function DatumMegjelenit()
 }
 
 function valaszMezoGeneral(hanyvalasz){
-    for (let i = 0; i < hanyvalasz; i++) {
+    for (let i = 1; i <= hanyvalasz; i++) {
         let cucc = document.getElementById("valaszok");
-        cucc.innerHTML += "<li><input type='text' class='valaszmezo' name='Valasz' id="+i+"></li>";
+        cucc.innerHTML += "<li><input type='text' class='valaszmezo' name='Valasz' id=Valasz"+i+"><label class='valaszLabel' for='Valasz"+i+"'></label></li>";
     }
 }
 
@@ -97,17 +97,22 @@ let kivalasztottFeladatsorID;
 let feladatsorokLista;
 
 function feladatSorGen(){
+    document.getElementById("feladatsorSzint").innerHTML = sessionStorage.getItem("kivalasztottFeladatSzint");
+    document.getElementById("feladatsorSzint2").innerHTML = sessionStorage.getItem("kivalasztottFeladatSzint");
+    document.getElementById("feladatsorNev").innerHTML = sessionStorage.getItem("Megnev");
+    document.getElementById("feladatsorNev2").innerHTML = sessionStorage.getItem("Megnev");
     kivalasztottFeladatsorID = sessionStorage.getItem("kivalasztottFeladatID");
     console.log(kivalasztottFeladatsorID);
     DatumMegjelenit();
     let fn = sessionStorage.getItem("Felhasznalonev");
     let pw = sessionStorage.getItem("Jelszo");
-    adatLekerdezes(fn,pw,"feladatsorListaLekerdez",null).then((feladatok)=>{
+    adatLekerdezes(fn,pw,"feladatsorListaLekerdez",{megoldas:false, feladatsorid:undefined}).then((feladatok)=>{
+        console.log(feladatok);
         feladatsorokLista = feladatok;
-        valaszMezoGeneral(feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).valaszDB);
-        document.getElementById("feladatleiras1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).fleiras
-        document.getElementById("cim1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).cim
-        document.getElementById("feladatszoveg1").innerHTML = feladatsorokLista.find((c)=>c.id = kivalasztottFeladatsorID).fel
+        valaszMezoGeneral(feladatsorokLista.find((c)=>c.id == kivalasztottFeladatsorID).valaszDB);
+        document.getElementById("feladatleiras1").innerHTML = feladatsorokLista.find((c)=>c.id == kivalasztottFeladatsorID).feladatleiras;
+        document.getElementById("cim1").innerHTML = feladatsorokLista.find((c)=>c.id == kivalasztottFeladatsorID).cim;
+        document.getElementById("feladatszoveg1").innerHTML = feladatsorokLista.find((c)=>c.id == kivalasztottFeladatsorID).feladatok;
         FeladatTagol();
     });
 }
@@ -118,8 +123,9 @@ function FeladatTagol(){
     temp = temp.replace(/•/g, "<br>•"); 
     div.innerHTML = temp;
 }
+
 function valaszFelkuldes(){
-    let valaszLista =  document.getElementById("valaszok").getElementsByTagName("li");
+    let valaszLista = document.getElementById("valaszok").getElementsByTagName("li");
     let lista = new Array();
     for(let i = 0;i<valaszLista.length;i++){
         if(valaszLista[i].getElementsByTagName("input")[0].value == undefined){
@@ -140,7 +146,7 @@ function valaszFelkuldes(){
         else
         {
             console.log(valasz);
-            Eredmenymegjelenit(valasz.maxpont,valasz.pontok);
+            Eredmenymegjelenit(valasz);
         }
     });
 }
@@ -151,11 +157,32 @@ function HibaALeadasSoran(){
 }
 
 
-function Eredmenymegjelenit(max,elert){
+function Eredmenymegjelenit(valasz){
     document.getElementById("kuldes").disabled = true;
-    var div = document.getElementById("szovegresz2");
-    var szazalek = elert/max * 100;
-    div.innerHTML += "<p id='osztalyzat'>Szerezhető pont: "+max+"<br> Elért pont: "+elert+"<br> Százalék: "+szazalek+"%</p>";
+    document.getElementById("kuldes").textContent = "Leadva";
+    let megoldasok = valasz.jovalaszok.split(';');
+    for(let i = 0;i<megoldasok.length;i++){
+        let mezo = document.getElementById("Valasz"+(i+1)+"");
+        mezo.disabled = true;
+        let elfogadhatomegoldasok = megoldasok[i].split('/');
+        // console.log(elfogadhatomegoldasok)
+        let voltjo = false;
+        for(let j = 0;j<elfogadhatomegoldasok.length;j++){
+            if(!voltjo && elfogadhatomegoldasok[j] == mezo.value.toLowerCase()){
+                mezo.parentElement.classList.add("m");
+                voltjo = true;
+            }
+        }
+        if(!voltjo){
+            mezo.parentElement.classList.add("j");
+        }
+        mezo.parentElement.getElementsByTagName("label")[0].innerText = "Lehetséges helyes megoldások: "+megoldasok[i]
+    }
+    let div = document.getElementById("pontertekeles");
+    div.innerHTML += "<p id='osztalyzat'>"+valasz.maxpont+" / "+valasz.pontok+"</p>";
+    let szazalek = valasz.pontok/valasz.maxpont * 100;
+    let div2 = document.getElementById("szazalekertekeles");
+    div2.innerHTML += "<p id ='osztalyzat'>"+szazalek+" %</p>";
 }
 
 if (sessionStorage.getItem("Login")==undefined) {

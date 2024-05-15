@@ -272,6 +272,9 @@ input[type="radio"] {
     padding-left: 10%;
     padding-right: 10%;
 }
+#oldal1{
+    height: auto !important;
+}
 
 .align-bottom {
     width: 90%;
@@ -303,7 +306,7 @@ li{
 } Ez okozta a random countert(?)*/ 
 
 .valaszmezo{
-
+    width: 100%;
     text-align: center;
     border: none;
     border-bottom: dotted black ; 
@@ -675,7 +678,7 @@ li{
     text-align: center;
 }
 #OldalVisszaGomb{
-    width: 3rem;
+    width: 2rem;
     float: right;
     margin: 1%;
 }
@@ -725,11 +728,39 @@ li{
     background-color: rgba(255, 255, 255, 0.7);
 }
 .m{
-    color: green;
+    background-color: rgb(162, 255, 162);
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 .j{
-    color: red;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: rgb(253, 93, 93) !important;
+    border-radius: 10px;
 }
+.j input{
+    text-decoration: line-through;
+    text-decoration-color: red;
+    text-decoration-thickness: 1.5px;
+}
+
+.fooldalvisszagombdiv{
+    height: 2%;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+}
+
+#kiertekelo{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: center;
+}
+
+
 @media screen and (min-width: 575px) {
     .Kozep:checked ~ .selector {
         left: 1.25vw;
@@ -818,3 +849,27 @@ li{
         flex-direction: column-reverse !important;
     }
   }
+#kuldesDiv{
+    width: 90vw;
+    max-width: 20cm;
+    margin: auto;
+    padding-bottom: 5rem;
+}
+
+#kuldes{
+    padding: .5%;
+    width: 90vw;
+    max-width: 20cm;
+    transition: .3s ease-in-out;
+}
+#kuldes:hover{
+    transition: .3s ease-in-out;
+    font-weight: bold;
+    box-shadow: 0 0 2px .5px black inset, 0 0 2px 1px black;
+}
+
+.valaszLabel{
+    font-style: italic;
+    font-weight: normal;
+    font-size: medium;
+}
