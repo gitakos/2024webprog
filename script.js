@@ -153,26 +153,37 @@ function login()
             console.log(response);
             if(response[0].db!=1)
             {
-                fn.style.border = "solid red 2px";
-                fn.style.boxShadow = "red 1px 1px 4px inset,red 1px 1px 4px";
-                fn.style.transition = "ease-in-out .3s";
-                pw.style.border = "solid red 2px";
-                pw.style.boxShadow = "red 1px 1px 4px inset,red 1px 1px 4px";
-                pw.style.transition = "ease-in-out .3s";
+                LoginErr(fn);
+                document.getElementById("LoginInfo").innerHTML = "Hibás felhasználónév vagy jelszó!";
             }
             else{
-                document.getElementById("Profil").innerHTML = '<img src="Kepek/pfpicon.png" alt="ProfilIcon"type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#SideModal" onclick="SideModalAktiv()"></img>';
-                sessionStorage.setItem("Login",true);
                 adatLekerdezes(fn.value,hex,"useradatlekerdez",null).then((valasz) =>{
-                    sessionStorage.setItem("AdminUser",valasz[0].jog);
-                    sessionStorage.setItem("Megnev",valasz[0].megnev);
+                    if(!valasz[0].zarolt){
+                        sessionStorage.setItem("AdminUser",valasz[0].jog);
+                        sessionStorage.setItem("Megnev",valasz[0].megnev);
+                        document.getElementById("Profil").innerHTML = '<img src="Kepek/pfpicon.png" alt="ProfilIcon"type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#SideModal" onclick="SideModalAktiv()"></img>';
+                        sessionStorage.setItem("Login",true);
+                        sessionStorage.setItem("Felhasznalonev",fn.value);
+                        sessionStorage.setItem("Jelszo",hex);
+                        Admingomb = false;
+                        document.getElementById("LoginInfo").innerHTML = "";
+                        Main();
+                    }else{
+                        LoginErr(fn);
+                        document.getElementById("LoginInfo").innerHTML = "A felhasználó zárolva van!";
+                    }
                 });
-                sessionStorage.setItem("Felhasznalonev",fn.value);
-                sessionStorage.setItem("Jelszo",hex);
-                Admingomb = false;
-                Main();
             }
         })});
+}
+
+function LoginErr(fn){
+    fn.style.border = "solid red 2px";
+    fn.style.boxShadow = "red 1px 1px 4px inset,red 1px 1px 4px";
+    fn.style.transition = "ease-in-out .3s";
+    pw.style.border = "solid red 2px";
+    pw.style.boxShadow = "red 1px 1px 4px inset,red 1px 1px 4px";
+    pw.style.transition = "ease-in-out .3s";
 }
 
 function Main(){

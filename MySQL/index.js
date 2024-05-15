@@ -73,7 +73,7 @@ app.post("/useradatlekerdez", bodyParser.json(), function(req,res){
     const felh = req.body.felh;
     const hasheltJelszo = req.body.hasheltJelszo;
     console.log(req.body);
-    connection.query("select f.nev as nev, f.email as email, f.jelszo as jelszo, f.jog as jog, f.letrehozas as letrehozas, f.megnev as megnev from felhasznalo f where f.nev = '"+felh+"' and f.jelszo = '"+hasheltJelszo+"'", function(err, result,fields){
+    connection.query("select f.nev as nev, f.email as email, f.jelszo as jelszo, f.jog as jog, f.letrehozas as letrehozas, f.megnev as megnev, f.zarolt as zarolt from felhasznalo f where f.nev = '"+felh+"' and f.jelszo = '"+hasheltJelszo+"'", function(err, result,fields){
         if(!err){
             console.log(result);
             res.send(result);
@@ -379,7 +379,7 @@ app.post("/regisztracio", bodyParser.json(),async function(req,res){
             let honapok = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
             let datum = temp[3]+"-"+(parseInt(honapok.indexOf(temp[1]))+1)+"-"+temp[2];
             console.log(datum);
-            connection.query("insert into felhasznalo values(NULL,'"+felh+"','"+email+"','"+hasheltJelszo+"','user','"+datum+"','"+felh+"')", function(err,result,fields){
+            connection.query("insert into felhasznalo values(NULL,'"+felh+"','"+email+"','"+hasheltJelszo+"','user','"+datum+"','"+felh+"',0)", function(err,result,fields){
                 if(!err){
                     console.log("Felhasználó regisztrálva!");
                     res.send({"Valasz":"Sikeres Regisztráció!"});
