@@ -882,3 +882,46 @@ li{
     font-weight: normal;
     font-size: medium;
 }
+
+.radiomegj{
+    display: block !important; 
+}
+#opciok {
+    width: fit-content;   
+    padding: 10px; 
+
+}
+
+.feketekeret{
+    border: 2px solid black;
+    border-radius: 10px; 
+}
+
+#focim{
+    text-align: center;
+}
+
+.mezo_a{
+    width: 80%;
+    margin: 10px;
+}
+
+#fcim{
+    margin: 40px;
+
+}
+
+.kozepre {
+    text-align: center;
+}
+
+#foszoveg{
+    width: 80%;
+    height: 40rem;
+    resize: none;
+}
+
+.valaszmezok{
+    margin: 10px;
+    width: 40%;
+}

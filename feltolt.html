@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="feltolt.js" defer></script>
+    <title>Feladat felvitel</title>
+</head>
+<body>
+    <h1 id="focim">Feladat Felvitel</h1>
+    <div id="opciok" class="feketekeret">
+        <input type="text" id="ev" placeholder="pl.: 2024">
+        <br>
+        <input type="text" id="honap" placeholder="pl.: Május">
+        <br>
+        <input type="number" onchange="ValaszokKigeneral(this)" id="megoldszam" placeholder="Megoldások száma">
+        <br>
+        <p>Emelt</p>
+        <input type="radio" class="radiomegj">
+        <p>Közép</p>
+        <input type="radio" class="radiomegj">
+    </div>
+    <div id="mezok" class="feketekeret">
+        <input type="text" id="fsor1" class="mezo_a" placeholder="Utasitas1">
+        <br>
+        <input type="text" id="fsor2" class="mezo_a" placeholder="Utasitas2">
+        <br>
+        <input type="text" id="fsor3" class="mezo_a" placeholder="Utasitas3">
+        <br>
+        <input type="text" id="fsor4" class="mezo_a" placeholder="Utasitas4">
+        <br>
+        <div class="kozepre">
+            <input type="text" id="fcim" placeholder="Cim">
+        </div>
+        <div class="kozepre" >
+            <textarea id="foszoveg" placeholder="ide kerül az egész szövege a feladatnak"></textarea>
+            
+        </div>
+    </div>
+    <div id="valaszok" class="feketekeret">
+
+    </div>
+</body>
+</html>
