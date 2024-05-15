@@ -1,0 +1,13 @@
+function ValaszokKigeneral(input){
+    var db = input.value;
+    var div = document.getElementById("valaszok");
+    div.innerHTML = "";
+    for(let i = 0;i<db;i++){
+        div.innerHTML+="<div class='feketekeret' id='sordiv"+i+"'><input type='text' class='valaszmezok' placeholder='Valasz"+(i+1)+"' id='"+i+"valasz'> <button class='pvgombok' onclick='PluszMezoGeneral(this)' id='"+i+"gomb'>+</button><br></div> <br>";
+    }
+}
+
+function PluszMezoGeneral(gomb){
+    var div = document.getElementById("sordiv"+gomb.id[0]);
+    div.innerHTML +="<input type='text' class='valaszmezok' placeholder='Valasz"+(Number(gomb.id[0])+1)+" Alválasz' class='"+gomb.id[0]+"Bvalasz'></input><br>";
+}

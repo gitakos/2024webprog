@@ -697,4 +697,45 @@ function ellenorzes(felh,jelszo,email){
         connection.end;
       });
 }
+
+app.post("/feladatfeltoltes", bodyParser.json(), function(req,res){
+    var connection = getConnection();
+    connection.connect();
+    const felh = req.body.felh;
+    const hasheltJelszo = req.body.hasheltJelszo;
+    const feladatokParam = req.body.param.feladatokParam;
+    const evParam = req.body.param.evParam;
+    const honapParam = req.body.param.honapParam;
+    const cimParam = req.body.param.cimParam;
+    const feladatleirasParam = req.body.param.feladatleirasParam;
+    const valaszokParam = req.body.param.valaszokParam;
+    const valaszDBParam = req.body.param.valaszDBParam;
+    const szintParam = req.body.param.szintParam;
+    console.log(req.body);
+
+    felhasznaloValidator(felh,hasheltJelszo).then((lekerdezoAdatai)=>{
+        console.log(lekerdezoAdatai);
+        if(lekerdezoAdatai!=undefined)
+        {
+            if(lekerdezoAdatai[0].jog=="admin"){
+                connection.query("insert into feladatsor values(NULL,'"+feladatokParam+"',"+evParam+",'"+honapParam+"','"+cimParam+"','"+feladatleirasParam+"','"+valaszokParam+"',"+valaszDBParam+",'"+szintParam+"')" , function(err, result,fields){
+                    if(!err){
+                        console.log(result);
+                        res.send(result);
+                    }else{
+                        res.send({"Error": 'Hiba a feladat feltöltése során!'});
+                    }
+                });
+            }
+            else{
+                res.send({"Error": 'Nincs jogosultságod ehhez a művelethez!'});
+            }
+        }
+        else{
+            res.send({"Error": 'Nem megfelelő adatok!'});
+        }
+        connection.end();
+    });
+});
+
 app.listen(3000);
