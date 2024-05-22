@@ -51,7 +51,7 @@ if(window.addEventListener) {
 
 
 function szovegtordel(){
-    var szoveg = document.getElementById("feladatleiras1").innerHTML;
+    let szoveg = document.getElementById("feladatleiras1").innerHTML;
     for (let i = 0; i < szoveg.length; i++) {
         if(szoveg[i] == '•')
         {
@@ -61,24 +61,15 @@ function szovegtordel(){
     }
 }
 
-
-var szovegBe;
-function szovegRendezes()
-{
-    var div = document.getElementById("feladatsor");
-    //szöveg tördelés és létrehozás ide
-}
-
-
 function DatumMegjelenit()
 {
     let temp = Date().split(' ');
     let honapok = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     let magy = ["Január","Február","Március","Április","Május","Június","Július","Augusztus","Szeptember","Október","November","December"];
     let datum = temp[3]+". "+magy[honapok.indexOf(temp[1])]+" "+temp[2]+".";
-    var csakazertis_VAR = document.getElementsByClassName("Datum");
-    for (let i = 0; i < csakazertis_VAR.length; i++) {
-        csakazertis_VAR[i].innerHTML = datum;
+    let csakazertis_let = document.getElementsByClassName("Datum");
+    for (let i = 0; i < csakazertis_let.length; i++) {
+        csakazertis_let[i].innerHTML = datum;
     }
 }
 
@@ -90,7 +81,7 @@ function valaszMezoGeneral(hanyvalasz){
 }
 
 function TablaSorAdd(nev,datum,feladatsor,maxpont,elertpont,szazalek){
-    var table = document.getElementById("tablazat");
+    let table = document.getElementById("tablazat");
     table.innerHTML += "<tr><td>"+nev+"</td><td>"+datum+"</td><td>"+feladatsor+"</td><td>"+maxpont+"</td><td>"+elertpont+"</td><td>"+szazalek+"</td></tr>";
 }
 let kivalasztottFeladatsorID;
@@ -118,8 +109,8 @@ function feladatSorGen(){
 }
 
 function FeladatTagol(){
-    var div = document.getElementById("feladatleiras1");
-    var temp = div.innerText;
+    let div = document.getElementById("feladatleiras1");
+    let temp = div.innerText;
     temp = temp.replace(/•/g, "<br>•"); 
     div.innerHTML = temp;
 }
@@ -152,7 +143,7 @@ function valaszFelkuldes(){
 }
 
 function HibaALeadasSoran(){
-    var div = document.getElementById("szovegresz2");
+    let div = document.getElementById("szovegresz2");
     div.innerHTML += "<p id='osztalyzat'>Hiba a feladat leadása során!<br>Kérjük próbálja újra!</p>";
 }
 

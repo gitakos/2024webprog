@@ -19,32 +19,21 @@
     <div id="AdminAdatcontainer">
         <div id="fajlfel">
             <form class="adminUserForm">
-                <h4 style="margin-bottom: 1rem;">Kiválasztott Diák:</h4><h2 id="kiválasztottnev" style="margin: auto;">--ide kerül majd a név akire rá nyom--</h2>
+                <h4 style="margin-bottom: 1rem;">Kiválasztott fehlasználó:</h4><h2 id="kiválasztottnev" style="margin: auto;">--válasszon ki egy felhasználót--</h2>
                 <h4 style="margin-top: 1rem; margin-bottom: 1rem;">Opciók:</h4>
                 <button id="torlesgomb" type="button" data-bs-toggle="modal" data-bs-target="#Usertorlesmodal" disabled="true" class="admingomb">Törlés</button>
                 <label for="ujjelszo" class="AdminUjjelszogombok" style="border:none; background-color: inherit;">Új jelszó beállítása:</label>
-                <input type="text" id="ujjelszo" placeholder="Adja meg az új jelszót a diáknak!" class="AdminUjjelszogombok"></input>
+                <input type="text" id="ujjelszo" placeholder="Adja meg az új jelszót!" class="AdminUjjelszogombok"></input>
                 <input type="text" id="ujjelszoRe" placeholder="Jelszó újra" class="AdminUjjelszogombok"></input>
                 <p id="Ujjelszoadmininfo" style="text-align: center;"></p>
                 <button type="button" onclick="JelszoValt()" id="JelszoMent" disabled="true" class="admingomb" style="margin-bottom: 2rem;">Jelszó mentése</button>
                 <button type="button" onclick="FelhasznaloZarolas()" id="Zarolas" disabled="true" class="admingomb">Felhasználó zárolása</button>
                 <button type="button" onclick="PromoteToAdmin()" id="AdminPromote" disabled="true" class="admingomb" style="margin-bottom: 3.5rem;">Adminná tétel</button>
-              </form>           
-            <h2>Fájl feltölt itt</h2>
-            <input type="file" name="inputfile" id="inputfile">
-            <script type="text/javascript">
-                document.getElementById('inputfile')
-                    .addEventListener('change', function () {
-        
-                        let fr = new FileReader();
-                        fr.onload = function () {
-                            document.getElementById('output')
-                                .textContent = fr.result;
-                        }
-        
-                        fr.readAsText(this.files[0]);
-                    })
-            </script>
+              </form>
+              <div>
+                <h2>Fájl feltöltés:</h2>
+                <button class="admingomb" style="padding: 1%; margin-bottom: 2rem;"><a href="feltolt.html" style="text-decoration: none; color: black;">Feltöltő felület</a></button>
+              </div>
         </div>
         <div id="eredmenymegj">
             <h2 id="eredmenycim">Felhasználók:</h2>

@@ -875,7 +875,7 @@ li{
 }
 
 .radiomegj{
-    display: block !important; 
+    display: block !important;
 }
 #opciok {
     width: fit-content;   
@@ -915,4 +915,10 @@ li{
 .valaszmezok{
     margin: 10px;
     width: 40%;
+}
+#mezok{
+    text-align: center;
+}
+.opcio{
+    margin: 2%;
 }

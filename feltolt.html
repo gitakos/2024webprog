@@ -8,13 +8,16 @@
     <title>Feladat felvitel</title>
 </head>
 <body>
-    <h1 id="focim">Feladat Felvitel</h1>
+    <div>
+        <h1 id="focim">Feladat Felvitel</h1>
+        <a href="admin.html" style="float: right; margin-top: -3%;"><img src="Kepek/backarrow.png" alt="VisszaGomb" id="OldalVisszaGomb"></a>
+    </div>
     <div id="opciok" class="feketekeret">
-        <input type="text" id="ev" placeholder="pl.: 2024">
+        <input type="text" id="ev" class="opcio" placeholder="pl.: 2024">
         <br>
-        <input type="text" id="honap" placeholder="pl.: Május">
+        <input type="text" id="honap" class="opcio" placeholder="pl.: Május">
         <br>
-        <input type="number" onchange="ValaszokKigeneral(this)" id="megoldszam" placeholder="Megoldások száma">
+        <input type="number" onchange="ValaszokKigeneral(this)" class="opcio" id="megoldszam" placeholder="Válaszok száma" min="0">
         <br>
         <p>Emelt</p>
         <input type="radio" class="radiomegj">
@@ -22,13 +25,13 @@
         <input type="radio" class="radiomegj">
     </div>
     <div id="mezok" class="feketekeret">
-        <input type="text" id="fsor1" class="mezo_a" placeholder="Utasitas1">
+        <input type="text" id="fsor1" class="mezo_a" placeholder="Utasítás1">
         <br>
-        <input type="text" id="fsor2" class="mezo_a" placeholder="Utasitas2">
+        <input type="text" id="fsor2" class="mezo_a" placeholder="Utasítás2">
         <br>
-        <input type="text" id="fsor3" class="mezo_a" placeholder="Utasitas3">
+        <input type="text" id="fsor3" class="mezo_a" placeholder="Utasítás3">
         <br>
-        <input type="text" id="fsor4" class="mezo_a" placeholder="Utasitas4">
+        <input type="text" id="fsor4" class="mezo_a" placeholder="Utasítás4">
         <br>
         <div class="kozepre">
             <input type="text" id="fcim" placeholder="Cim">
@@ -41,6 +44,6 @@
     <div id="valaszok" class="feketekeret">
 
     </div>
-    <button onclick="FelvitelFV()" id="felvitel">Feladatsor Felvitele!</button>
+    <button onclick="FelvitelFV()" id="felvitel" class="admingomb" style="padding: .5%; margin-top: 1rem; margin-bottom: 1rem;">Feladatsor Felvitele!</button>
 </body>
 </html>
