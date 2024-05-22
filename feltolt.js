@@ -13,6 +13,34 @@ function PluszMezoGeneral(gomb){
 }
 
 function FelvitelFV(){
+    console.log(valaszokmentese());
+    console.log(Feladatleirasmentese());
+    var foszoveg = document.getElementById("foszoveg").value.trim();
+    console.log(foszoveg)
+    var cim = document.getElementById("fcim").value.trim();
+    console.log(cim);
+}
+
+function Feladatleirasmentese(){
+    var feladatok = "";
+    ures_db = 0;
+    for (let i = 1; i < 5; i++) {
+        var temp = document.getElementById("fsor"+i);
+        if(temp.value.length != 0){
+            feladatok += "• ";
+            feladatok += temp.value.trim();
+        }
+        else{
+            ures_db++;
+        }
+    }
+    if(ures_db == 4){
+        alert("Egy utasítást sem adott meg biztos hogy így akarja folytatni?");
+    }
+    return feladatok;
+}
+
+function valaszokmentese(){
     var valaszok = "";
     console.log(document.getElementById("megoldszam").value);
     for (let i = 0; i < document.getElementById("megoldszam").value; i++) {
@@ -26,5 +54,5 @@ function FelvitelFV(){
             valaszok += ";";
         }
     }
-    console.log(valaszok);
+    return valaszok;
 }
