@@ -875,7 +875,7 @@ li{
 }
 
 .radiomegj{
-    display: block !important; 
+    display: block !important;
 }
 #opciok {
     width: fit-content;   
@@ -886,6 +886,7 @@ li{
 .feketekeret{
     border: 2px solid black;
     border-radius: 10px; 
+    background-color: rgba(255, 255, 255, 0.356);
 }
 
 #focim{
@@ -930,4 +931,10 @@ li{
     margin: auto;
     margin-bottom: 10px;
     background-color: rgba(255, 255, 255, 0.356);
+}
+.opcio{
+    margin: 2%;
+}
+#valaszok2{
+    margin-top: 10px;
 }

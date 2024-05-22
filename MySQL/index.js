@@ -553,11 +553,12 @@ app.post("/eredmenyeklekerd", bodyParser.json(), function(req,res){
     felhasznaloValidator(felh,jelszo).then((fid)=>{
         var connection = getConnection();
         connection.connect();
-        connection.query("select e.*,f.szint from eredmenyek e,feladatsor f where e.felhasznaloid = '"+fid[0].id+"' and f.id = e.feladatsorid;", function(err, result,fields){
+        connection.query("select *,f.szint from eredmenyek e,feladatsor f where e.felhasznaloid = '"+fid[0].id+"' and f.id = e.feladatsorid;", function(err, result,fields){
             if(!err){
                 console.log(result);
                 res.send(result);
             }else{
+                console.log(err);
                 res.send({"Error": 'Hiba eredmenyek lekérdezése során!'});
             }
         })

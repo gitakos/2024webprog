@@ -220,8 +220,12 @@ function FeladatsorKirakas(){
             FeladatLekerdHiba();
             return
         }
-        if(!KozepSzintSelect){
-            feladatok = feladatok.filter((c)=>{c.szint=="emelt"});
+        console.log(feladatok);
+        if(KozepSzintSelect){
+            feladatok = feladatok.filter((c)=>c.szint=="közép");
+        }
+        else{
+            feladatok = feladatok.filter((c)=>c.szint=="emelt");
         }
         feladatsorokLista = feladatok;
         console.log(feladatok)

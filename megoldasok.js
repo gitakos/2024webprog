@@ -65,9 +65,9 @@ function DatumMegjelenit(date)
     let datetemp = date.slice(0,10).split('-');
     let magy = ["Január","Február","Március","Április","Május","Június","Július","Augusztus","Szeptember","Október","November","December"];
     let datum = datetemp[0]+". "+magy[parseInt(datetemp[1])]+" "+datetemp[2]+".";
-    var csakazertis_VAR = document.getElementsByClassName("Datum");
-    for (let i = 0; i < csakazertis_VAR.length; i++) {
-        csakazertis_VAR[i].innerHTML = datum;
+    let csakazertis_let = document.getElementsByClassName("Datum");
+    for (let i = 0; i < csakazertis_let.length; i++) {
+        csakazertis_let[i].innerHTML = datum;
     }
 }
 
@@ -80,8 +80,8 @@ function valaszMezoGeneral(hanyvalasz){
 
 
 function valaszElhelyez(hanyvalasz,eredmenyAdat){
-    var valaszlista = feladat.valaszok.split(';');
-    var megoldasoklista = eredmenyAdat.megadott_valaszok.split(';')
+    let valaszlista = feladat.valaszok.split(';');
+    let megoldasoklista = eredmenyAdat.megadott_valaszok.split(';')
     console.log(megoldasoklista);
     console.log(valaszlista);
     ElertPontszamitas(valaszlista.length,valaszlista,megoldasoklista);
@@ -94,16 +94,16 @@ function valaszElhelyez(hanyvalasz,eredmenyAdat){
 }
 
 function FeladatTagol(){
-    var div = document.getElementById("feladatleiras1");
-    var temp = div.innerText;
+    let div = document.getElementById("feladatleiras1");
+    let temp = div.innerText;
     temp = temp.replace(/•/g, "<br>•"); 
     div.innerHTML = temp;
 }
 
 
 function ElertPontszamitas(hanyvalasz,listav,listam){
-    var max = hanyvalasz;
-    var elert = 0;
+    let max = hanyvalasz;
+    let elert = 0;
     console.log(listav);
     console.log(listam);
     for(let i = 0;i<listav.length;i++)
@@ -119,8 +119,8 @@ function ElertPontszamitas(hanyvalasz,listav,listam){
 }
 
 function Eredmenymegjelenit(max,elert){
-    var div = document.getElementById("szovegresz2");
-    var szazalek = elert/max * 100;
+    let div = document.getElementById("szovegresz2");
+    let szazalek = elert/max * 100;
     div.innerHTML += "<p id='osztalyzat'>Szerezhető pont: "+max+"<br> Elért pont: "+elert+"<br> Százalék: "+szazalek+"%</p>";
 }
 
