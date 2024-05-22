@@ -14,12 +14,12 @@
         <br>
         <input type="text" id="honap" placeholder="pl.: Május">
         <br>
-        <input type="number" onchange="ValaszokKigeneral(this)" id="megoldszam" placeholder="Megoldások száma">
+        <input type="number" onchange="ValaszokKigeneral(this)" id="megoldszam" placeholder="Megoldások száma" min="0">
         <br>
         <p>Emelt</p>
-        <input type="radio" class="radiomegj">
+        <input type="radio" name="radiomegj" class="radiomegj" checked="checked">
         <p>Közép</p>
-        <input type="radio" class="radiomegj">
+        <input type="radio" name="radiomegj" class="radiomegj">
     </div>
     <div id="mezok" class="feketekeret">
         <input type="text" id="fsor1" class="mezo_a" placeholder="Utasitas1">
@@ -38,9 +38,9 @@
             
         </div>
     </div>
-    <div id="valaszok" class="feketekeret">
+    <div id="valaszok" class="feketekeret" style= "display: none;">
 
     </div>
-    <button onclick="FelvitelFV()" id="felvitel">Feladatsor Felvitele!</button>
+    <button onclick="FelvitelFV()" id="felvitel" class="admingomb">Feladatsor Felvitele!</button>
 </body>
 </html>

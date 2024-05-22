@@ -1,7 +1,18 @@
+
 function ValaszokKigeneral(input){
     var db = input.value;
     var div = document.getElementById("valaszok");
     div.innerHTML = "";
+
+    if (db<= 0){
+        input.value = 0
+        div.style.display = "none"
+        return
+    }
+    else{
+        div.style.display = "block"
+    }
+
     for(let i = 0;i<db;i++){
         div.innerHTML+="<div class='feketekeret' id='sordiv"+i+"'><input type='text' class='valaszmezok' placeholder='Valasz"+(i+1)+"' id='"+i+"valasz'> <button class='pvgombok' onclick='PluszMezoGeneral(this)' id='"+i+"gomb'>+</button><br></div> <br>";
     }
