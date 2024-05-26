@@ -1,6 +1,5 @@
 var KozepSzintSelect = true;
 var Admingomb = false;
-let adminFeluletenVanE = document.title=="Admin Felület";
 
 const adatLekerdezes = (felh,hasheltJelszo,fajta,param) => { //És akkor nem kell kilenc millió post kérést írni
     const data = { felh: felh,hasheltJelszo: hasheltJelszo ,param: param};
@@ -25,20 +24,18 @@ const adatLekerdezes = (felh,hasheltJelszo,fajta,param) => { //És akkor nem kel
         }
     });
 }
-if(!adminFeluletenVanE){
-    if(sessionStorage.getItem("Login") == 'true'){
-        document.getElementById("BejelentkezesDiv").innerHTML = "";
-        document.getElementById("MainDiv").classList = "MainDivS";
-        document.getElementById("Profil").innerHTML = '<img src="Kepek/pfpicon.png" alt="ProfilIcon"type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#SideModal" onclick="SideModalAktiv()"></img>';
-        Szintvalasztas(true);
-        adatLekerdezes(sessionStorage.getItem("Felhasznalonev"),sessionStorage.getItem("Jelszo"),"joglekerdez",{nev:sessionStorage.getItem("Felhasznalonev")}).then((result)=>{
-            sessionStorage.setItem("AdminUser",result[0].jog);
-        });
-    }else{
-        document.getElementById("BejelentkezesDiv").style.visibility = "visible";
-        document.getElementById("MainDiv").classList = "MainDivH";
-    }
-    
+
+if(sessionStorage.getItem("Login") == 'true'){
+    document.getElementById("BejelentkezesDiv").innerHTML = "";
+    document.getElementById("MainDiv").classList = "MainDivS";
+    document.getElementById("Profil").innerHTML = '<img src="Kepek/pfpicon.png" alt="ProfilIcon"type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#SideModal" onclick="SideModalAktiv()"></img>';
+    Szintvalasztas(true);
+    adatLekerdezes(sessionStorage.getItem("Felhasznalonev"),sessionStorage.getItem("Jelszo"),"joglekerdez",{nev:sessionStorage.getItem("Felhasznalonev")}).then((result)=>{
+        sessionStorage.setItem("AdminUser",result[0].jog);
+    });
+}else{
+    document.getElementById("BejelentkezesDiv").style.visibility = "visible";
+    document.getElementById("MainDiv").classList = "MainDivH";
 }
 
 function Regful(but,regblock)
@@ -555,7 +552,7 @@ function EmailValtConf(){
     Emailvaltreset();
 }
 
-var sessionStorage_transfer = function(event) {
+/*var sessionStorage_transfer = function(event) {
     console.log("Ide bekéne");
     if(!event) { event = window.event; } // ie suq
     if (event.key == 'getSessionStorage') {
@@ -573,11 +570,11 @@ var sessionStorage_transfer = function(event) {
         }
       }
     }
-  };
+  };*/
   
   // listen for changes to localStorage
-  if(window.addEventListener) {
+  /*if(window.addEventListener) {
     window.addEventListener("storage", sessionStorage_transfer, false);
   } else {
     window.attachEvent("onstorage", sessionStorage_transfer);
-  };
+  };*/

@@ -1,4 +1,4 @@
-var sessionStorage_transfer = function(event) {
+/*var sessionStorage_transfer = function(event) {
     console.log("Ide bekéne");
     if(!event) { event = window.event; } // ie suq
     if (event.key == 'getSessionStorage') {
@@ -16,7 +16,7 @@ var sessionStorage_transfer = function(event) {
             }
         }
     }
-};
+};*/
 
 const adatLekerdezes = (felh,hasheltJelszo,fajta,param) => { //És akkor nem kell kilenc millió post kérést írni
     const data = { felh: felh,hasheltJelszo: hasheltJelszo ,param: param};
@@ -43,11 +43,11 @@ const adatLekerdezes = (felh,hasheltJelszo,fajta,param) => { //És akkor nem kel
 }
   
 // listen for changes to localStorage
-if(window.addEventListener) {
+/*if(window.addEventListener) {
     window.addEventListener("storage", sessionStorage_transfer, false); 
 } else {
     window.attachEvent("onstorage", sessionStorage_transfer);
-};
+};*/
 
 
 function szovegtordel(){
@@ -176,10 +176,10 @@ function Eredmenymegjelenit(valasz){
     div2.innerHTML += "<p id ='osztalyzat'>"+szazalek+" %</p>";
 }
 
-if (sessionStorage.getItem("Login")==undefined) {
+/*if (sessionStorage.getItem("Login")==undefined) { //Már nem kell
     console.log("Elkérem az a datokat UwU")
     localStorage.setItem('getSessionStorage', 'foobar');
     localStorage.removeItem('getSessionStorage', 'foobar');
-};
+};*/
 
 feladatSorGen();

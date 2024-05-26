@@ -42,6 +42,10 @@ function PluszMezoGeneral(gomb){
     div.innerHTML +="<input type='text' placeholder='Valasz"+(Number(gomb.id[0])+1)+" Alválasz' class='"+gomb.id[0]+"Bvalasz valaszmezok'></input><br>";
 }
 
+function adminfeluletVissza(){
+    window.location.href = "admin.html";
+}
+
 function FelvitelFV(){
     let valaszok = valaszokmentese();
     let feladatleiras= Feladatleirasmentese();
@@ -65,7 +69,13 @@ function FelvitelFV(){
                                             valaszokParam:valaszok,
                                             valaszDBParam:valaszok.split(";").length,
                                             szintParam:szint}).then((apivalasz)=>{
-        console.log(apivalasz);
+        if(apivalasz.Error){
+            document.getElementById("uzenetbody").innerHTML = apivalasz.Error
+        }
+        else
+        {
+            document.getElementById("uzenetbody").innerHTML = "Sikeres Feltöltés!"
+        }
     });
 }
 
