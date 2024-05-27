@@ -74,7 +74,7 @@ function DatumMegjelenit(date)
 function valaszMezoGeneral(hanyvalasz){
     for (let i = 0; i < hanyvalasz; i++) {
         let cucc = document.getElementById("valaszok");
-        cucc.innerHTML += "<li><p class='valaszmezo' id="+i+"></p></li>";
+        cucc.innerHTML += "<li><p class='valaszmezo' id="+i+"></p><label class='valaszLabel'></label></li>";
     }
 }
 
@@ -85,10 +85,7 @@ function valaszElhelyez(hanyvalasz,eredmenyAdat){
     console.log(megoldasoklista);
     console.log(valaszlista);
     ElertPontszamitas(valaszlista.length,valaszlista,megoldasoklista);
-    for(let i = 0; i<hanyvalasz;i++){
-        let mezo = document.getElementById(i);
-        mezo.innerHTML = "<p style='color: green;'> Ezt adtad meg te: "+megoldasoklista[i]+"</p><p style='color: red;'> Ezek a jó válaszok: "+valaszlista[i]+"</p>";
-    }  
+
     
       
 }
@@ -115,13 +112,42 @@ function ElertPontszamitas(hanyvalasz,listav,listam){
     }
     console.log("max: "+max);
     console.log("elert: "+elert);
-    Eredmenymegjelenit(max,elert);
+    Eredmenymegjelenit(listav, listam, max, elert);
 }
 
-function Eredmenymegjelenit(max,elert){
-    let div = document.getElementById("szovegresz2");
+// function Eredmenymegjelenit(max,elert){
+//     let div = document.getElementById("szovegresz2");
+//     let szazalek = elert/max * 100;
+//     div.innerHTML += "<p id='osztalyzat'>Szerezhető pont: "+max+"<br> Elért pont: "+elert+"<br> Százalék: "+szazalek+"%</p>";
+// }
+function Eredmenymegjelenit(listav,listam,max,elert){
+    let megoldasok = listav;
+    for(let i = 0;i<megoldasok.length;i++){
+        let mezo = document.getElementById(i);
+        mezo.disabled = true;
+        let elfogadhatomegoldasok = megoldasok[i].split('/');
+        console.log(elfogadhatomegoldasok);
+        let voltjo = false;
+        document.getElementById(i).innerText = "Általad megadott megoldás: "+listam[i];
+        for(let j = 0;j<elfogadhatomegoldasok.length;j++){
+            console.log(elfogadhatomegoldasok[j] + j +"jó");
+            console.log(listam[j] +j +"megadott");
+
+            if(!voltjo && elfogadhatomegoldasok[j] == listam[i].toLowerCase()){
+                mezo.parentElement.classList.add("m");
+                voltjo = true;
+            }
+        }
+        if(!voltjo){
+            mezo.parentElement.classList.add("j");
+        }
+        mezo.parentElement.getElementsByTagName("label")[0].innerText = "Lehetséges helyes megoldások: "+megoldasok[i];
+    }
+    let div = document.getElementById("pontertekeles");
+    div.innerHTML += "<p id='osztalyzat'>"+max+" / "+elert+"</p>";
     let szazalek = elert/max * 100;
-    div.innerHTML += "<p id='osztalyzat'>Szerezhető pont: "+max+"<br> Elért pont: "+elert+"<br> Százalék: "+szazalek+"%</p>";
+    let div2 = document.getElementById("szazalekertekeles");
+    div2.innerHTML += "<p id ='osztalyzat'>"+szazalek+" %</p>";
 }
 
 function Main(){
@@ -131,7 +157,7 @@ function Main(){
     let kivalasztottEredmeny = sessionStorage.getItem("kivalasztottEredmeny");
     adatLekerdezes(fn,pw,"eredmenyeklekerd",undefined).then((eredmenyek)=>{
         eredmenyAdat = eredmenyek.find((c)=>c.id == kivalasztottEredmeny);
-        //console.log(eredmenyAdat)
+        console.log(eredmenyAdat)
         document.getElementById("megoldasSzint").innerHTML = eredmenyAdat.szint + " szint";
         document.getElementById("megoldasSzint2").innerHTML = eredmenyAdat.szint + " szint";
         document.getElementById("megoldasNev").innerHTML = sessionStorage.getItem("Megnev");
