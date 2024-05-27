@@ -14,30 +14,44 @@
         <h1 id="focim">Feladat Felvitel</h1>
         <a href="admin.html" style="float: right; margin-top: -2rem; margin-right: 1rem;  "><img src="Kepek/backarrow.png" alt="VisszaGomb" id="OldalVisszaGomb"></a>
     </div>
-    <div id="opciok" class="feketekeret">
+    <div id="opciok" class="feketekeret" class="kozepre">
+      <label for="ev" style="font-size: small;">A feladatsor éve:</label><br>
         <input type="text" id="ev" class="opcio" placeholder="pl.: 2024">
         <br>
+        <label for="honap" style="font-size: small;">A feladatsor hónapja:</label><br>
         <input type="text" id="honap" class="opcio" placeholder="pl.: Május">
         <br>
+        <label for="megoldszam" style="font-size: small;">Adja meg hány darab megoldás van:</label>
         <input type="number" onchange="ValaszokKigeneral(this)" class="opcio" id="megoldszam" placeholder="Válaszok száma" min="0">
         <br>
+        <label style="font-size: small;">Válasszon szintet:</label>
         <p>Közép</p>
         <input type="radio" name="radiomegj" class="radiomegj" checked="checked">
         <p>Emelt</p>
         <input type="radio" name="radiomegj" class="radiomegj">
     </div>
     <div id="mezok" class="feketekeret">
+        <label style="font-size: medium;">Ide írja az utasításokat a feladatokhoz!</label><br>
+        <label style="font-size: small;" for="fsor1">Ide írja az első utasítást a feladathoz!</label><br>
         <input type="text" id="fsor1" class="mezo_a" placeholder="Utasítás1">
         <br>
+        <label style="font-size: small;" for="fsor2">Ide írja az második utasítást a feladathoz!</label><br>
+
         <input type="text" id="fsor2" class="mezo_a" placeholder="Utasítás2">
         <br>
+        <label style="font-size: small;" for="fsor3">Ide írja az harmadik utasítást a feladathoz!</label><br>
+
         <input type="text" id="fsor3" class="mezo_a" placeholder="Utasítás3">
         <br>
+        <label style="font-size: small;" for="fsor4">Ide írja az negyedik utasítást a feladathoz!</label><br>
+
         <input type="text" id="fsor4" class="mezo_a" placeholder="Utasítás4">
         <br>
         <div class="kozepre">
+          <label for="fcim" style="font-size: small;">Ide írja a feladat szövegének címét!</label><br>
             <input type="text" id="fcim" oninput="this.value = this.value.toUpperCase()" placeholder="Cim">
         </div>
+        <label for="foszoveg" style="font-size: small;">Ide írja be a szövegét a feladatnak az üres helyeket jelölje pl.:There ______(1) a little car...</label>
         <div class="kozepre" >
             <textarea id="foszoveg" style="margin-bottom: 2rem;" placeholder="ide kerül az egész szövege a feladatnak, tagolva írja be NE EGY SORBAN!"></textarea>
             
