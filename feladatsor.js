@@ -124,7 +124,7 @@ function valaszFelkuldes(){
         }
         else
         {
-            lista.push(valaszLista[i].getElementsByTagName("input")[0].value)
+            lista.push(valaszLista[i].getElementsByTagName("input")[0].value.trim());
         }
     }
     let fn = sessionStorage.getItem("Felhasznalonev");
@@ -156,10 +156,9 @@ function Eredmenymegjelenit(valasz){
         let mezo = document.getElementById("Valasz"+(i+1)+"");
         mezo.disabled = true;
         let elfogadhatomegoldasok = megoldasok[i].split('/');
-        // console.log(elfogadhatomegoldasok)
         let voltjo = false;
         for(let j = 0;j<elfogadhatomegoldasok.length;j++){
-            if(!voltjo && elfogadhatomegoldasok[j] == mezo.value.toLowerCase()){
+            if(!voltjo && elfogadhatomegoldasok[j].toLowerCase().trim() == mezo.value.toLowerCase().trim()){
                 mezo.parentElement.classList.add("m");
                 voltjo = true;
             }

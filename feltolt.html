@@ -12,7 +12,7 @@
 <body>
     <div>
         <h1 id="focim">Feladat Felvitel</h1>
-        <a href="admin.html" style="float: right; margin-top: -3%;"><img src="Kepek/backarrow.png" alt="VisszaGomb" id="OldalVisszaGomb"></a>
+        <a href="admin.html" style="float: right; margin-top: -2rem; margin-right: 1rem;  "><img src="Kepek/backarrow.png" alt="VisszaGomb" id="OldalVisszaGomb"></a>
     </div>
     <div id="opciok" class="feketekeret">
         <input type="text" id="ev" class="opcio" placeholder="pl.: 2024">
@@ -21,9 +21,9 @@
         <br>
         <input type="number" onchange="ValaszokKigeneral(this)" class="opcio" id="megoldszam" placeholder="Válaszok száma" min="0">
         <br>
-        <p>Emelt</p>
-        <input type="radio" name="radiomegj" class="radiomegj" checked="checked">
         <p>Közép</p>
+        <input type="radio" name="radiomegj" class="radiomegj" checked="checked">
+        <p>Emelt</p>
         <input type="radio" name="radiomegj" class="radiomegj">
     </div>
     <div id="mezok" class="feketekeret">
@@ -46,21 +46,21 @@
     <div id="valaszok2" style= "display: none;">
 
     </div>
-    <button onclick="FelvitelFV()" id="felvitel" class="admingomb" style="padding: .5%; margin-top: 1rem; margin-bottom: 1rem;" data-bs-toggle="modal" data-bs-target="#Usertorlesmodal">Feladatsor Felvitele!</button>
+    <button onclick="FelvitelFV()" id="felvitel" class="admingomb" style="padding: .5%; margin-top: 1rem; margin-bottom: 1rem;" data-bs-toggle="modal" data-bs-target="#FeltoltValasz">Feladatsor Felvitele!</button>
 
     <!--Megerőstítés-->
-    <div class="modal fade" id="Usertorlesmodal" tabindex="-1" aria-labelledby="Usertorlesmodal" aria-hidden="true">
+    <div class="modal fade" id="FeltoltValasz" tabindex="-1" aria-labelledby="FeltoltValasz" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="UsertorlesmodalLabel">Üzenet</h5>
+              <h5 class="modal-title" id="FeltoltValaszLabel">Üzenet</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div id="uzenetbody" class="modal-body">
               Üzenet nem lett betöltve!
             </div>
             <div class="modal-footer" id="nemkellastil">
-              <button id="adminra" type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="adminfeluletVissza()">Oké</button>
+              <button id="adminra" type="button" class="btn btn-primary" data-bs-dismiss="modal">Oké</button>
             </div>
           </div>
         </div>

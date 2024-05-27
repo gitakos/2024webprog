@@ -553,7 +553,7 @@ app.post("/eredmenyeklekerd", bodyParser.json(), function(req,res){
     felhasznaloValidator(felh,jelszo).then((fid)=>{
         var connection = getConnection();
         connection.connect();
-        connection.query("select *,f.szint from eredmenyek e,feladatsor f where e.felhasznaloid = '"+fid[0].id+"' and f.id = e.feladatsorid;", function(err, result,fields){
+        connection.query("select e.id,e.felhasznaloid,e.pontszam,e.datum,e.feladatsorid,e.megadott_valaszok,f.szint as szint from eredmenyek e,feladatsor f where e.felhasznaloid = '"+fid[0].id+"' and f.id = e.feladatsorid;", function(err, result,fields){
             if(!err){
                 console.log(result);
                 res.send(result);
@@ -652,12 +652,12 @@ function feladatKijav(userValaszok,feladatValaszok){
         let voltEJo = false
         let valaszLista = feladatValaszok[i].split('/');
         for(let j = 0;j<valaszLista.length;j++){
-            if(valaszLista[j]==userValaszok[i].toLowerCase()){
+            if(valaszLista[j].toLowerCase().trim() == userValaszok[i].toLowerCase().trim()){
                 voltEJo = true;
                 break;
             }
         }
-        if(voltEJo||(valaszLista.length==0&&feladatValaszok[i]==userValaszok[i])){
+        if(voltEJo||(valaszLista.length==0 && feladatValaszok[i].toLowerCase().trim() == userValaszok[i].toLowerCase().trim())){
             pontok++;
         }
     }
