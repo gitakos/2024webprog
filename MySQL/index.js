@@ -652,12 +652,12 @@ function feladatKijav(userValaszok,feladatValaszok){
         let voltEJo = false
         let valaszLista = feladatValaszok[i].split('/');
         for(let j = 0;j<valaszLista.length;j++){
-            if(valaszLista[j]==userValaszok[i].toLowerCase()){
+            if(valaszLista[j].toLowerCase().trim() == userValaszok[i].toLowerCase().trim()){
                 voltEJo = true;
                 break;
             }
         }
-        if(voltEJo||(valaszLista.length==0&&feladatValaszok[i]==userValaszok[i])){
+        if(voltEJo||(valaszLista.length==0 && feladatValaszok[i].toLowerCase().trim() == userValaszok[i].toLowerCase().trim())){
             pontok++;
         }
     }

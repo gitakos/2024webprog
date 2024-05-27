@@ -216,6 +216,10 @@ function JelszoValt(){//admin felület
     
 }
 
+function FeltotoFelulet(){
+    window.location.href = "feltolt.html";
+}
+
 async function hash(string){
     const utf8 = new TextEncoder().encode(string);
     const hashBuffer = await crypto.subtle.digest('SHA-256', utf8);
