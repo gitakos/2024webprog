@@ -945,3 +945,7 @@ li{
     box-shadow: red 1px 1px 4px inset, red 1px 1px 4px;
     transition: ease-in-out .3s;
 }
+
+#myMenu>li :hover{
+    cursor:pointer;
+}

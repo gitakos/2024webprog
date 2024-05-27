@@ -17,11 +17,14 @@
     </div>
     <br>
     <div id="AdminAdatcontainer">
-        <div id="fajlfel">
+        <div id="fajlfel" class="feketekeret" style="padding: 5px;">
             <form class="adminUserForm">
+              <div class="feketekeret" style="margin: 5px; background-color: transparent; padding: 5px;">
                 <h4 style="margin-bottom: 1rem;">Kiválasztott fehlasználó:</h4><h2 id="kiválasztottnev" style="margin: auto;">--válasszon ki egy felhasználót--</h2>
                 <h4 style="margin-top: 1rem; margin-bottom: 1rem;">Opciók:</h4>
                 <button id="torlesgomb" type="button" data-bs-toggle="modal" data-bs-target="#Usertorlesmodal" disabled="true" class="admingomb">Törlés</button>
+              </div>
+              <div class="feketekeret" style="margin: 5px; background-color: transparent; padding: 5px;">
                 <label for="ujjelszo" class="AdminUjjelszogombok" style="border:none; background-color: inherit;">Új jelszó beállítása:</label>
                 <p style="margin-left: 25%; margin-bottom: 0; font-weight: bold;">Új jelszó:</p>
                 <input type="password" id="ujjelszo" placeholder="Adja meg az új jelszót!" class="AdminUjjelszogombok"></input>
@@ -29,15 +32,18 @@
                 <input type="password" id="ujjelszoRe" placeholder="Jelszó újra" class="AdminUjjelszogombok"></input>
                 <p id="Ujjelszoadmininfo" style="text-align: center;"></p>
                 <button type="button" onclick="JelszoValt()" id="JelszoMent" disabled="true" class="admingomb" style="margin-bottom: 2rem;">Jelszó mentése</button>
+              </div>
+              <div class="feketekeret" style="margin: 5px; background-color: transparent; padding: 5px;">
                 <button type="button" onclick="FelhasznaloZarolas()" id="Zarolas" disabled="true" class="admingomb">Felhasználó zárolása</button>
                 <button type="button" onclick="PromoteToAdmin()" id="AdminPromote" disabled="true" class="admingomb" style="margin-bottom: 3.5rem;">Adminná tétel</button>
-              </form>
-              <div>
-                <h2>Feladat feltöltés:</h2>
-                <button class="admingomb" style="padding: 1%; margin-bottom: 2rem;" onclick="FeltotoFelulet()"><a style="text-decoration: none; color: black;">Feltöltő felület</a></button>
               </div>
+            </form>
+            <div class="feketekeret" style="margin: 5px; background-color: transparent; padding: 5px;">
+              <h2>Feladat feltöltés:</h2>
+              <button class="admingomb" style="padding: 1%; margin-bottom: 2rem;" onclick="FeltotoFelulet()"><a style="text-decoration: none; color: black;">Feltöltő felület</a></button>
+            </div>
         </div>
-        <div id="eredmenymegj">
+        <div id="eredmenymegj" class="feketekeret" style="padding: 5px;">
             <h2 id="eredmenycim">Felhasználók:</h2>
             <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Keresés..." title="Kezdjen el begépelni egy nevet!">
             <ul id="myMenu">

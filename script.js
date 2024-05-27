@@ -401,6 +401,12 @@ function MegNevvaltasGomb(){
     let regiNev = document.getElementById("felhasznalonevValtJelenlegi").value;
     let ujNev = document.getElementById("felhasznalonevValtUj").value;
     const regxnev = /^[A-Za-z0-9áéíóöőúüűÁÉÍÓÖŐÚÜŰ\s]{1,16}$/;
+
+    let lista = []
+    lista.push(document.getElementById("felhasznalonevValtJelenlegi"));
+    lista.push(document.getElementById("felhasznalonevValtUj"));
+    uresMezoCheck(lista);
+
     if(regiNev == sessionStorage.getItem("Megnev") && regiNev != "" && ujNev != ""){
         if(regxnev.test(ujNev)){
             mentesgomb.style.backgroundColor = "#71ff4dc7";
@@ -446,6 +452,13 @@ function JelszovaltasGomb(){
     let ujPw = document.getElementById("jelszoValtUj").value;
     let ujPwre = document.getElementById("jelszoValtUjRe").value;
     const regxpw = /^(?=.*[0-9])(?=.*[A-ZÁÉÍÓÖŐÚÜŰ])[a-zA-Z0-9!@#$%^&*._-áéíóöőúüűÁÉÍÓÖŐÚÜŰ]{6,16}$/;
+
+    let lista = []
+    lista.push(document.getElementById("jelszoValtJelenlegi"));
+    lista.push(document.getElementById("jelszoValtUj"));
+    lista.push(document.getElementById("jelszoValtUjRe"));
+    uresMezoCheck(lista);
+
     if(regiPw != "" && ujPw != "" && ujPwre != ""){
         hash(regiPw).then((hex)=>{
             if(hex == sessionStorage.getItem("Jelszo")){
@@ -472,6 +485,14 @@ function JelszovaltasGomb(){
         });
     }
 }
+function uresMezoCheck(lista){
+    for(let i = 0; i<lista.length;i++){
+        lista[i].parentElement.getElementsByTagName("label")[0].style.display = "none";
+        if(lista[i].value.trim()==''){
+            lista[i].parentElement.getElementsByTagName("label")[0].style.display = "block";
+        }
+    }
+}
 
 
 function Jelszovaltreset(){
@@ -486,6 +507,7 @@ function Jelszovaltreset(){
 function JelszoValtConf(){
     let ujJelszo = document.getElementById("jelszoValtUj").value;
     let jelszovaltasinfo = document.getElementById("jelszoValtInfo");
+
     hash(ujJelszo).then((hex)=>{
         adatLekerdezes(sessionStorage.getItem("Felhasznalonev"),sessionStorage.getItem("Jelszo"),"userjelszovalt",{jelszo:hex}).then((result)=>{
             if(!result.Error){
@@ -505,6 +527,12 @@ function EmailvaltasGomb(){
     let ujEmail = document.getElementById("EmailValtUj").value;
     let emailvaltPw = document.getElementById("EmailValtJelszo").value;
     const regxeamil = /^[a-zA-Z0-9áéíóöőúüűÁÉÍÓÖŐÚÜŰ._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+
+    let lista = []
+    lista.push(document.getElementById("EmailValtUj"));
+    lista.push(document.getElementById("EmailValtJelszo"));
+    uresMezoCheck(lista);
+
     if(ujEmail != "" && emailvaltPw != ""){
         if(regxeamil.test(ujEmail)){
             hash(emailvaltPw).then((hex)=>{
