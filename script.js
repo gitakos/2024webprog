@@ -136,7 +136,7 @@ function regisztralasfunction(regfn,regemail,regpw,regrepw,infobox){
                 regemail.value = '';
                 regpw.value = '';
                 regrepw.value = ''; 
-                infobox.innerHTML = "Sikeres regisztráció!";
+                window.location.href = "index.html";
             }
         })});
 }
@@ -150,7 +150,8 @@ function login()
             console.log(response);
             if(response[0].db!=1)
             {
-                LoginErr(fn);
+                fn.classList.add("Error");
+                pw.classList.add("Error");
                 document.getElementById("LoginInfo").innerHTML = "Hibás felhasználónév vagy jelszó!";
             }
             else{
@@ -166,21 +167,13 @@ function login()
                         document.getElementById("LoginInfo").innerHTML = "";
                         Main();
                     }else{
-                        LoginErr(fn);
+                        fn.classList.add("Error");
+                        pw.classList.add("Error");
                         document.getElementById("LoginInfo").innerHTML = "A felhasználó zárolva van!";
                     }
                 });
             }
         })});
-}
-
-function LoginErr(fn){
-    fn.style.border = "solid red 2px";
-    fn.style.boxShadow = "red 1px 1px 4px inset,red 1px 1px 4px";
-    fn.style.transition = "ease-in-out .3s";
-    pw.style.border = "solid red 2px";
-    pw.style.boxShadow = "red 1px 1px 4px inset,red 1px 1px 4px";
-    pw.style.transition = "ease-in-out .3s";
 }
 
 function Main(){

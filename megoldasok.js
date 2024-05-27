@@ -105,7 +105,7 @@ function ElertPontszamitas(hanyvalasz,listav,listam){
     console.log(listam);
     for(let i = 0;i<listav.length;i++)
     {
-        if(listav[i] == listam[i] || (listav[i].includes(listam[i]) && listam[i].length != 0))
+        if(listav[i].toLowerCase().trim() == listam[i].toLowerCase().trim() || (listav[i].toLowerCase().trim().includes(listam[i].toLowerCase().trim()) && listam[i].length != 0))
         {
             elert++;
         }
