@@ -553,7 +553,7 @@ app.post("/eredmenyeklekerd", bodyParser.json(), function(req,res){
     felhasznaloValidator(felh,jelszo).then((fid)=>{
         var connection = getConnection();
         connection.connect();
-        connection.query("select e.id,e.felhasznaloid,e.pontszam,e.datum,e.feladatsorid,e.megadott_valaszok,f.szint as szint from eredmenyek e,feladatsor f where e.felhasznaloid = '"+fid[0].id+"' and f.id = e.feladatsorid;", function(err, result,fields){
+        connection.query("select e.id,e.felhasznaloid,e.pontszam,e.datum,e.feladatsorid,e.megadott_valaszok,f.szint as szint from eredmenyek e,feladatsor f where e.felhasznaloid = '"+fid[0].id+"' and f.id = e.feladatsorid order by e.datum desc;", function(err, result,fields){
             if(!err){
                 console.log(result);
                 res.send(result);

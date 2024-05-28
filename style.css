@@ -732,12 +732,14 @@ li{
     border-radius: 10px;
     padding-left: 10px;
     padding-right: 10px;
+    margin-bottom: 5px;
 }
 .j{
     padding-left: 10px;
     padding-right: 10px;
     background-color: rgb(253, 93, 93) !important;
     border-radius: 10px;
+    margin-bottom: 5px;
 }
 .j input{
     text-decoration: line-through;
